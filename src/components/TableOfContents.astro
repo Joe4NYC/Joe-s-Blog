@@ -29,12 +29,12 @@ const tocTree = buildTocTree(Astro.props.headings);
 
 {tocTree.length > 0 && (
 	<aside class="sidebar-container slide-in-right">
-		<nav class="toc-sidebar sticky-toc" id="toc" aria-label="文章目录">
+		<nav class="toc-sidebar sticky-toc" id="toc" aria-label="文章目錄">
 			<div class="toc-title">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" aria-hidden="true">
 					<path d="M3 6h18M3 12h18M3 18h18" />
 				</svg>
-				目录
+				目錄
 			</div>
 			<TocList nodes={tocTree} root={true} />
 		</nav>

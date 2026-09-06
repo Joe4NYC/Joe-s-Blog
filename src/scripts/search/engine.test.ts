@@ -4,24 +4,24 @@ import { SearchEngine } from './engine';
 
 const document: SearchDocument = {
 	id: 'demo',
-	title: 'Astro 搜索架构',
-	description: '模块化博客搜索',
+	title: 'Astro 搜尋架構',
+	description: '模組化部落格搜尋',
 	excerpt: '文章摘要',
 	tags: ['Astro'],
 	categories: ['工程'],
 	url: '/blog/demo/',
 	blocks: [
-		{ id: 'search-intro', type: 'paragraph', text: '这是文章开头。' },
-		{ id: 'search-late', type: 'heading', text: '数学公式与全文后半段' },
+		{ id: 'search-intro', type: 'paragraph', text: '這是文章開頭。' },
+		{ id: 'search-late', type: 'heading', text: '數學公式與全文後半段' },
 		{ id: 'search-code', type: 'code', text: "const uniqueCodeToken = 'searchable';" },
 	],
 };
 
 describe('SearchEngine', () => {
 	it('finds content outside the default excerpt and creates a block target', () => {
-		const [hit] = new SearchEngine([document]).search('数学公式');
+		const [hit] = new SearchEngine([document]).search('數學公式');
 		expect(hit?.target?.blockId).toBe('search-late');
-		expect(hit?.snippet.text).toContain('数学公式');
+		expect(hit?.snippet.text).toContain('數學公式');
 		expect(hit?.href).toContain('block=search-late');
 	});
 

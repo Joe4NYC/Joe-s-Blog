@@ -69,11 +69,11 @@ export default defineConfig({
 		defaultStrategy: 'hover',
 	},
 	markdown: {
-		// 支持 Hexo 相对图片路径 image/xxx/ 自动转换为 /image/xxx/
+		// 支援 Hexo 相對圖片路徑 image/xxx/ 自動轉換為 /image/xxx/
 		remarkPlugins: [remarkHexoImages, remarkMath, remarkBlockquoteLineBreaks, remarkSearchBlocks],
-		// 使用 KaTeX 渲染数学公式，图片懒加载
+		// 使用 KaTeX 渲染數學公式，圖片懶載入
 		rehypePlugins: [rehypeKatex, rehypeLazyImages, rehypeImageCaptions, rehypeResponsiveTables],
-		// 使用双主题支持代码高亮
+		// 使用雙主題支援程式碼高亮
 		shikiConfig: {
 			themes: {
 				light: 'github-light',

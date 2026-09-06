@@ -1,13 +1,13 @@
-# 前端代码治理工作内容报告（2026-02-11）
+# 前端程式碼治理工作內容報告（2026-02-11）
 
-## 1. 报告目标
-- 记录本次前端重构后的项目结构。
-- 记录关键页面、布局、组件、脚本、公共库之间的引用关系。
-- 记录本次新增/修改/删除内容与验证结果，方便后续维护和交接。
+## 1. 報告目標
+- 記錄本次前端重構後的專案結構。
+- 記錄關鍵頁面、佈局、元件、腳本、公共庫之間的引用關係。
+- 記錄本次新增/修改/刪除內容與驗證結果，方便後續維護和交接。
 
-## 2. 本次改动范围总览
+## 2. 本次改動範圍總覽
 
-### 2.1 新增文件
+### 2.1 新增檔案
 - `docs/frontend-architecture-map.md`
 - `src/layouts/PageShell.astro`
 - `src/lib/content/blog.ts`
@@ -23,19 +23,19 @@
 - `src/scripts/pages/tags-index.client.ts`
 - `src/scripts/pages/tag-detail.client.ts`
 
-### 2.2 删除文件
+### 2.2 刪除檔案
 - `src/utils/seo.ts`
 - `src/assets/blog-placeholder-2.jpg`
 - `src/assets/blog-placeholder-3.jpg`
 - `src/assets/blog-placeholder-4.jpg`
 
-### 2.3 主要修改文件（核心）
-- 页面：`src/pages/index.astro`、`src/pages/about.astro`、`src/pages/blog/[...page].astro`、`src/pages/tags/index.astro`、`src/pages/tags/[tag].astro`、`src/pages/blog/[...slug].astro`
-- 布局与组件：`src/layouts/BlogPost.astro`、`src/components/Footer.astro`、`src/components/FormattedDate.astro`、`src/components/SearchModal.astro`、`src/components/Typewriter.astro`
-- 脚本：`src/scripts/search-modal.client.ts`、`src/scripts/lightbox.ts`、`src/scripts/toc.ts`、`src/scripts/header.client.ts`
-- 样式与工程：`src/styles/global.css`、`package.json`、`package-lock.json`、`astro.config.mjs`、`README.md`、`README.en.md`
+### 2.3 主要修改檔案（核心）
+- 頁面：`src/pages/index.astro`、`src/pages/about.astro`、`src/pages/blog/[...page].astro`、`src/pages/tags/index.astro`、`src/pages/tags/[tag].astro`、`src/pages/blog/[...slug].astro`
+- 佈局與元件：`src/layouts/BlogPost.astro`、`src/components/Footer.astro`、`src/components/FormattedDate.astro`、`src/components/SearchModal.astro`、`src/components/Typewriter.astro`
+- 腳本：`src/scripts/search-modal.client.ts`、`src/scripts/lightbox.ts`、`src/scripts/toc.ts`、`src/scripts/header.client.ts`
+- 樣式與工程：`src/styles/global.css`、`package.json`、`package-lock.json`、`astro.config.mjs`、`README.md`、`README.en.md`
 
-## 3. 重构后项目结构（关键目录）
+## 3. 重構後項目結構（關鍵目錄）
 
 ```text
 src/
@@ -92,9 +92,9 @@ src/
     global.css
 ```
 
-## 4. 引用关系（核心）
+## 4. 引用關係（核心）
 
-### 4.1 页面层 -> 本地依赖
+### 4.1 頁面層 -> 本地依賴
 - `src/pages/index.astro`
   - `src/layouts/PageShell.astro`
   - `src/components/{HeroHeader,ContentCard,PostListItem,SectionHeader}.astro`
@@ -130,31 +130,31 @@ src/
   - `src/lib/content/blog.ts`
   - `src/lib/content/text.ts`
 
-### 4.2 布局层
+### 4.2 佈局層
 - `src/layouts/PageShell.astro`
-  - 统一注入：`BaseHead`、`Header`、`Footer`、`SearchModal`
+  - 統一注入：`BaseHead`、`Header`、`Footer`、`SearchModal`
 - `src/layouts/BlogPost.astro`
-  - 文章详情专用布局
-  - 依赖 `BaseHead`、`Header`、`Footer`、`HeroHeader`、`SearchModal`
-  - 增强脚本：`toc.ts`、`code-block.ts`、`lightbox.ts`
+  - 文章詳情專用佈局
+  - 依賴 `BaseHead`、`Header`、`Footer`、`HeroHeader`、`SearchModal`
+  - 增強腳本：`toc.ts`、`code-block.ts`、`lightbox.ts`
 
-### 4.3 组件层复用关系
+### 4.3 元件層複用關係
 - `PostListItem.astro` -> `PostMeta.astro`
 - `PostMeta.astro` -> `FormattedDate.astro`
 - `Footer.astro` -> `lib/profile/social.ts`
 - `FormattedDate.astro` -> `config.locale`
 
-### 4.4 页面交互脚本引用关系
-- `src/scripts/pages/registry.ts` 统一注册并调度：
+### 4.4 頁面互動腳本引用關係
+- `src/scripts/pages/registry.ts` 統一註冊並排程：
   - `home.client.ts`
   - `blog-list.client.ts`
   - `tags-index.client.ts`
   - `tag-detail.client.ts`
-- 页面只调用 `runPageEnhancements('<page-id>')`，避免分散的重复 `astro:page-load` 管理。
+- 頁面只調用 `runPageEnhancements('<page-id>')`，避免分散的重複 `astro:page-load` 管理。
 
-## 5. 数据与职责收敛
+## 5. 資料與職責收斂
 
-### 5.1 内容读取与处理
+### 5.1 內容讀取與處理
 - `src/lib/content/blog.ts`
   - `getBlogPosts()`
   - `getPostsByTag()`
@@ -165,31 +165,31 @@ src/
   - `extractExcerpt()`
   - `extractSeoDescription()`
 
-### 5.2 个人社交信息处理
+### 5.2 個人社交資訊處理
 - `src/lib/profile/social.ts`
   - `resolveSocialUrl()`
   - `getRenderableSocials()`
   - `buildSameAsLinks()`
 
-## 6. 结构优化成果摘要
-- 页面壳层统一为 `PageShell`，减少重复 `BaseHead/Header/Footer/SearchModal/main-content` 结构。
-- 多页面重复数据逻辑收敛到 `src/lib`（内容读取、摘要、社交链接）。
-- 列表/元信息视图组件化，减少首页、博客、标签页模板重复。
-- 页面交互脚本模块化并统一生命周期入口，降低事件重复绑定风险。
-- 搜索渲染补充 HTML 转义并统一高亮处理，降低 XSS 风险。
-- 全局样式过渡从 `*` 全局常驻切换为 `html.theme-transitioning` 受控触发。
+## 6. 結構最佳化成果摘要
+- 頁面殼層統一為 `PageShell`，減少重複 `BaseHead/Header/Footer/SearchModal/main-content` 結構。
+- 多頁面重複資料邏輯收斂到 `src/lib`（內容讀取、摘要、社交連結）。
+- 列表/元資訊檢視元件化，減少首頁、部落格、標籤頁模板重複。
+- 頁面互動腳本模組化並統一生命週期入口，降低事件重複綁定風險。
+- 搜尋渲染補充 HTML 轉義並統一高亮處理，降低 XSS 風險。
+- 全域性樣式過渡從 `*` 全域性常駐切換為 `html.theme-transitioning` 受控觸發。
 
-## 7. 工程验证结果
-- 执行 `npm run build:astro`：通过。
-- 执行 `npm run check`：通过（0 errors）。
-- 当前内容库为空时会出现内容警告（`src/content/blog` 无文章），属于预期提示，不阻塞构建。
+## 7. 工程驗證結果
+- 執行 `npm run build:astro`：通過。
+- 執行 `npm run check`：通過（0 errors）。
+- 當前內容庫為空時會出現內容警告（`src/content/blog` 無文章），屬於預期提示，不阻塞構建。
 
-## 8. 维护约定（落地）
-- 新页面优先使用 `src/layouts/PageShell.astro`。
-- 新的博客数据读取必须走 `src/lib/content/blog.ts`。
-- 摘要与 SEO 文本处理走 `src/lib/content/text.ts`。
-- 社交链接处理走 `src/lib/profile/social.ts`。
-- 页面交互脚本放 `src/scripts/pages/*` 并通过 `registry.ts` 注册。
+## 8. 維護約定（落地）
+- 新頁面優先使用 `src/layouts/PageShell.astro`。
+- 新的部落格資料讀取必須走 `src/lib/content/blog.ts`。
+- 摘要與 SEO 文本處理走 `src/lib/content/text.ts`。
+- 社交連結處理走 `src/lib/profile/social.ts`。
+- 頁面互動腳本放 `src/scripts/pages/*` 並通過 `registry.ts` 註冊。
 
-## 9. 参考文档
+## 9. 參考文件
 - `docs/frontend-architecture-map.md`

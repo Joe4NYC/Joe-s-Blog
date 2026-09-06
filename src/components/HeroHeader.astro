@@ -8,7 +8,7 @@ interface Props {
     subtitle?: string;
     backgroundImage?: string | ImageMetadata;
     compact?: boolean;
-    interactive?: boolean; // 是否启用悬停交互效果（仅主页）
+    interactive?: boolean; // 是否啟用懸停互動效果（僅主頁）
 }
 
 const { 
@@ -78,8 +78,8 @@ if (interactive) heroClass += ' hero-interactive';
         margin-bottom: -88px;
     }
 
-    /* compact 模式下背景层保持与主页一致的 100vh 高度，
-       使 cover 按高度约束图片，调整窗口宽度时只裁切而不缩放 */
+    /* compact 模式下背景層保持與主頁一致的 100vh 高度，
+       使 cover 按高度約束圖片，調整視窗寬度時只裁切而不縮放 */
     .hero-header.hero-compact .hero-bg {
         height: 100vh;
         height: 100dvh;
@@ -153,7 +153,7 @@ if (interactive) heroClass += ' hero-interactive';
     }
 
     @media (hover: hover) and (pointer: fine) {
-        /* 仅在 .hero-interactive 类存在且为桌面指针时启用悬停效果 */
+        /* 僅在 .hero-interactive 類存在且為桌面指標時啟用懸停效果 */
         .hero-header.hero-interactive:has(.hero-content:hover) .hero-bg {
             transform: scale(1.05);
         }

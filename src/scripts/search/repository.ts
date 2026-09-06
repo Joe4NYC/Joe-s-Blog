@@ -42,10 +42,10 @@ export class SearchIndexRepository {
 
 		this.pending = fetch(this.endpoint, { headers: { Accept: 'application/json' } })
 			.then(async (response) => {
-				if (!response.ok) throw new Error(`搜索索引加载失败（${response.status}）`);
+				if (!response.ok) throw new Error(`搜尋索引載入失敗（${response.status}）`);
 				const payload: unknown = await response.json();
 				if (!Array.isArray(payload) || !payload.every(isSearchDocument)) {
-					throw new Error('搜索索引格式无效');
+					throw new Error('搜尋索引格式無效');
 				}
 				this.documents = payload;
 				return payload;

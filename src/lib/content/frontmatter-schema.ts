@@ -1,6 +1,6 @@
 import { z } from 'astro/zod';
 
-const nonEmptyText = z.string().trim().min(1, '不能是空字符串');
+const nonEmptyText = z.string().trim().min(1, '不能是空字串');
 
 export const blogFrontmatterSchema = z
 	.object({
@@ -18,7 +18,7 @@ export const blogFrontmatterSchema = z
 			context.addIssue({
 				code: 'custom',
 				path: ['categories'],
-				message: '文章最多只能有一个分类',
+				message: '文章最多只能有一個分類',
 			});
 		}
 
@@ -26,7 +26,7 @@ export const blogFrontmatterSchema = z
 			context.addIssue({
 				code: 'custom',
 				path: ['categories'],
-				message: '正式文章必须且只能有一个分类',
+				message: '正式文章必須且只能有一個分類',
 			});
 		}
 
@@ -34,7 +34,7 @@ export const blogFrontmatterSchema = z
 			context.addIssue({
 				code: 'custom',
 				path: ['tags'],
-				message: '正式文章至少需要一个标签',
+				message: '正式文章至少需要一個標籤',
 			});
 		}
 
@@ -42,7 +42,7 @@ export const blogFrontmatterSchema = z
 			context.addIssue({
 				code: 'custom',
 				path: ['tags'],
-				message: '标签不能重复',
+				message: '標籤不能重複',
 			});
 		}
 	})

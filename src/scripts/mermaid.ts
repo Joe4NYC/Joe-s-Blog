@@ -8,7 +8,7 @@ let renderGeneration = 0;
 let currentFigures: HTMLElement[] = [];
 let restoreNativePrintSize: (() => void) | null = null;
 
-// A4 竖向页面在当前打印边距下的正文可用区域（CSS 像素）。
+// A4 豎向頁面在當前列印邊距下的正文可用區域（CSS 畫素）。
 const PRINT_MAX_WIDTH_PX = (178 / 25.4) * 96;
 const PRINT_MAX_HEIGHT_PX = (225 / 25.4) * 96;
 
@@ -123,7 +123,7 @@ async function renderFigure(mermaid: MermaidApi, figure: HTMLElement, generation
 		if (generation !== renderGeneration || !figure.isConnected) return;
 		figure.classList.add('mermaid-diagram--error');
 		figure.classList.remove('mermaid-diagram--portrait');
-		status.textContent = '图表语法有误';
+		status.textContent = '圖表語法有誤';
 		canvas.replaceChildren();
 		const message = document.createElement('pre');
 		message.className = 'mermaid-diagram__error';

@@ -114,7 +114,7 @@ export class SearchController {
 			this.state = reduceSearchState(this.state, { type: 'load-success', query: latestQuery, hits });
 		} catch (error) {
 			if (this.destroyed) return;
-			const message = error instanceof Error ? error.message : '搜索索引加载失败';
+			const message = error instanceof Error ? error.message : '搜尋索引載入失敗';
 			this.state = reduceSearchState(this.state, { type: 'load-error', query: this.view.input.value.trim(), message });
 		}
 		this.selectedIndex = -1;

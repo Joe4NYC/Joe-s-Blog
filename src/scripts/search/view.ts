@@ -25,7 +25,7 @@ export class SearchView {
 		const input = root.querySelector<HTMLInputElement>('#search-input');
 		const results = root.querySelector<HTMLElement>('#search-results');
 		const liveRegion = root.querySelector<HTMLElement>('#search-status');
-		if (!input || !results || !liveRegion) throw new Error('搜索界面结构不完整');
+		if (!input || !results || !liveRegion) throw new Error('搜尋介面結構不完整');
 		this.input = input;
 		this.results = results;
 		this.liveRegion = liveRegion;
@@ -39,12 +39,12 @@ export class SearchView {
 	render(state: SearchState, documentCount: number, onRetry: RetryHandler) {
 		if (state.status === 'idle' || (state.status === 'ready' && !state.query)) {
 			this.renderTemplate('idle');
-			this.announce('输入关键词开始搜索');
+			this.announce('輸入關鍵詞開始搜尋');
 			return;
 		}
 		if (state.status === 'loading') {
 			this.renderTemplate('loading');
-			this.announce('正在加载搜索索引');
+			this.announce('正在載入搜尋索引');
 			return;
 		}
 		if (state.status === 'error') {
@@ -52,22 +52,22 @@ export class SearchView {
 			const message = this.results.querySelector<HTMLElement>('[data-search-error-message]');
 			if (message) message.textContent = state.message;
 			this.results.querySelector<HTMLButtonElement>('[data-search-retry]')?.addEventListener('click', onRetry, { once: true });
-			this.announce(`${state.message}，可以重试`);
+			this.announce(`${state.message}，可以重試`);
 			return;
 		}
 		if (documentCount === 0) {
 			this.renderTemplate('empty-index');
-			this.announce('暂无可搜索文章');
+			this.announce('暫無可搜尋文章');
 			return;
 		}
 		if (state.hits.length === 0) {
 			this.renderTemplate('no-results');
-			this.announce('未找到相关文章');
+			this.announce('未找到相關文章');
 			return;
 		}
 
 		this.results.replaceChildren(...state.hits.map((hit, index) => this.createResult(hit, index)));
-		this.announce(`找到 ${state.hits.length} 篇相关文章`);
+		this.announce(`找到 ${state.hits.length} 篇相關文章`);
 	}
 
 	getResultLinks(): HTMLAnchorElement[] {
@@ -95,7 +95,7 @@ export class SearchView {
 
 	private renderTemplate(name: string) {
 		const template = this.templates.get(name);
-		if (!template) throw new Error(`缺少搜索状态模板：${name}`);
+		if (!template) throw new Error(`缺少搜尋狀態模板：${name}`);
 		this.results.replaceChildren(template.content.cloneNode(true));
 	}
 

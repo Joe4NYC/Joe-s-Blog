@@ -209,7 +209,7 @@ function normalizeDocument(parsed, relativePath) {
 
 	let categories = unique(asStringList(parsed.categories, 'categories', relativePath));
 	if (categories.length === 0 && draft !== true) {
-		categories = ['未分类'];
+		categories = ['未分類'];
 		report.missingCategories.push(relativePath);
 	}
 	if (categories.length > 1) report.multipleCategories.push({ file: relativePath, categories });

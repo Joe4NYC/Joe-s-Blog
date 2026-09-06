@@ -32,7 +32,7 @@ export function rehypeResponsiveTables() {
 							className: ['table-scroll'],
 							tabIndex: 0,
 							role: 'region',
-							ariaLabel: '可横向滚动的数据表格',
+							ariaLabel: '可橫向滾動的資料表格',
 						},
 						children: [node],
 					},

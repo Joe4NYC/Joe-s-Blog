@@ -1,8 +1,8 @@
 ---
-/** 全站搜索的语义化外壳；行为由 src/scripts/search/ 管理。 */
+/** 全站搜尋的語義化外殼；行為由 src/scripts/search/ 管理。 */
 ---
 
-<!-- 搜索模态框 -->
+<!-- 搜尋模態框 -->
 <div
 	id="search-modal"
 	class="search-modal"
@@ -15,7 +15,7 @@
 >
     <div class="search-overlay" aria-hidden="true"></div>
     <div class="search-container">
-        <h2 id="search-dialog-title" class="sr-only">搜索文章</h2>
+        <h2 id="search-dialog-title" class="sr-only">搜尋文章</h2>
         <div class="search-header">
             <div class="search-input-wrapper">
                 <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -26,14 +26,14 @@
                     type="text" 
                     id="search-input" 
                     class="search-input" 
-                    placeholder="搜索文章标题或内容..." 
+                    placeholder="搜尋文章標題或內容..." 
                     autocomplete="off"
                     role="combobox"
                     aria-autocomplete="list"
                     aria-controls="search-results"
                     aria-expanded="false"
                 />
-                <button id="search-close" class="search-close" aria-label="关闭搜索">
+                <button id="search-close" class="search-close" aria-label="關閉搜尋">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 6 6 18"></path>
                         <path d="m6 6 12 12"></path>
@@ -42,13 +42,13 @@
             </div>
         </div>
         
-        <div class="search-results" id="search-results" role="listbox" aria-label="搜索结果"></div>
+        <div class="search-results" id="search-results" role="listbox" aria-label="搜尋結果"></div>
         <p id="search-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
 
         <div class="search-footer">
             <span class="search-hint">
-                <kbd>↵</kbd> 跳转
-                <kbd>ESC</kbd> 关闭
+                <kbd>↵</kbd> 跳轉
+                <kbd>ESC</kbd> 關閉
             </span>
         </div>
     </div>
@@ -58,29 +58,29 @@
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>
             </svg>
-            <p>输入关键词开始搜索</p>
+            <p>輸入關鍵詞開始搜尋</p>
         </div>
     </template>
     <template data-search-template="loading">
         <div class="search-state">
             <span class="search-spinner" aria-hidden="true"></span>
-            <p>正在加载搜索索引…</p>
+            <p>正在載入搜尋索引…</p>
         </div>
     </template>
     <template data-search-template="error">
         <div class="search-state search-state-error">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 17h.01"></path></svg>
-            <p data-search-error-message>搜索索引加载失败</p>
-            <button type="button" class="search-retry" data-search-retry>重试</button>
+            <p data-search-error-message>搜尋索引載入失敗</p>
+            <button type="button" class="search-retry" data-search-retry>重試</button>
         </div>
     </template>
     <template data-search-template="empty-index">
-        <div class="search-state"><p>暂无可搜索文章</p></div>
+        <div class="search-state"><p>暫無可搜尋文章</p></div>
     </template>
     <template data-search-template="no-results">
         <div class="search-state">
             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35M8 8l6 6M14 8l-6 6"></path></svg>
-            <p>未找到相关文章</p>
+            <p>未找到相關文章</p>
         </div>
     </template>
 </div>

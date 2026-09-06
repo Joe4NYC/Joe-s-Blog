@@ -42,7 +42,7 @@ const metaDescription = (seoDescription || description || title).trim();
 const siteURL = Astro.site ?? Astro.url;
 const canonicalURL = new URL(Astro.url.pathname, siteURL).toString();
 
-// 严格文章契约统一使用配置中的默认背景图。
+// 嚴格文章契約統一使用配置中的預設背景圖。
 const defaultHeroImage = heroConfig.postDefaultBackground;
 const displayHeroImageSrc = defaultHeroImage;
 const articleSection =
@@ -182,7 +182,7 @@ const articleSchema = {
 				display: none;
 			}
 
-			/* 布局容器 */
+			/* 佈局容器 */
 			.layout-container {
 				display: grid;
 				grid-template-columns: 1fr 260px;
@@ -194,7 +194,7 @@ const articleSchema = {
 				z-index: 20;
 			}
 			
-			/* 内容卡片样式 */
+			/* 內容卡片樣式 */
 			.content-card {
 				background: var(--color-surface);
 				border-radius: 16px;
@@ -203,9 +203,9 @@ const articleSchema = {
 				min-height: 300px;
 				width: 100%;
 				animation: slideUp 0.5s ease-out forwards;
-				opacity: 0; /* 初始隐藏 */
+				opacity: 0; /* 初始隱藏 */
 				transform: translateY(30px); /* 初始下移 */
-				min-width: 0; /* 修复：防止 Grid Item 被内部宽元素（如代码块）撑大 */
+				min-width: 0; /* 修復：防止 Grid Item 被內部寬元素（如程式碼塊）撐大 */
 				will-change: transform, opacity;
 			}
 
@@ -216,10 +216,10 @@ const articleSchema = {
 				}
 			}
 
-			/* 响应式调整 */
+			/* 響應式調整 */
 			@media (max-width: 1100px) { 
 				.layout-container {
-					grid-template-columns: 1fr; /* 单列布局 */
+					grid-template-columns: 1fr; /* 單列佈局 */
 					max-width: 960px;
 					gap: 24px;
 					padding: 0 0.75em 1.5em;
@@ -268,7 +268,7 @@ const articleSchema = {
 					margin: 15mm 16mm 18mm;
 
 					@bottom-center {
-						content: "第 " counter(page) " 页 / 共 " counter(pages) " 页";
+						content: "第 " counter(page) " 頁 / 共 " counter(pages) " 頁";
 						color: #94a3b8;
 						font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 						font-size: 9pt;
@@ -405,7 +405,7 @@ const articleSchema = {
 					border-bottom-color: #bfdbfe;
 				}
 
-				/* 打印时为前三级正文标题添加与目录一致的层级编号。 */
+				/* 列印時為前三級正文標題新增與目錄一致的層級編號。 */
 				:global(.prose > h2) {
 					counter-increment: pdf-section;
 					counter-set: pdf-subsection 0 pdf-subsubsection 0;
@@ -699,14 +699,14 @@ const articleSchema = {
                     {readingTime && (
                         <div class="meta-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                            <span>{readingTime} 分钟</span>
+                            <span>{readingTime} 分鐘</span>
                         </div>
                     )}
                 </div>
 				<div class="meta-row">
-					<button class="pdf-export-button" type="button" data-pdf-export data-pdf-title={title} aria-label={`将《${title}》导出为 PDF`}>
+					<button class="pdf-export-button" type="button" data-pdf-export data-pdf-title={title} aria-label={`將《${title}》匯出為 PDF`}>
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-						<span>下载 PDF</span>
+						<span>下載 PDF</span>
 					</button>
 				</div>
             </div>
@@ -719,7 +719,7 @@ const articleSchema = {
 					<div class="prose">
 						<header class="pdf-print-heading">
 							<h1>{title}</h1>
-							<p>发布于 <FormattedDate date={pubDate} /></p>
+							<p>發布於 <FormattedDate date={pubDate} /></p>
 						</header>
 						<slot />
 						{updatedDate && (

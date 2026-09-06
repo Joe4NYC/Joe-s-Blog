@@ -33,12 +33,12 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  siteUrl: 'https://template.ulna520.top',
-  siteTitle: 'ulBo Astro Theme',
-  siteTitleSuffix: '个人博客',
-  siteDescription: 'A configurable Astro blog theme with centralized config and zero-content defaults.',
-  locale: 'zh-CN',
-  headerGithubRepoUrl: 'https://github.com/xxy1103/ulbo-astro-theme-template',
+  siteUrl: 'https://joe-s-blog.ng80160.workers.dev',
+  siteTitle: "Joe's Blog",
+  siteTitleSuffix: '個人部落格',
+  siteDescription: 'Joe 的個人部落格，記錄筆記、想法與正在做的事。',
+  locale: 'zh-TW',
+  headerGithubRepoUrl: 'https://github.com/Joe4NYC/Joe-s-Blog',
   faviconIco: '/favicon.ico',
 };
 

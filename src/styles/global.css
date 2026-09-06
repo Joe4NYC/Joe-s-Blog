@@ -111,7 +111,7 @@
 
 /* ═══════════════════════════════════════
    Dark Mode — Premium Dark Palette
-   舒适、质感、高级感
+   舒適、質感、高階感
    ═══════════════════════════════════════ */
 [data-theme="dark"] {
 	--accent: #7b8cff;
@@ -508,7 +508,7 @@ input {
 }
 
 /* ==========================================================================
-   Markdown 表格 - 现代优雅设计 (Modern Table UI)
+   Markdown 表格 - 現代優雅設計 (Modern Table UI)
    ========================================================================== */
 .prose .table-shell {
 	position: relative;
@@ -549,7 +549,7 @@ input {
 	border: 0;
 }
 
-/* 表头样式 */
+/* 表頭樣式 */
 .prose table thead {
 	background-color: var(--color-surface-input);
 	border-bottom: 2px solid var(--color-border-strong);
@@ -567,7 +567,7 @@ input {
 	border-bottom: 2px solid var(--color-border-strong);
 }
 
-/* 适配 Markdown 渲染生成的 align 属性对齐方式 */
+/* 適配 Markdown 渲染生成的 align 屬性對齊方式 */
 .prose table th[align="center"],
 .prose table td[align="center"] {
 	text-align: center;
@@ -581,7 +581,7 @@ input {
 	text-align: left;
 }
 
-/* 数据行样式 */
+/* 資料行樣式 */
 .prose table tbody tr {
 	border-bottom: 1px solid var(--color-border-subtle);
 	background-color: var(--color-surface);
@@ -592,17 +592,17 @@ input {
 	border-bottom: none;
 }
 
-/* 斑马纹交替背景 */
+/* 斑馬紋交替背景 */
 .prose table tbody tr:nth-child(even) {
 	background-color: var(--color-surface-hover);
 }
 
-/* 数据行悬停高亮 */
+/* 資料行懸停高亮 */
 .prose table tbody tr:hover {
 	background-color: var(--color-surface-elevated);
 }
 
-/* 单元格与间距 */
+/* 單元格與間距 */
 .prose table td {
 	padding: 12px 16px;
 	vertical-align: middle;
@@ -610,7 +610,7 @@ input {
 	word-break: normal;
 }
 
-/* 首尾列单元格增加额外内边距以对齐视觉边界 */
+/* 首尾列單元格增加額外內邊距以對齊視覺邊界 */
 .prose table th:first-child,
 .prose table td:first-child {
 	padding-left: 20px;
@@ -621,7 +621,7 @@ input {
 	padding-right: 20px;
 }
 
-/* 表格内包含的行内代码（code）处理 */
+/* 表格內包含的行內程式碼（code）處理 */
 .prose table td code {
 	font-size: 0.85em;
 	padding: 2px 6px;
@@ -634,7 +634,7 @@ input {
 	}
 
 	.prose .table-shell--wide::before {
-		content: "左右滑动查看完整表格";
+		content: "左右滑動檢視完整表格";
 		display: block;
 		margin: 0 0 0.45rem;
 		color: var(--color-text-muted);
@@ -697,7 +697,7 @@ img {
 	border-radius: 8px;
 }
 
-/* 行内代码 */
+/* 行內程式碼 */
 code {
 	padding: 2px 8px;
 	background: var(--color-code-inline-bg);
@@ -709,8 +709,8 @@ code {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   代码块 - 极简现代设计（白色主题）
-   设计理念：干净、专注、优雅的阅读体验
+   程式碼塊 - 極簡現代設計（白色主題）
+   設計理念：乾淨、專注、優雅的閱讀體驗
    ═══════════════════════════════════════════════════════════ */
 
 .code-block-wrapper {
@@ -729,7 +729,7 @@ code {
 	box-shadow: var(--color-code-block-shadow-hover);
 }
 
-/* 浮动工具栏 - 右上角 */
+/* 浮動工具欄 - 右上角 */
 .code-toolbar {
 	position: absolute;
 	top: 12px;
@@ -737,7 +737,7 @@ code {
 	z-index: 10;
 }
 
-/* 语言标签 - 默认显示 */
+/* 語言標籤 - 預設顯示 */
 .code-lang {
 	display: inline-flex;
 	align-items: center;
@@ -755,7 +755,7 @@ code {
 	transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* 复制按钮 - 默认隐藏 */
+/* 複製按鈕 - 預設隱藏 */
 .code-copy-btn {
 	position: absolute;
 	top: 0;
@@ -783,7 +783,7 @@ code {
 	pointer-events: none;
 }
 
-/* Hover 状态：隐藏语言，显示复制按钮 */
+/* Hover 狀態：隱藏語言，顯示複製按鈕 */
 .code-block-wrapper:hover .code-lang {
 	opacity: 0;
 	transform: scale(0.9);
@@ -820,13 +820,13 @@ code {
 	transform: scale(0.95);
 }
 
-/* 代码块主体容器 */
+/* 程式碼塊主體容器 */
 .code-body {
 	display: flex;
 	overflow-x: auto;
 }
 
-/* 行号区域 - 优雅设计 */
+/* 行號區域 - 優雅設計 */
 .line-numbers {
 	flex-shrink: 0;
 	padding: 1.25rem 0;
@@ -849,7 +849,7 @@ code {
 	transition: color 0.15s ease;
 }
 
-/* 代码块主体 - 白色主题 */
+/* 程式碼塊主體 - 白色主題 */
 pre {
 	margin: 0;
 	padding: 1.25rem 1em 1.25rem 0.5em;
@@ -871,7 +871,7 @@ pre>code {
 	tab-size: 4;
 }
 
-/* Shiki/Astro 代码高亮适配 */
+/* Shiki/Astro 程式碼高亮適配 */
 pre.astro-code {
 	background: transparent !important;
 	padding: 1.25em 1.5em;
@@ -882,7 +882,7 @@ pre.astro-code code {
 	background: transparent;
 }
 
-/* 强制应用暗色主题高亮 */
+/* 強制應用暗色主題高亮 */
 [data-theme="dark"] .astro-code,
 [data-theme="dark"] .astro-code span {
 	color: var(--shiki-dark) !important;
@@ -1030,7 +1030,7 @@ hr {
 		max-width: none;
 	}
 
-	/* 横向图保留滚动空间；竖向图随正文宽度收窄，避免在手机上被 680px 下限放大。 */
+	/* 橫向圖保留滾動空間；豎向圖隨正文寬度收窄，避免在手機上被 680px 下限放大。 */
 	.mermaid-diagram--portrait .mermaid-diagram__canvas {
 		justify-content: center;
 	}
@@ -1135,8 +1135,8 @@ hr {
 	white-space: nowrap;
 }
 
-/* KaTeX 数学公式样式 */
-/* 显示渲染后的公式，隐藏原始 MathML */
+/* KaTeX 數學公式樣式 */
+/* 顯示渲染後的公式，隱藏原始 MathML */
 .katex-html {
 	display: unset !important;
 }
@@ -1145,7 +1145,7 @@ hr {
 	display: none !important;
 }
 
-/* 确保块级公式可以水平滚动 */
+/* 確保塊級公式可以水平滾動 */
 .katex-display {
 	overflow-x: auto;
 	overflow-y: hidden;

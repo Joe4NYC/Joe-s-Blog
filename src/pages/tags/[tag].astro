@@ -31,8 +31,8 @@ const tagsHero = heroConfig.tags;
 ---
 
 <PageShell
-  title={`标签: ${tag} | ${siteTitle}`}
-  description={`所有标记为 "${tag}" 的博客文章`}
+  title={`標籤: ${tag} | ${siteTitle}`}
+  description={`所有標記為 "${tag}" 的部落格文章`}
   transparentHeader={true}
   pageId="tag-detail"
   useMainWrapper={false}
@@ -514,7 +514,7 @@ const tagsHero = heroConfig.tags;
     </style>
 
   <HeroHeader
-    text={`标签：${tag}`}
+    text={`標籤：${tag}`}
     subtitle={tagsHero.subtitle}
     backgroundImage={tagsHero.backgroundImage}
     compact={true}
@@ -523,24 +523,24 @@ const tagsHero = heroConfig.tags;
   <ArchiveCard
     number="Tag"
     title={`#${tag}`}
-    intro={`包含此标签的文章共 ${posts.length} 篇`}
+    intro={`包含此標籤的文章共 ${posts.length} 篇`}
     minHeight={true}
   >
     <div class="tags-workspace">
       <div class="back-btn-container">
-        <a href="/tags/" class="back-link">← 查看全部标签归档</a>
+        <a href="/tags/" class="back-link">← 檢視全部標籤歸檔</a>
       </div>
 
       {/* Control Panel */}
       <div class="tags-control-panel">
         <div class="search-box-wrapper">
           <div class="search-box">
-            <input type="text" id="tag-search" placeholder={`在 #${tag} 分类内搜索文章...`} autocomplete="off" />
+            <input type="text" id="tag-search" placeholder={`在 #${tag} 分類內搜尋文章...`} autocomplete="off" />
             <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <button id="clear-search" class="clear-btn" aria-label="清除搜索">
+            <button id="clear-search" class="clear-btn" aria-label="清除搜尋">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -551,8 +551,8 @@ const tagsHero = heroConfig.tags;
         </div>
 
         <div class="chips-header">
-          <span class="chips-title">相关主题标签</span>
-          <span class="tags-count-badge">共 {sortedTags.length} 个标签</span>
+          <span class="chips-title">相關主題標籤</span>
+          <span class="tags-count-badge">共 {sortedTags.length} 個標籤</span>
         </div>
 
         <div class="tags-cloud">
@@ -644,12 +644,12 @@ const tagsHero = heroConfig.tags;
           })}
         </div>
 
-        <nav id="tag-pagination" class="pagination" aria-label="文章分页" hidden>
-          <button id="tag-prev-page" type="button" class="page-btn prev-btn" aria-label="上一页">
+        <nav id="tag-pagination" class="pagination" aria-label="文章分頁" hidden>
+          <button id="tag-prev-page" type="button" class="page-btn prev-btn" aria-label="上一頁">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
           </button>
           <div id="tag-page-numbers" class="page-numbers"></div>
-          <button id="tag-next-page" type="button" class="page-btn next-btn" aria-label="下一页">
+          <button id="tag-next-page" type="button" class="page-btn next-btn" aria-label="下一頁">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6" /></svg>
           </button>
         </nav>
@@ -659,7 +659,7 @@ const tagsHero = heroConfig.tags;
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="8" y1="12" x2="16" y2="12"></line>
           </svg>
-          <p id="empty-state-message">没有找到与搜索或选择匹配的文章</p>
+          <p id="empty-state-message">沒有找到與搜尋或選擇匹配的文章</p>
         </div>
       </section>
     </div>

@@ -95,9 +95,9 @@ const fullTitle =
     if (stored) return stored;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  // 首次加载立即应用
+  // 首次載入立即應用
   document.documentElement.setAttribute('data-theme', getTheme());
-  // View Transitions: 在 DOM 交换前将主题写入新文档，彻底消除闪烁
+  // View Transitions: 在 DOM 交換前將主題寫入新文件，徹底消除閃爍
   document.addEventListener('astro:before-swap', (ev) => {
     ev.newDocument.documentElement.setAttribute('data-theme', getTheme());
   });
@@ -149,16 +149,16 @@ const fullTitle =
    * Material Design 3 — Core Easing Curves
    * 
    * 1. Emphasized Decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0)
-   *    → For entering/appearing elements (快速启动，缓慢着陆)
+   *    → For entering/appearing elements (快速啟動，緩慢著陸)
    *
    * 2. Emphasized Accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15)
-   *    → For exiting/disappearing elements (慢速启动，快速离场)
+   *    → For exiting/disappearing elements (慢速啟動，快速離場)
    *
    * 3. Emphasized (Standard): cubic-bezier(0.2, 0.0, 0.0, 1.0)
-   *    → For shared-axis / morphing transitions (柔和的全程过渡)
+   *    → For shared-axis / morphing transitions (柔和的全程過渡)
    * ============================================ */
 
-  /* 页面退出动画 — Emphasized Accelerate: 缓慢拾起，迅速消失 */
+  /* 頁面退出動畫 — Emphasized Accelerate: 緩慢拾起，迅速消失 */
   @keyframes md3SlideOut {
     from {
       opacity: 1;
@@ -174,7 +174,7 @@ const fullTitle =
     }
   }
   
-  /* 页面进入动画 — Emphasized Decelerate: 迅速到达，优雅着陆 */
+  /* 頁面進入動畫 — Emphasized Decelerate: 迅速到達，優雅著陸 */
   @keyframes md3SlideIn {
     from {
       opacity: 0;
@@ -186,7 +186,7 @@ const fullTitle =
     }
   }
 
-  /* 交叉淡入 — 用于 Hero 等共享元素 */
+  /* 交叉淡入 — 用於 Hero 等共享元素 */
   @keyframes md3FadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
@@ -196,7 +196,7 @@ const fullTitle =
     to   { opacity: 0; }
   }
   
-  /* ---- 主要内容区域过渡 ---- */
+  /* ---- 主要內容區域過渡 ---- */
   ::view-transition-old(page-content) {
     animation: md3SlideOut 0.25s cubic-bezier(0.3, 0.0, 0.8, 0.15) forwards;
   }
@@ -205,7 +205,7 @@ const fullTitle =
     animation: md3SlideIn 0.4s cubic-bezier(0.05, 0.7, 0.1, 1.0) forwards;
   }
 
-  /* Header 保持不动，不参与过渡动画 */
+  /* Header 保持不動，不參與過渡動畫 */
   ::view-transition-group(header) {
     animation: none;
     z-index: 100;
@@ -215,7 +215,7 @@ const fullTitle =
     animation: none;
   }
 
-  /* SearchModal 保持不动 */
+  /* SearchModal 保持不動 */
   ::view-transition-group(search-modal) {
     animation: none;
   }
@@ -224,7 +224,7 @@ const fullTitle =
     animation: none;
   }
 
-  /* ---- Hero 区域过渡 — Emphasized Standard ---- */
+  /* ---- Hero 區域過渡 — Emphasized Standard ---- */
   ::view-transition-group(hero) {
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.2, 0.0, 0.0, 1.0);
@@ -242,7 +242,7 @@ const fullTitle =
     width: 100%;
   }
 
-  /* ---- 内容区域组过渡 — Emphasized Standard ---- */
+  /* ---- 內容區域組過渡 — Emphasized Standard ---- */
   ::view-transition-group(page-content) {
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.2, 0.0, 0.0, 1.0);

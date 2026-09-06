@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" role="img" aria-labelledby="title desc">
-  <title id="title">竖向图片展示</title>
-  <desc id="desc">一张用于演示文章页竖向图片等比缩放效果的九比十六渐变插画。</desc>
+  <title id="title">豎向圖片展示</title>
+  <desc id="desc">一張用於演示文章頁豎向圖片等比縮放效果的九比十六漸變插畫。</desc>
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#101a3b"/>
@@ -28,5 +28,5 @@
     <circle cx="780" cy="390" r="3"/><circle cx="135" cy="635" r="3"/><circle cx="725" cy="730" r="5"/>
   </g>
   <text x="450" y="1435" text-anchor="middle" fill="#fff" font-family="system-ui, sans-serif" font-size="44" letter-spacing="7">PORTRAIT · 9:16</text>
-  <text x="450" y="1505" text-anchor="middle" fill="#d8dcf1" font-family="system-ui, sans-serif" font-size="25">文章页竖向图片展示</text>
+  <text x="450" y="1505" text-anchor="middle" fill="#d8dcf1" font-family="system-ui, sans-serif" font-size="25">文章頁豎向圖片展示</text>
 </svg>

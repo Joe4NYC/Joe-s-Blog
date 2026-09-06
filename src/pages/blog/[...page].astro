@@ -62,14 +62,14 @@ const hasPosts = page.total > 0;
 const blogHero = heroConfig.blog;
 const pageTitle =
   !hasPosts || page.currentPage === 1
-    ? `博客 | ${siteTitle}`
-    : `博客 - 第 ${page.currentPage} 页 | ${siteTitle}`;
+    ? `部落格 | ${siteTitle}`
+    : `部落格 - 第 ${page.currentPage} 頁 | ${siteTitle}`;
 const pageDescription =
   !hasPosts
-    ? '当前模板未附带文章内容，你可以在 src/content/blog/ 中添加 Markdown 后自动生成列表。'
+    ? '當前模板未附帶文章內容，你可以在 src/content/blog/ 中新增 Markdown 後自動生成列表。'
     : page.currentPage === 1
-    ? `按发布时间倒序浏览全部 ${page.total} 篇文章。`
-    : `博客归档第 ${page.currentPage} 页（共 ${page.lastPage} 页），收录 ${page.total} 篇文章。`;
+    ? `按發布時間倒序瀏覽全部 ${page.total} 篇文章。`
+    : `部落格歸檔第 ${page.currentPage} 頁（共 ${page.lastPage} 頁），收錄 ${page.total} 篇文章。`;
 const shouldNoindex = page.currentPage > 1;
 const canonicalPath = getBlogPagePath(page.currentPage);
 const canonicalURL = new URL(canonicalPath, siteURL);
@@ -428,8 +428,8 @@ if (last > 1) paginationList.push(last);
     number={`Page ${page.currentPage}`}
     title="所有文章"
     intro={hasPosts
-      ? `这里收录了所有的 ${page.total} 篇文章 (第 ${page.currentPage} / ${page.lastPage} 页)`
-      : '当前没有文章内容。请在 src/content/blog/ 添加 .md/.mdx 文件后重新构建。'}
+      ? `這裡收錄了所有的 ${page.total} 篇文章 (第 ${page.currentPage} / ${page.lastPage} 頁)`
+      : '當前沒有文章內容。請在 src/content/blog/ 新增 .md/.mdx 檔案後重新構建。'}
   >
 
         <div class="blog-posts-list">
@@ -453,7 +453,7 @@ if (last > 1) paginationList.push(last);
             ))
           ) : (
             <p class="blog-post-excerpt" style="text-align:center;padding:1.5em 0;">
-              暂无文章。请在 <code>src/content/blog/</code> 添加内容后再查看此页。
+              暫無文章。請在 <code>src/content/blog/</code> 新增內容後再檢視此頁。
             </p>
           )}
         </div>

@@ -4,11 +4,11 @@ import { parseSearchBlocks } from './markdown';
 const ARTICLE = `
 # 全文索引
 
-段落包含 **强调文字** 和 \`inlineCall()\`。
+段落包含 **強調文字** 和 \`inlineCall()\`。
 
-| 功能 | 状态 |
+| 功能 | 狀態 |
 | --- | --- |
-| 搜索 | 可用 |
+| 搜尋 | 可用 |
 
 \`\`\`ts
 const uniqueCodeToken = 'searchable';
@@ -24,7 +24,7 @@ describe('Markdown search blocks', () => {
 		const blocks = parseSearchBlocks(ARTICLE);
 		expect(blocks.some((block) => block.type === 'heading' && block.text === '全文索引')).toBe(true);
 		expect(blocks.some((block) => block.type === 'paragraph' && block.text.includes('inlineCall()'))).toBe(true);
-		expect(blocks.some((block) => block.type === 'table' && block.text.includes('搜索 可用'))).toBe(true);
+		expect(blocks.some((block) => block.type === 'table' && block.text.includes('搜尋 可用'))).toBe(true);
 		expect(blocks.some((block) => block.type === 'code' && block.text.includes('uniqueCodeToken'))).toBe(true);
 		expect(blocks.some((block) => block.type === 'math' && block.text.includes('mc^2'))).toBe(true);
 	});

@@ -29,7 +29,7 @@ const webSiteSchema = {
 
 function formatWordCount(count: number) {
   if (count > 10000) {
-    return `${(count / 10000).toFixed(2)} 万`;
+    return `${(count / 10000).toFixed(2)} 萬`;
   }
   return count.toString();
 }
@@ -335,8 +335,8 @@ function formatDate(date: Date) {
           number="01"
           title="文章"
           intro={hasPosts
-            ? `从 ${formatDate(startDate!)} 的第一篇文章开始，本站已经更新了......`
-            : '当前模板未附带文章内容，你可以在 src/content/blog/ 中添加 Markdown 文章后自动显示统计与列表。'}
+            ? `從 ${formatDate(startDate!)} 的第一篇文章開始，本站已經更新了......`
+            : '當前模板未附帶文章內容，你可以在 src/content/blog/ 中新增 Markdown 文章後自動顯示統計與列表。'}
         />
 
         <div class="stats-grid">
@@ -346,16 +346,16 @@ function formatDate(date: Date) {
           </div>
           <div class="stat-item">
             <span class="stat-value">{formatWordCount(wordCount)}</span>
-            <span class="stat-label">字数</span>
+            <span class="stat-label">字數</span>
           </div>
           <div class="stat-item">
-            <span class="stat-value">{tagCount} 个</span>
-            <span class="stat-label">标签</span>
+            <span class="stat-value">{tagCount} 個</span>
+            <span class="stat-label">標籤</span>
           </div>
         </div>
 
         <div class="recent-posts-section">
-          <SectionHeader number="02" title="最近更新" intro={hasPosts ? '最新发布的 10 篇文章' : '暂无文章可展示'} />
+          <SectionHeader number="02" title="最近更新" intro={hasPosts ? '最新發布的 10 篇文章' : '暫無文章可展示'} />
 
           {recentPosts.length > 0 ? (
             <>
@@ -375,11 +375,11 @@ function formatDate(date: Date) {
                   />
                 ))}
               </div>
-              <a href="/blog" class="blog-link" style="margin-top: 1em;">查看全部文章 ⇗</a>
+              <a href="/blog" class="blog-link" style="margin-top: 1em;">檢視全部文章 ⇗</a>
             </>
           ) : (
             <p class="empty-state">
-              这里还没有文章。请在 <code>src/content/blog/</code> 新建 <code>.md</code> 或 <code>.mdx</code> 文件。
+              這裡還沒有文章。請在 <code>src/content/blog/</code> 新建 <code>.md</code> 或 <code>.mdx</code> 檔案。
             </p>
           )}
         </div>

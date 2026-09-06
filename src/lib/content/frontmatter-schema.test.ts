@@ -31,10 +31,10 @@ describe('blogFrontmatterSchema', () => {
 	});
 
 	it.each([
-		[{ ...validPost, categories: [] }, '正式文章必须且只能有一个分类'],
-		[{ ...validPost, categories: ['工程', '随笔'] }, '文章最多只能有一个分类'],
-		[{ ...validPost, tags: [] }, '正式文章至少需要一个标签'],
-		[{ ...validPost, tags: ['astro', 'astro'] }, '标签不能重复'],
+		[{ ...validPost, categories: [] }, '正式文章必須且只能有一個分類'],
+		[{ ...validPost, categories: ['工程', '隨筆'] }, '文章最多只能有一個分類'],
+		[{ ...validPost, tags: [] }, '正式文章至少需要一個標籤'],
+		[{ ...validPost, tags: ['astro', 'astro'] }, '標籤不能重複'],
 	])('rejects invalid publishable metadata', (frontmatter, message) => {
 		const result = blogFrontmatterSchema.safeParse(frontmatter);
 
@@ -47,11 +47,11 @@ describe('blogFrontmatterSchema', () => {
 	it('trims text fields and rejects empty taxonomy values', () => {
 		const parsed = blogFrontmatterSchema.parse({
 			...validPost,
-			title: '  标题  ',
+			title: '  標題  ',
 			categories: ['  工程  '],
 			tags: ['  astro  '],
 		});
-		expect(parsed.title).toBe('标题');
+		expect(parsed.title).toBe('標題');
 		expect(parsed.categories).toEqual(['工程']);
 		expect(parsed.tags).toEqual(['astro']);
 

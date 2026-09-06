@@ -24,7 +24,7 @@ describe('SearchIndexRepository', () => {
 			.mockResolvedValueOnce(new Response(JSON.stringify([validDocument]), { status: 200 }));
 		vi.stubGlobal('fetch', fetchMock);
 		const repository = new SearchIndexRepository('/index.json');
-		await expect(repository.load()).rejects.toThrow('搜索索引格式无效');
+		await expect(repository.load()).rejects.toThrow('搜尋索引格式無效');
 		await expect(repository.load({ retry: true })).resolves.toEqual([validDocument]);
 	});
 });
