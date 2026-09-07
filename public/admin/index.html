@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>網站後台 · ulBo</title>
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="stylesheet" href="/admin/admin.css" />
+	</head>
+	<body>
+		<!-- 登入畫面 -->
+		<div class="login" id="login-view" hidden>
+			<form class="login-card" id="login-form">
+				<h1>網站後台</h1>
+				<p class="sub">請輸入管理密碼以繼續。</p>
+				<div class="notice error" id="login-error" hidden></div>
+				<div class="field">
+					<label for="login-password">密碼</label>
+					<input type="password" id="login-password" autocomplete="current-password" required />
+				</div>
+				<button type="submit" class="primary" id="login-submit" style="width: 100%; justify-content: center">
+					登入
+				</button>
+			</form>
+		</div>
+
+		<!-- 後台主體 -->
+		<div class="app" id="app-view" hidden>
+			<nav class="sidebar">
+				<div class="brand">
+					網站後台
+					<small id="brand-repo">—</small>
+				</div>
+				<a class="nav-item" data-route="dashboard"><span class="icon">▦</span> 儀表板</a>
+				<a class="nav-item" data-route="posts"><span class="icon">✎</span> 文章</a>
+				<a class="nav-item" data-route="new"><span class="icon">＋</span> 新增文章</a>
+				<a class="nav-item" data-route="media"><span class="icon">▤</span> 媒體</a>
+				<a class="nav-item" data-route="settings"><span class="icon">⚙</span> 網站設定</a>
+				<a class="nav-item" data-route="deploy"><span class="icon">↑</span> 部署</a>
+				<div class="spacer"></div>
+				<a class="nav-item" id="nav-logout"><span class="icon">⎋</span> 登出</a>
+			</nav>
+
+			<div class="main">
+				<header class="topbar">
+					<h1 id="page-title">儀表板</h1>
+					<a class="btn" href="/" target="_blank" rel="noopener">查看網站 ↗</a>
+					<button class="primary" id="btn-deploy-top">發佈變更</button>
+				</header>
+				<main class="content" id="view"></main>
+			</div>
+		</div>
+
+		<div id="modal-root"></div>
+		<div id="toasts"></div>
+
+		<script type="module" src="/admin/admin.js"></script>
+	</body>
+</html>

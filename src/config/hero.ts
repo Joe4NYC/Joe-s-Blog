@@ -1,4 +1,5 @@
 import defaultBackground from '../assets/blog-placeholder-1.webp';
+import settings from './settings.json';
 
 /**
  * Hero copy and background settings for one page.
@@ -32,26 +33,21 @@ export interface HeroConfig {
   postDefaultBackground: string;
 }
 
+/**
+ * 文案來自 `src/config/settings.json`（後台可編輯），背景圖仍由建置期的資源匯入決定。
+ */
+function section(copy: { text: string; subtitle?: string }): HeroSectionConfig {
+  return {
+    text: copy.text,
+    subtitle: copy.subtitle,
+    backgroundImage: defaultBackground.src,
+  };
+}
+
 export const heroConfig: HeroConfig = {
-  home: {
-    text: "Joe's Blog",
-    subtitle: '寫下想法、筆記與正在做的事。',
-    backgroundImage: defaultBackground.src,
-  },
-  blog: {
-    text: '所有文章',
-    subtitle: '瀏覽全部的寫作紀錄。',
-    backgroundImage: defaultBackground.src,
-  },
-  tags: {
-    text: '標籤',
-    subtitle: '依分類與標籤瀏覽主題。',
-    backgroundImage: defaultBackground.src,
-  },
-  about: {
-    text: '關於我',
-    subtitle: '簡單介紹我自己與我在做的事。',
-    backgroundImage: defaultBackground.src,
-  },
+  home: section(settings.hero.home),
+  blog: section(settings.hero.blog),
+  tags: section(settings.hero.tags),
+  about: section(settings.hero.about),
   postDefaultBackground: defaultBackground.src,
 };

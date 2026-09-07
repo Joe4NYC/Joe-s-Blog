@@ -1,10 +1,27 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "joe-s-blog",
-  "compatibility_date": "2026-07-14",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "404-page",
-    "html_handling": "auto-trailing-slash"
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "joe-s-blog",
+	"main": "worker/index.ts",
+	"compatibility_date": "2026-07-14",
+	"observability": {
+		"enabled": true
+	},
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS",
+		"not_found_handling": "404-page",
+		"html_handling": "auto-trailing-slash",
+		// 只有後台 API 走 Worker，其餘網址一律直接由靜態資源服務，前台效能不受影響。
+		"run_worker_first": ["/api/*"]
+	},
+	"vars": {
+		"ADMIN_USERNAME": "joe",
+		"GITHUB_OWNER": "Joe4NYC",
+		"GITHUB_REPO": "Joe-s-Blog",
+		"GITHUB_BRANCH": "main",
+		"DEPLOY_WORKFLOW": "deploy.yml",
+		"SESSION_TTL_HOURS": "12"
+	}
+	// 機密值請用 npx wrangler secret put 設定，不要寫在這個檔案：
+	//   ADMIN_PASSWORD / SESSION_SECRET / GITHUB_TOKEN
 }

@@ -1,5 +1,10 @@
+import settings from './settings.json';
+
 /**
  * Site-level settings shared by header, SEO tags, and feed generation.
+ *
+ * 可編輯的欄位集中放在 `src/config/settings.json`，後台（/admin）直接讀寫該檔案，
+ * 這裡只負責型別與具名匯出，避免後台需要解析 TypeScript。
  */
 export interface SiteConfig {
   /**
@@ -32,14 +37,6 @@ export interface SiteConfig {
   faviconIco: string;
 }
 
-export const siteConfig: SiteConfig = {
-  siteUrl: 'https://joe-s-blog.ng80160.workers.dev',
-  siteTitle: "Joe's Blog",
-  siteTitleSuffix: '個人部落格',
-  siteDescription: 'Joe 的個人部落格，記錄筆記、想法與正在做的事。',
-  locale: 'zh-TW',
-  headerGithubRepoUrl: 'https://github.com/Joe4NYC/Joe-s-Blog',
-  faviconIco: '/favicon.ico',
-};
+export const siteConfig: SiteConfig = settings.site;
 
 export const { siteUrl, siteTitle, siteTitleSuffix, siteDescription, locale, headerGithubRepoUrl, faviconIco } = siteConfig;

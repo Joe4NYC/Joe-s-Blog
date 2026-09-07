@@ -1,0 +1,5 @@
+# 本機測試後台用：複製成 .dev.vars（已被 .gitignore 忽略），再執行 npm run dev:admin。
+# 正式環境請改用 npx wrangler secret put <名稱>，不要把這些值提交進 git。
+ADMIN_PASSWORD=change-me-to-a-long-password
+SESSION_SECRET=change-me-to-a-random-64-char-string
+GITHUB_TOKEN=github_pat_xxx

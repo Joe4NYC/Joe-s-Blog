@@ -151,7 +151,8 @@ npm run optimize:images
 | `npm run dev` | 啟動開發伺服器 |
 | `npm run build` | 構建生產版本，不修改文章或圖片 |
 | `npm run preview` | 預覽生產構建結果 |
-| `npm run check` | 檢查 Astro 與 TypeScript |
+| `npm run check` | 檢查 Astro、TypeScript 與後台 Worker |
+| `npm run dev:admin` | 在本機啟動含後台 API 的 Worker |
 | `npm test` | 執行測試 |
 | `npm run frontmatter:check` | 只讀檢查文章 Frontmatter |
 | `npm run frontmatter:fix` | 規範化 Frontmatter，並驗證正文未被改動 |
@@ -171,6 +172,16 @@ npm run deploy
 
 使用其他平台時，將構建命令設為 `npm run build`，輸出目錄設為 `dist`。
 
+推送到 `main` 會由 `.github/workflows/deploy.yml` 自動建置並部署到 Cloudflare Workers，需要在倉庫 Secrets 設定 `CLOUDFLARE_API_TOKEN` 與 `CLOUDFLARE_ACCOUNT_ID`。
+
+## 網站後台
+
+`/admin` 提供類似 `wp-admin` 的管理介面：儀表板、文章增刪改、Markdown 即時預覽、圖片上傳、網站設定與一鍵部署。
+
+後台沒有資料庫——Cloudflare Worker 透過 GitHub API 直接讀寫倉庫裡的 Markdown，儲存即 commit，接著由 GitHub Actions 重新建置部署。前台仍是純靜態，只有 `/api/*` 會經過 Worker。
+
+首次使用需要設定三個 Worker 密鑰（`ADMIN_PASSWORD`、`SESSION_SECRET`、`GITHUB_TOKEN`），完整步驟見 [網站後台使用說明](./docs/admin-guide.md)。
+
 ## 專案結構
 
 ```text
@@ -183,6 +194,9 @@ src/
 ├─ pages/            首頁、歸檔、標籤、About、RSS 等路由
 ├─ plugins/          Markdown / HTML 處理外掛
 └─ scripts/          搜尋、目錄、Mermaid、燈箱與頁面互動
+
+worker/               後台 API 的 Cloudflare Worker
+public/admin/         後台介面（純靜態）
 ```
 
 前端模組關係見 [架構地圖](./docs/frontend-architecture-map.md)。
