@@ -357,13 +357,22 @@ td .row-actions { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 
 .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
 
-.media-item { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--panel); }
-.media-item .thumb { height: 120px; display: grid; place-items: center; background: var(--panel-2); overflow: hidden; }
+/* 卡片用 flex 直排，讓長檔名換行時按鈕列仍然對齊在底部。 */
+.media-item {
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	overflow: hidden;
+	background: var(--panel);
+	display: flex;
+	flex-direction: column;
+}
+
+.media-item .thumb { height: 120px; display: grid; place-items: center; background: var(--panel-2); overflow: hidden; flex: none; }
 .media-item .thumb img { width: 100%; height: 100%; object-fit: cover; }
-.media-item .meta { padding: 8px 10px; font-size: 12px; }
+.media-item .meta { padding: 8px 10px; font-size: 12px; display: flex; flex-direction: column; flex: 1; }
 .media-item .meta .name { font-weight: 600; word-break: break-all; }
 .media-item .meta .path { color: var(--muted); word-break: break-all; margin-top: 2px; }
-.media-item .meta .actions { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+.media-item .meta .actions { display: flex; gap: 4px; margin-top: auto; padding-top: 8px; flex-wrap: wrap; }
 
 .dropzone {
 	border: 2px dashed var(--border);

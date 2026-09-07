@@ -12,7 +12,7 @@ import {
 import { ConfigError, type Env } from './lib/env';
 import { repoRef } from './lib/github';
 import { fail, HttpError, isSameOrigin, json, ok, readJson } from './lib/http';
-import { handleDeploy, handleDeployStatus } from './routes/deploy';
+import { handleDeploy, handleDeployStatus, latestDeployRun } from './routes/deploy';
 import { handleDeleteMedia, handleListMedia, handleRawMedia, handleUploadMedia } from './routes/media';
 import {
 	handleCreatePost,
@@ -177,10 +177,22 @@ async function overview(env: Env): Promise<Response> {
 		for (const category of post.categories) categories.add(category);
 	}
 
+	// 部署狀態拿不到不該讓整個儀表板掛掉，所以這裡單獨吞掉錯誤。
 	let deploy: unknown = null;
 	try {
-		const response = await handleDeployStatus(env);
-		deploy = ((await response.json()) as { runs?: unknown[] }).runs?.[0] ?? null;
+		const run = await latestDeployRun(env);
+		deploy = run
+			? {
+					id: run.id,
+					name: run.name,
+					status: run.status,
+					conclusion: run.conclusion,
+					url: run.html_url,
+					event: run.event,
+					createdAt: run.created_at,
+					updatedAt: run.updated_at,
+				}
+			: null;
 	} catch {
 		deploy = null;
 	}

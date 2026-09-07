@@ -208,6 +208,24 @@ export async function listWorkflowRuns(ref: RepoRef, perPage = 5): Promise<Workf
 	return payload.workflow_runs ?? [];
 }
 
+/**
+ * Runs of one specific workflow. The repository also runs CI on every push, so
+ * the dashboard has to ask for the deploy workflow by name rather than taking
+ * whichever run happens to be newest.
+ */
+export async function listRunsForWorkflow(ref: RepoRef, workflow: string, perPage = 1): Promise<WorkflowRun[]> {
+	const response = await call(
+		ref,
+		`/repos/${ref.owner}/${ref.repo}/actions/workflows/${encodeURIComponent(workflow)}/runs` +
+			`?branch=${encodeURIComponent(ref.branch)}&per_page=${perPage}`,
+	);
+
+	if (response.status === 404) return [];
+	if (!response.ok) throw new HttpError(502, `GitHub API ${response.status}`);
+
+	return ((await response.json()) as { workflow_runs?: WorkflowRun[] }).workflow_runs ?? [];
+}
+
 export async function dispatchWorkflow(ref: RepoRef, workflow: string): Promise<void> {
 	const response = await call(
 		ref,

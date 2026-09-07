@@ -1,9 +1,18 @@
 import type { Env } from '../lib/env';
-import { dispatchWorkflow, listWorkflowRuns, repoRef } from '../lib/github';
+import { dispatchWorkflow, listRunsForWorkflow, listWorkflowRuns, repoRef, type WorkflowRun } from '../lib/github';
 import { ok } from '../lib/http';
 
 function workflowFile(env: Env): string {
 	return env.DEPLOY_WORKFLOW?.trim() || 'deploy.yml';
+}
+
+/**
+ * The newest run of the deploy workflow specifically — CI runs on every push
+ * too, so the newest run overall is often not a deployment.
+ */
+export async function latestDeployRun(env: Env): Promise<WorkflowRun | null> {
+	const runs = await listRunsForWorkflow(repoRef(env), workflowFile(env), 1);
+	return runs[0] ?? null;
 }
 
 export async function handleDeployStatus(env: Env): Promise<Response> {
