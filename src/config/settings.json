@@ -10,21 +10,45 @@
   },
   "profile": {
     "name": "Joe NG",
-    "title": "企業資訊系統學生 · PHP / MySQL / WordPress",
-    "bio": "香港理工大學企業資訊系統系在讀。日常用 PHP、MySQL 與 WordPress 開發，做過伺服器與資料庫搬遷、自製外掛，也寫過小型網頁應用。這裡放開發筆記與踩過的坑。",
+    "title": "Bachelor of Enterprise Information Systems @PolyU",
+    "bio": "香港理工大學企業資訊系統系在讀。日常用 PHP、MySQL 與 WordPress 開發，做過伺服器與資料庫搬遷、自製外掛，也寫過小型網頁應用。",
     "location": "香港",
     "email": "yikchunjoe@gmail.com",
     "githubProfileUrl": "https://github.com/Joe4NYC",
     "socials": [
-      { "key": "github", "label": "GitHub", "url": "https://github.com/Joe4NYC" },
-      { "key": "linkedin", "label": "LinkedIn", "url": "https://www.linkedin.com/in/JoeNG80160" },
-      { "key": "email", "label": "Email", "url": "yikchunjoe@gmail.com" }
+      {
+        "key": "github",
+        "label": "GitHub",
+        "url": "https://github.com/Joe4NYC"
+      },
+      {
+        "key": "linkedin",
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/JoeNG80160"
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "url": "yikchunjoe@gmail.com"
+      }
     ]
   },
   "hero": {
-    "home": { "text": "Joe's Blog", "subtitle": "寫下想法、筆記與正在做的事。" },
-    "blog": { "text": "所有文章", "subtitle": "瀏覽全部的寫作紀錄。" },
-    "tags": { "text": "標籤", "subtitle": "依分類與標籤瀏覽主題。" },
-    "about": { "text": "關於我", "subtitle": "簡單介紹我自己與我在做的事。" }
+    "home": {
+      "text": "Joe's Blog",
+      "subtitle": "寫下想法、筆記與正在做的事。"
+    },
+    "blog": {
+      "text": "所有文章",
+      "subtitle": "瀏覽全部的寫作紀錄。"
+    },
+    "tags": {
+      "text": "標籤",
+      "subtitle": "依分類與標籤瀏覽主題。"
+    },
+    "about": {
+      "text": "關於我",
+      "subtitle": "簡單介紹我自己與我在做的事。"
+    }
   }
 }
