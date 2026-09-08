@@ -2,7 +2,10 @@
  * 後台預覽用的輕量 Markdown 轉換器。
  *
  * 只求「寫的時候看得出結構」，正式渲染仍由 Astro 的 remark/rehype 管線負責，
- * 所以這裡刻意不處理 KaTeX、Mermaid 與自訂外掛語法。
+ * 所以這裡刻意不處理 KaTeX 與自訂外掛語法。
+ *
+ * 產出的程式碼區塊會帶 language-xxx class，「網站實境」預覽把這段 HTML 塞進真實
+ * 文章頁後，網站自己的 mermaid 腳本就認得出來，會照正式樣式把圖畫出來。
  */
 
 const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -67,7 +70,12 @@ export function renderMarkdown(source) {
 				index += 1;
 			}
 			index += 1;
-			out.push(`<pre><code data-lang="${escapeHtml(language)}">${escapeHtml(buffer.join('\n'))}</code></pre>`);
+			// 帶上 language-xxx，網站的 mermaid 與程式碼區塊強化腳本靠這個 class 認出區塊，
+			// 「網站實境」預覽才會跟正式頁面一樣把 mermaid 畫出來。
+			const token = escapeHtml(language.split(/\s+/)[0] ?? '');
+			const preAttr = token ? ` data-language="${token}"` : '';
+			const codeAttr = token ? ` class="language-${token}" data-lang="${token}"` : '';
+			out.push(`<pre${preAttr}><code${codeAttr}>${escapeHtml(buffer.join('\n'))}</code></pre>`);
 			continue;
 		}
 

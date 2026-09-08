@@ -306,7 +306,21 @@ td .row-actions { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 
 .md-panes { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
 .md-panes.single { grid-template-columns: 1fr; }
-.md-panes.single .md-preview { display: none; }
+.md-panes.single .md-preview,
+.md-panes.single .md-live { display: none; }
+
+/* 「網站實境」預覽：iframe 裡跑的是真正的文章頁，樣式一律由網站自己負責，
+   所以這裡只管尺寸與邊界，絕對不要對內容下任何樣式。 */
+.md-live {
+	border: none;
+	border-left: 1px solid var(--border);
+	width: 100%;
+	height: 70vh;
+	background: var(--panel);
+	display: block;
+}
+
+.md-live[hidden] { display: none; }
 
 #post-body {
 	border: none;
@@ -406,7 +420,8 @@ td .row-actions { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 @media (max-width: 960px) {
 	.editor { grid-template-columns: 1fr; }
 	.md-panes { grid-template-columns: 1fr; }
-	.md-preview { display: none; }
+	.md-preview,
+	.md-live { display: none; }
 }
 
 @media (max-width: 720px) {

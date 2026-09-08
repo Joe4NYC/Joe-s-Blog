@@ -505,12 +505,14 @@ async function renderEditor(filename) {
 					<button type="button" data-md="hr">分隔線</button>
 					<button type="button" data-md="more" title="列表頁摘要分界">摘要線</button>
 					<span class="right"></span>
+					<button type="button" id="toggle-live" title="用網站真實樣式與腳本預覽，mermaid 會實際畫出來">網站實境</button>
 					<button type="button" id="toggle-preview">預覽開關</button>
 				</div>
 
 				<div class="md-panes" id="md-panes">
 					<textarea id="post-body" spellcheck="false" placeholder="用 Markdown 開始寫…">${esc(post.body)}</textarea>
 					<div class="md-preview" id="md-preview"></div>
+					<iframe class="md-live" id="md-live" title="網站實境預覽" hidden></iframe>
 				</div>
 				<p class="hint muted" style="font-size:12px">Ctrl / ⌘ + S 儲存。圖片可直接貼上或拖進編輯區自動上傳。</p>
 			</div>
@@ -579,15 +581,73 @@ function setupEditor() {
 		state.dirty = true;
 	};
 
+	const panes = document.getElementById('md-panes');
+	const live = document.getElementById('md-live');
+
+	/**
+	 * 「網站實境」預覽的外殼：任何一篇已發佈的文章頁。
+	 *
+	 * 載入它就等於載入了真正的樣式表、Astro 的 scoped 屬性（.prose 的排版全靠它）
+	 * 以及 mermaid、程式碼區塊、目錄、燈箱這些前端強化腳本。我們只換掉 .prose 的
+	 * 內容，其餘一律沿用網站自己的東西，所以不必在後台重造任何一份樣式。
+	 */
+	const shellUrl = (state.posts ?? []).find((item) => !item.draft && item.url)?.url ?? null;
+	let liveTimer = null;
+
 	const paintPreview = () => {
 		preview.innerHTML = renderMarkdown(body.value);
 	};
+
+	const paintLive = () => {
+		const doc = live.contentDocument;
+		const prose = doc?.querySelector('article .prose');
+		if (!prose) return;
+
+		prose.innerHTML = renderMarkdown(body.value);
+
+		// 大標在 hero 裡（不在 article 內），而且套了打字機動畫。這裡直接寫入文字並同步
+		// data-text，不重播動畫——否則每敲一個字整個標題都會重打一次。
+		const title = document.getElementById('post-title')?.value.trim();
+		const hero = doc.querySelector('.typewriter.hero-title');
+		const typed = hero?.querySelector('.typed-text');
+		if (hero && typed && title) {
+			hero.setAttribute('data-text', title);
+			// 打字動畫的迴圈是個閉包，會持續往它抓到的那個節點 append，直接改 textContent
+			// 會被它接著補字而變成重複的標題。換一個新節點，舊迴圈就寫進已脫離文件的舊節點。
+			const fresh = typed.cloneNode(false);
+			fresh.textContent = title;
+			typed.replaceWith(fresh);
+		}
+
+		// BlogPost.astro 把 mermaid／程式碼區塊／目錄／燈箱都掛在這個 handler 上，
+		// 而 setupMermaid() 本身就設計成可重複呼叫，所以直接重跑一次即可。
+		live.contentWindow?.__blogEnhancementsHandler?.();
+	};
+
+	const queueLive = () => {
+		if (!panes.classList.contains('live')) return;
+		clearTimeout(liveTimer);
+		liveTimer = setTimeout(paintLive, 300);
+	};
+
+	// 不用 once：iframe 內若因點到連結而換頁，重新載入後仍要把草稿內容塞回去。
+	live.addEventListener('load', paintLive);
+
+	// 視窗 ≤960px 時 CSS 會把 iframe 藏起來，此時 mermaid 量不到文字寬高，會畫出
+	// 壞掉的 viewBox；而且圖畫完後原本的 <pre> 已被 <figure> 取代，單純重跑強化腳本
+	// 找不到區塊就直接返回，不會自己修好。所以尺寸從 0 變成有值時要重畫一次。
+	new ResizeObserver(() => {
+		if (live.clientWidth > 0) queueLive();
+	}).observe(live);
 
 	paintPreview();
 	body.addEventListener('input', () => {
 		markDirty();
 		paintPreview();
+		queueLive();
 	});
+
+	document.getElementById('post-title')?.addEventListener('input', queueLive);
 
 	for (const id of ['post-title', 'post-date', 'post-description', 'post-draft']) {
 		document.getElementById(id)?.addEventListener('input', markDirty);
@@ -595,7 +655,22 @@ function setupEditor() {
 	}
 
 	document.getElementById('toggle-preview').addEventListener('click', () => {
-		document.getElementById('md-panes').classList.toggle('single');
+		panes.classList.toggle('single');
+	});
+
+	document.getElementById('toggle-live').addEventListener('click', () => {
+		if (!shellUrl) {
+			toast('需要至少一篇已發佈的文章當預覽外殼，先發佈一篇再用。', 'error');
+			return;
+		}
+
+		const on = panes.classList.toggle('live');
+		live.hidden = !on;
+		preview.hidden = on;
+
+		if (!on) return;
+		if (live.getAttribute('src')) paintLive();
+		else live.src = shellUrl;
 	});
 
 	document.getElementById('md-toolbar').addEventListener('click', (event) => {
@@ -604,6 +679,7 @@ function setupEditor() {
 		applyMarkdownAction(button.dataset.md, body);
 		markDirty();
 		paintPreview();
+		queueLive();
 	});
 
 	body.addEventListener('keydown', (event) => {
