@@ -22,8 +22,10 @@ import {
 	listPosts,
 } from './routes/posts';
 import { handleReadSettings, handleWriteSettings } from './routes/settings';
+import { handleGetViews, handleIncrementViews } from './routes/views';
 
 const API_PREFIX = '/api/admin';
+const VIEWS_PATH = '/api/views';
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
 
 export default {
@@ -34,11 +36,16 @@ export default {
 			return env.ASSETS.fetch(request);
 		}
 
-		if (!url.pathname.startsWith(API_PREFIX)) {
-			return fail(404, '沒有這個 API。');
-		}
-
 		try {
+			// 公開端點：文章瀏覽計數。讀者沒有登入，所以要擋在 admin 檢查之前。
+			if (url.pathname === VIEWS_PATH) {
+				return await routeViews(request, env, url);
+			}
+
+			if (!url.pathname.startsWith(API_PREFIX)) {
+				return fail(404, '沒有這個 API。');
+			}
+
 			return await route(request, env, url);
 		} catch (error) {
 			return toErrorResponse(error);
@@ -54,6 +61,21 @@ function toErrorResponse(error: unknown): Response {
 
 	console.error('admin api error', error);
 	return fail(500, error instanceof Error ? error.message : '伺服器發生未預期的錯誤。');
+}
+
+async function routeViews(request: Request, env: Env, url: URL): Promise<Response> {
+	const slug = url.searchParams.get('slug') ?? '';
+
+	if (request.method === 'GET') return handleGetViews(env, slug);
+
+	if (request.method === 'POST') {
+		// Origin 不存在時 isSameOrigin() 回 true，所以同源的 fetch 不會被誤擋，
+		// 但別的網站用瀏覽器灌數字會被擋下來。
+		if (!isSameOrigin(request)) throw new HttpError(403, '跨站請求被拒絕。');
+		return handleIncrementViews(env, slug);
+	}
+
+	throw new HttpError(405, '不支援這個方法。');
 }
 
 async function route(request: Request, env: Env, url: URL): Promise<Response> {

@@ -22,6 +22,8 @@ export interface Env {
 	DEPLOY_WORKFLOW: string;
 	/** Session lifetime in hours. */
 	SESSION_TTL_HOURS: string;
+	/** 文章瀏覽計數。key 是 `views:<slug>`，值是十進位字串。 */
+	VIEWS: KVNamespace;
 }
 
 export class ConfigError extends Error {}

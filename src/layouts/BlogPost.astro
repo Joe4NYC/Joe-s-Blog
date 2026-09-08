@@ -6,6 +6,7 @@ import HeroHeader from '../components/HeroHeader.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import PageShell from './PageShell.astro';
 import { heroConfig, locale, profileConfig, siteTitle } from '../config';
+import { getTagPath } from '../lib/content/tag-path';
 import katexStylesheetUrl from 'katex/dist/katex.min.css?url';
 
 interface Heading {
@@ -18,6 +19,7 @@ type BlogPostData = CollectionEntry<'blog'>['data'];
 
 interface Props extends BlogPostData {
 	headings?: Heading[];
+	slug?: string;
 	wordCount?: number;
 	readingTime?: number;
 	seoDescription?: string;
@@ -33,6 +35,7 @@ const {
 	tags,
 	draft,
 	headings = [],
+	slug,
 	wordCount,
 	readingTime,
 	seoDescription,
@@ -53,6 +56,13 @@ const articleSection =
 			: undefined;
 const articleTags = Array.isArray(tags) ? tags : [];
 const authorName = profileConfig.name || siteTitle;
+// 用 FormattedDate 實際渲染的字串比對，而不是比 Date 物件：兩者同一天但時間不同時
+// 畫面上會是兩個一模一樣的日期，讀者只會以為壞掉了。
+const renderedDate = (value?: Date) =>
+	value?.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
+const showUpdatedDate = Boolean(updatedDate) && renderedDate(updatedDate) !== renderedDate(pubDate);
+const authorAvatar = profileConfig.avatar;
+const authorAvatarSrc = typeof authorAvatar === 'string' ? authorAvatar : authorAvatar?.src;
 const authorUrl = new URL('/about/', siteURL).toString();
 const articleSchema = {
 	'@context': 'https://schema.org',
@@ -150,6 +160,46 @@ const articleSchema = {
 				display: flex;
 				align-items: center;
 				gap: 0.4em;
+			}
+
+			.meta-avatar {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				object-fit: cover;
+				border: 1px solid rgba(255, 255, 255, 0.55);
+			}
+
+			.meta-taxonomy {
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 0.6em 1em;
+			}
+
+			.meta-tag {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.15em 0.6em;
+				border: 1px solid rgba(255, 255, 255, 0.4);
+				border-radius: 999px;
+				color: inherit;
+				text-decoration: none;
+				font-size: 0.92em;
+				line-height: 1.6;
+				transition: background-color 0.2s ease, border-color 0.2s ease;
+			}
+
+			.meta-tag:hover,
+			.meta-tag:focus-visible {
+				background: rgba(255, 255, 255, 0.18);
+				border-color: rgba(255, 255, 255, 0.75);
+			}
+
+			/* 數字是 JS 補上的，先佔住寬度避免載入後整列跳動。 */
+			.view-count {
+				display: inline-block;
+				min-width: 1.5em;
+				font-variant-numeric: tabular-nums;
 			}
 
 			.pdf-export-button {
@@ -685,25 +735,56 @@ const articleSchema = {
 				)}
                 <div class="meta-row">
                     <div class="meta-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        {authorAvatarSrc
+                            ? <img class="meta-avatar" src={authorAvatarSrc} alt="" width="20" height="20" loading="lazy" decoding="async" />
+                            : <Fragment set:html={`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`} />}
+                        <span>{authorName}</span>
+                    </div>
+                    <div class="meta-item" title="發布日期">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         <FormattedDate date={pubDate} />
                     </div>
+                    {showUpdatedDate && updatedDate && (
+                        <div class="meta-item" title="最後編輯">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            <span>更新 <FormattedDate date={updatedDate} /></span>
+                        </div>
+                    )}
                 </div>
                 <div class="meta-row">
                     {wordCount && (
-                        <div class="meta-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                        <div class="meta-item" title="字數">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                             <span>{wordCount} 字</span>
                         </div>
                     )}
                     {readingTime && (
-                        <div class="meta-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <div class="meta-item" title="閱讀時間">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                             <span>{readingTime} 分鐘</span>
                         </div>
                     )}
+                    {slug && (
+                        <div class="meta-item" title="瀏覽次數">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <span class="view-count" data-view-count data-slug={slug} aria-live="polite">–</span>
+                        </div>
+                    )}
                 </div>
-				<div class="meta-row">
+                {(articleSection || articleTags.length > 0) && (
+                    <div class="meta-row meta-taxonomy">
+                        {articleSection && (
+                            <div class="meta-item" title="分類">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                <span>{articleSection}</span>
+                            </div>
+                        )}
+                        {articleTags.map((tag) => (
+                            <a class="meta-tag" href={getTagPath(tag)}>#{tag}</a>
+                        ))}
+                    </div>
+                )}
+                <div class="meta-row">
 					<button class="pdf-export-button" type="button" data-pdf-export data-pdf-title={title} aria-label={`將《${title}》匯出為 PDF`}>
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
 						<span>下載 PDF</span>
@@ -892,6 +973,43 @@ const articleSchema = {
 				});
 			};
 
+            /**
+             * 瀏覽計數。同一個 session 只增加一次，重整不會灌水；
+             * 之後的造訪改用 GET 純讀取。失敗就維持佔位符，不干擾閱讀。
+             */
+            const setupViewCount = () => {
+                const el = document.querySelector<HTMLElement>('[data-view-count]');
+                const slug = el?.dataset.slug;
+                if (!el || !slug) return;
+
+                const storageKey = `viewed:${slug}`;
+                let counted = false;
+                try {
+                    counted = sessionStorage.getItem(storageKey) === '1';
+                } catch {
+                    // 無痕模式或封鎖儲存時讀不到，當作沒算過就好。
+                }
+
+                void fetch(`/api/views?slug=${encodeURIComponent(slug)}`, {
+                    method: counted ? 'GET' : 'POST',
+                    headers: { Accept: 'application/json' },
+                })
+                    .then((response) => (response.ok ? response.json() : null))
+                    .then((payload) => {
+                        if (!payload?.ok || typeof payload.count !== 'number') return;
+                        el.textContent = payload.count.toLocaleString();
+                        if (counted) return;
+                        try {
+                            sessionStorage.setItem(storageKey, '1');
+                        } catch {
+                            // 存不進去只代表下次重整會再算一次，不值得為此中斷。
+                        }
+                    })
+                    .catch(() => {
+                        // 計數壞掉不該影響文章本身，維持佔位符即可。
+                    });
+            };
+
             const runEnhancements = async () => {
                 await setupMermaid?.();
                 setupCodeBlocks?.();
@@ -900,6 +1018,7 @@ const articleSchema = {
                 setupSearchLanding?.(articleNavigation);
 				markPrintExcerpt();
 				setupPdfExport();
+				setupViewCount();
             };
 
             const runtimeWindow = window as Window & {

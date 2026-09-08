@@ -30,6 +30,7 @@ const readingTime = Math.ceil(wordCount / 400);
 <BlogPost
 	{...post.data}
 	headings={headings}
+	slug={post.id}
 	wordCount={wordCount}
 	readingTime={readingTime}
 	seoDescription={seoDescription}

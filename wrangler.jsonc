@@ -7,6 +7,8 @@
 	"routes": [{ "pattern": "blogs.joenyc.net", "custom_domain": true }],
 	// 只留自訂網域；workers.dev 網址刻意關閉，避免同一份內容有兩個入口。
 	"workers_dev": false,
+	// 文章瀏覽計數。
+	"kv_namespaces": [{ "binding": "VIEWS", "id": "39624a71b3b94b59bb108d57e724f6b5" }],
 	"observability": {
 		"enabled": true
 	},
