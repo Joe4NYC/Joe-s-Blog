@@ -91,7 +91,7 @@ node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"
 
 ### 2.5 確認
 
-打開 <https://joe-s-blog.ng80160.workers.dev/admin/>，用 `ADMIN_PASSWORD` 登入。看到儀表板顯示文章數量就代表整條路都通了。
+打開 <https://blogs.joenyc.net/admin/>，用 `ADMIN_PASSWORD` 登入。看到儀表板顯示文章數量就代表整條路都通了。
 
 登入帳號名稱只是顯示用，寫在 `wrangler.jsonc` 的 `ADMIN_USERNAME`；真正驗證的是密碼。
 

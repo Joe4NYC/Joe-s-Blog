@@ -3,6 +3,10 @@
 	"name": "joe-s-blog",
 	"main": "worker/index.ts",
 	"compatibility_date": "2026-07-14",
+	// 自訂網域：DNS 記錄由 wrangler 在 joenyc.net 這個 zone 自動建立。
+	"routes": [{ "pattern": "blogs.joenyc.net", "custom_domain": true }],
+	// 只留自訂網域；workers.dev 網址刻意關閉，避免同一份內容有兩個入口。
+	"workers_dev": false,
 	"observability": {
 		"enabled": true
 	},
