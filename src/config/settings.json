@@ -30,6 +30,11 @@
         "key": "email",
         "label": "Email",
         "url": "yikchunjoe@gmail.com"
+      },
+      {
+        "key": "website",
+        "label": "Portfolio",
+        "url": "https://joenyc.net"
       }
     ]
   },
