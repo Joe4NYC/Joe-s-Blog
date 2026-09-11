@@ -87,8 +87,14 @@ const options = LOCALES.map((locale) => ({
 		color: white;
 	}
 
+	/*
+	 * hover 背景刻意用半透明灰，不用 --color-surface-hover。
+	 * 那個 token 在淺色模式是 #fafbfc（近白），而透明 header 會把這顆圖示
+	 * 強制設成白色——白圖示疊在近白背景上就整個看不見了。半透明灰是把底下
+	 * 的顏色壓深，不論淺色、深色還是壓在 hero 圖片上都維持對比。
+	 */
 	.lang-switch summary:hover {
-		background: var(--color-surface-hover, rgba(128, 128, 128, 0.2));
+		background: rgba(128, 128, 128, 0.25);
 	}
 
 	.lang-menu {
