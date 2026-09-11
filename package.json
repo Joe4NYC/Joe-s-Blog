@@ -43,6 +43,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@cloudflare/workers-types": "^5.20260907.1",
+    "opencc-js": "^1.4.2",
     "typescript": "^5.9.2",
     "vitest": "^3.2.7",
     "wrangler": "4.110.0",

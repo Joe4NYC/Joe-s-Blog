@@ -1,25 +1,26 @@
 ---
 import type { GetStaticPaths, Page } from 'astro';
-import ArchiveCard from '../../components/ArchiveCard.astro';
-import HeroHeader from '../../components/HeroHeader.astro';
-import PageShell from '../../layouts/PageShell.astro';
-import PostListItem from '../../components/PostListItem.astro';
-import { heroConfig, siteTitle } from '../../config';
-import { getBlogPosts, type BlogPost } from '../../lib/content/blog';
+import ArchiveCard from '../../../components/ArchiveCard.astro';
+import HeroHeader from '../../../components/HeroHeader.astro';
+import PageShell from '../../../layouts/PageShell.astro';
+import PostListItem from '../../../components/PostListItem.astro';
+import { heroConfig, siteTitle } from '../../../config';
+import { getBlogPosts, type BlogPost } from '../../../lib/content/blog';
 import {
   getBlogPageParam,
   getBlogPagePath,
   getBlogPageUrls,
-} from '../../lib/content/blog-page-path';
-import { extractExcerpt } from '../../lib/content/text';
+} from '../../../lib/content/blog-page-path';
+import { LOCALES, localeFromParam, localeParam } from '../../../i18n/config';
+import { extractExcerpt } from '../../../lib/content/text';
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const posts = await getBlogPosts();
 
   if (posts.length === 0) {
-    return [
+    return LOCALES.map((value) => (
       {
-        params: { page: undefined },
+        params: { lang: localeParam(value), page: undefined },
         props: {
           page: {
             data: [],
@@ -32,17 +33,18 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
             url: getBlogPageUrls(1, 1),
           },
         },
-      },
-    ];
+      }
+    ));
   }
 
-  return paginate(posts, { pageSize: 15 }).map((entry) => {
+  return LOCALES.flatMap((value) => paginate(posts, { pageSize: 15 }).map((entry) => {
     const currentPage = entry.props.page.currentPage;
     const lastPage = entry.props.page.lastPage;
     return {
       ...entry,
       params: {
         ...entry.params,
+        lang: localeParam(value),
         page: getBlogPageParam(currentPage),
       },
       props: {
@@ -53,9 +55,10 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
         },
       },
     };
-  });
+  }));
 };
 
+const lang = localeFromParam(Astro.params.lang);
 const { page } = Astro.props as { page: Page<BlogPost> };
 const siteURL = Astro.site ?? Astro.url;
 const hasPosts = page.total > 0;

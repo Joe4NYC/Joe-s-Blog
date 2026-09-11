@@ -1,12 +1,19 @@
 ---
-import ArchiveCard from '../../components/ArchiveCard.astro';
-import DraftBadge from '../../components/DraftBadge.astro';
-import HeroHeader from '../../components/HeroHeader.astro';
-import PageShell from '../../layouts/PageShell.astro';
-import { heroConfig, siteTitle } from '../../config';
-import { getTagStats, getBlogPosts } from '../../lib/content/blog';
-import { getTagPath } from '../../lib/content/tag-path';
-import { extractExcerpt } from '../../lib/content/text';
+import ArchiveCard from '../../../components/ArchiveCard.astro';
+import DraftBadge from '../../../components/DraftBadge.astro';
+import HeroHeader from '../../../components/HeroHeader.astro';
+import PageShell from '../../../layouts/PageShell.astro';
+import { heroConfig, siteTitle } from '../../../config';
+import { getTagStats, getBlogPosts } from '../../../lib/content/blog';
+import { getTagPath } from '../../../lib/content/tag-path';
+import { extractExcerpt } from '../../../lib/content/text';
+import { LOCALES, localeFromParam, localeParam } from '../../../i18n/config';
+
+export function getStaticPaths() {
+	return LOCALES.map((value) => ({ params: { lang: localeParam(value) } }));
+}
+
+const lang = localeFromParam(Astro.params.lang);
 
 const sortedTags = await getTagStats();
 const posts = await getBlogPosts();

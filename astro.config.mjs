@@ -57,7 +57,8 @@ export default defineConfig({
 		mdx(),
 		sitemap({
 			filter: (page) => {
-				const pathname = new URL(page).pathname;
+				// 先剝掉語言前綴再比對，否則 /zh-cn/tags/ 之類會繞過下面的規則。
+				const pathname = new URL(page).pathname.replace(/^\/(?:zh-cn|en)(?=\/)/, '');
 				if (pathname === '/tags/' || pathname.startsWith('/tags/')) return false;
 				if (/^\/blog\/page\/\d+\/?$/.test(pathname)) return false;
 				return true;

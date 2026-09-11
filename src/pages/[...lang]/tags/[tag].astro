@@ -1,31 +1,33 @@
 ---
-import ArchiveCard from '../../components/ArchiveCard.astro';
-import DraftBadge from '../../components/DraftBadge.astro';
-import HeroHeader from '../../components/HeroHeader.astro';
-import PageShell from '../../layouts/PageShell.astro';
-import { heroConfig, siteTitle } from '../../config';
-import { getBlogPosts, getTagStats } from '../../lib/content/blog';
-import { extractExcerpt } from '../../lib/content/text';
-import { getTagPath } from '../../lib/content/tag-path';
+import ArchiveCard from '../../../components/ArchiveCard.astro';
+import DraftBadge from '../../../components/DraftBadge.astro';
+import HeroHeader from '../../../components/HeroHeader.astro';
+import PageShell from '../../../layouts/PageShell.astro';
+import { heroConfig, siteTitle } from '../../../config';
+import { getBlogPosts, getTagStats } from '../../../lib/content/blog';
+import { extractExcerpt } from '../../../lib/content/text';
+import { LOCALES, localeFromParam, localeParam } from '../../../i18n/config';
+import { getTagPath } from '../../../lib/content/tag-path';
 
 export async function getStaticPaths() {
   const posts = await getBlogPosts();
   const sortedTags = await getTagStats();
   const tags = sortedTags.map(([tag]) => tag);
 
-  return tags.map((tag) => {
+  return LOCALES.flatMap((value) => tags.map((tag) => {
     const matchingPosts = posts.filter((post) => post.data.tags.includes(tag));
     return {
-      params: { tag },
+      params: { lang: localeParam(value), tag },
       props: {
         tag,
         posts: matchingPosts,
         sortedTags,
       },
     };
-  });
+  }));
 }
 
+const lang = localeFromParam(Astro.params.lang);
 const { tag, posts, sortedTags } = Astro.props;
 const tagsHero = heroConfig.tags;
 ---
