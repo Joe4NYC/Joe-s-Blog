@@ -170,6 +170,21 @@ const navPath = (path: string) => localePath(path, navLocale);
 		height: 64px;
 	}
 
+	/*
+	 * 左右兩側各佔一半剩餘空間，中間的導覽就永遠落在視窗正中央。
+	 * 原本靠 space-between 的話，置中與否取決於左右內容剛好一樣寬——
+	 * 右側多一顆圖示（例如語言切換）就會把中間擠偏。
+	 */
+	nav > h2,
+	nav > .header-actions {
+		flex: 1 0 0;
+		min-width: 0;
+	}
+
+	nav > .header-actions {
+		justify-content: flex-end;
+	}
+
     /* Nav Links Container */
     .internal-links {
 		display: flex;
@@ -231,9 +246,10 @@ const navPath = (path: string) => localePath(path, navLocale);
 		gap: 0.5em;
 		align-items: center;
 	}
-	.header-actions {
-		margin-right: 1em;
-	}
+	/*
+	 * 這裡刻意沒有 margin-right：header 本身已經有對稱的 padding: 0 1em，
+	 * 右側再加一層就會讓兩側內距不等，中間的導覽跟著偏 8px（margin 的一半）。
+	 */
 
 	.mobile-menu-btn {
 		display: none;
@@ -453,10 +469,6 @@ const navPath = (path: string) => localePath(path, navLocale);
 
 		.mobile-menu-btn {
 			display: inline-flex;
-		}
-
-		.header-actions {
-			margin-right: 0;
 		}
 
 		.header-actions > a {
