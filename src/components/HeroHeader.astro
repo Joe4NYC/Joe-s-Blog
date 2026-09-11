@@ -44,6 +44,7 @@ if (interactive) heroClass += ' hero-interactive';
 
 <style>
     .hero-header {
+        --header-height: 64px;
         position: relative;
         width: 100%;
         height: 100vh;
@@ -71,11 +72,24 @@ if (interactive) heroClass += ' hero-interactive';
         transition: transform 0.8s var(--ease-out-expo);
     }
 
+    /*
+     * 用 min-height 而不是 height：固定高度配上 align-items:center 與
+     * overflow:hidden，長標題會同時往上下溢出——上面鑽進固定的 header，
+     * 下面把「下載 PDF」按鈕裁掉。改成 min-height 就會隨內容長高。
+     * padding-top 是固定 header 的高度，確保標題永遠不會被它蓋住。
+     */
     .hero-header.hero-compact {
-        height: 60vh;
-        height: 60dvh;
-        min-height: 360px;
-        margin-bottom: -88px;
+        /* 基底 .hero-header 是 height:100dvh，這裡要明確 reset 成 auto，
+           否則移除 height 之後會退回整個視窗高。 */
+        height: auto;
+        min-height: 60vh;
+        min-height: 60dvh;
+        /* 下方的內容卡片靠負 margin 疊上來，padding-bottom 要讓出同樣的高度，
+           否則最後一列（下載 PDF）會被卡片蓋住——量得到位置但看不見。 */
+        --card-overlap: 88px;
+        padding-top: var(--header-height);
+        padding-bottom: var(--card-overlap);
+        margin-bottom: calc(-1 * var(--card-overlap));
     }
 
     /* compact 模式下背景層保持與主頁一致的 100vh 高度，
@@ -169,10 +183,9 @@ if (interactive) heroClass += ' hero-interactive';
         }
 
         .hero-header.hero-compact {
-            height: 52vh;
-            height: 52dvh;
-            min-height: 260px;
-            margin-bottom: -56px;
+            min-height: 52vh;
+            min-height: 52dvh;
+            --card-overlap: 56px;
         }
 
         .hero-content {
