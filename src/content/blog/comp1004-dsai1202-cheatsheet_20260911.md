@@ -1,6 +1,7 @@
 ---
-title: "COMP1004（現在的 DSAI1202）Final Quiz Cheat Sheet：兩頁 A4 裡裝了什麼"
+title: "COMP1004（現在的 DSAI1202）Final Quiz Cheat Sheet"
 date: "2026-09-11T15:40:00+08:00"
+updated: "2026-09-11T16:34:33+08:00"
 description: "把我 Year 1 修 PolyU Introduction to Artificial Intelligence and Data Analytics 時做的兩頁 cheat sheet 公開出來，PDF 放在 GitHub。這篇列出它的完整骨架——兩頁各自涵蓋哪些課題、哪些概念做成了表格。內容是 2024 年的版本，之後的課程大綱可能已經不一樣。"
 draft: false
 categories:
