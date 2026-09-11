@@ -1,0 +1,126 @@
+---
+import { LOCALES, LOCALE_LABELS, localeFromPath, localePath, stripLocale } from '../i18n/config';
+
+interface Props {
+	/** 行動版抽屜裡要平鋪，不要收成下拉選單。 */
+	inline?: boolean;
+}
+
+const { inline = false } = Astro.props;
+
+const current = localeFromPath(Astro.url.pathname);
+// 剝掉語言前綴再重新加上，讀者就會停在同一篇文章的另一個語言版本，
+// 而不是被丟回首頁。
+const neutralPath = stripLocale(Astro.url.pathname);
+const options = LOCALES.map((locale) => ({
+	locale,
+	label: LOCALE_LABELS[locale],
+	href: localePath(neutralPath, locale),
+	isCurrent: locale === current,
+}));
+---
+
+{inline ? (
+	<div class="lang-inline">
+		{options.map(({ label, href, isCurrent }) => (
+			<a href={href} class="lang-inline-link" aria-current={isCurrent ? 'true' : undefined} data-no-convert>
+				{label}
+			</a>
+		))}
+	</div>
+) : (
+	<details class="lang-switch">
+		<summary aria-label="切換語言">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<circle cx="12" cy="12" r="10"></circle>
+				<line x1="2" y1="12" x2="22" y2="12"></line>
+				<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+			</svg>
+		</summary>
+		<div class="lang-menu">
+			{options.map(({ label, href, isCurrent }) => (
+				<a href={href} class="lang-item" aria-current={isCurrent ? 'true' : undefined} data-no-convert>
+					{label}
+				</a>
+			))}
+		</div>
+	</details>
+)}
+
+<style>
+	.lang-switch {
+		position: relative;
+	}
+
+	.lang-switch summary {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 8px;
+		cursor: pointer;
+		color: inherit;
+		list-style: none;
+	}
+
+	/* Safari 仍會畫出預設的三角形箭頭。 */
+	.lang-switch summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.lang-switch summary:hover {
+		background: var(--surface-hover, rgba(128, 128, 128, 0.14));
+	}
+
+	.lang-menu {
+		position: absolute;
+		right: 0;
+		top: calc(100% + 6px);
+		min-width: 8.5rem;
+		padding: 0.3rem;
+		border: 1px solid var(--border-color, rgba(128, 128, 128, 0.28));
+		border-radius: 10px;
+		background: var(--surface-elevated, var(--bg-color, #fff));
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+		z-index: 60;
+	}
+
+	.lang-item {
+		display: block;
+		padding: 0.45rem 0.7rem;
+		border-radius: 7px;
+		color: inherit;
+		text-decoration: none;
+		white-space: nowrap;
+		font-size: 0.9rem;
+	}
+
+	.lang-item:hover {
+		background: var(--surface-hover, rgba(128, 128, 128, 0.14));
+	}
+
+	.lang-item[aria-current='true'] {
+		font-weight: 600;
+	}
+
+	.lang-inline {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.lang-inline-link {
+		padding: 0.35rem 0.7rem;
+		border: 1px solid var(--border-color, rgba(128, 128, 128, 0.28));
+		border-radius: 999px;
+		color: inherit;
+		text-decoration: none;
+		font-size: 0.85rem;
+	}
+
+	.lang-inline-link[aria-current='true'] {
+		font-weight: 600;
+		border-color: currentColor;
+	}
+</style>

@@ -84,8 +84,11 @@ export function toSimplifiedHtml(html: string): string {
 		out += tagName ? convertTagAttributes(match[0]) : match[0];
 		index = match.index + match[0].length;
 
-		if (!tagName || !VERBATIM_TAGS.has(tagName)) continue;
+		if (!tagName) continue;
 		if (match[0].startsWith('</') || match[0].endsWith('/>')) continue;
+		// data-no-convert 給的是「這段本來就該保持原樣」，例如語言切換選單裡的
+		//「繁體中文」——在簡體頁上被轉成「繁体中文」的話，整個切換器就沒意義了。
+		if (!VERBATIM_TAGS.has(tagName) && !/\bdata-no-convert\b/.test(match[0])) continue;
 
 		const end = findVerbatimEnd(html, index, tagName);
 		out += html.slice(index, end);

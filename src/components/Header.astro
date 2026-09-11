@@ -1,26 +1,33 @@
 ---
 import { headerGithubRepoUrl, siteTitle } from '../config';
 import HeaderLink from './HeaderLink.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { localeFromPath, localePath } from '../i18n/config';
 
 interface Props {
 	transparent?: boolean;
 }
 
 const { transparent = true } = Astro.props;
+
+// 導覽連結要留在同一個語言版本，否則在 /zh-cn/ 點 Blog 會被丟回繁體站。
+const navLocale = localeFromPath(Astro.url.pathname);
+const navPath = (path: string) => localePath(path, navLocale);
 ---
 
 <header class:list={[{ transparent }]} transition:persist transition:name="header" transition:animate="none">
 	<div id="navigation-progress" aria-hidden="true"></div>
 	<nav>
-		<h2><a href="/">{siteTitle}</a></h2>
+		<h2><a href={navPath("/")}>{siteTitle}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/tags">Tags</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href={navPath("/")}>Home</HeaderLink>
+			<HeaderLink href={navPath("/blog")}>Blog</HeaderLink>
+			<HeaderLink href={navPath("/tags")}>Tags</HeaderLink>
+			<HeaderLink href={navPath("/about")}>About</HeaderLink>
 			<div class="nav-indicator" id="nav-indicator"></div>
 		</div>
 		<div class="header-actions">
+			<LanguageSwitcher />
 			<button id="search-btn" class="search-btn" aria-label="搜尋">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<circle cx="11" cy="11" r="8"></circle>
@@ -70,10 +77,11 @@ const { transparent = true } = Astro.props;
 	<div id="mobile-nav-overlay" class="mobile-nav-overlay" aria-hidden="true"></div>
 	<aside id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
 		<nav class="mobile-nav-links" aria-label="移動端導航">
-			<a href="/" class="mobile-nav-link">Home</a>
-			<a href="/blog" class="mobile-nav-link">Blog</a>
-			<a href="/tags" class="mobile-nav-link">Tags</a>
-			<a href="/about" class="mobile-nav-link">About</a>
+			<a href={navPath("/")} class="mobile-nav-link">Home</a>
+			<a href={navPath("/blog")} class="mobile-nav-link">Blog</a>
+			<a href={navPath("/tags")} class="mobile-nav-link">Tags</a>
+			<a href={navPath("/about")} class="mobile-nav-link">About</a>
+					<LanguageSwitcher inline={true} />
 		</nav>
 	</aside>
 </header>

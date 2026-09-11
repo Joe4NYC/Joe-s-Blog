@@ -111,3 +111,12 @@ describe('原樣區塊的邊界', () => {
 		expect(toSimplifiedHtml('<p>軟體</p><script>a<b')).toBe('<p>软件</p><script>a<b');
 	});
 });
+
+describe('data-no-convert', () => {
+	it('標記的元素內容保持原樣', () => {
+		// 語言切換選單上的「繁體中文」在簡體頁也必須是繁體，否則切換器沒意義。
+		expect(toSimplifiedHtml('<a data-no-convert>繁體中文</a><p>軟體</p>')).toBe(
+			'<a data-no-convert>繁體中文</a><p>软件</p>',
+		);
+	});
+});
