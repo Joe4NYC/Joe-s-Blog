@@ -502,6 +502,7 @@ const navPath = (path: string) => localePath(path, navLocale);
 	header.transparent > nav .header-actions > a,
 	header.transparent > nav h2 a,
 	header.transparent > nav .search-btn,
+	header.transparent > nav :global(.lang-switch summary),
 	header.transparent > nav .theme-toggle-btn,
 	header.transparent > nav .mobile-menu-btn {
 		color: white;
@@ -537,6 +538,7 @@ const navPath = (path: string) => localePath(path, navLocale);
     header.transparent.scrolled > nav .header-actions > a,
     header.transparent.scrolled > nav h2 a,
     header.transparent.scrolled > nav .search-btn,
+    header.transparent.scrolled > nav :global(.lang-switch summary),
     header.transparent.scrolled > nav .theme-toggle-btn,
     header.transparent.scrolled > nav .mobile-menu-btn {
         color: var(--black);

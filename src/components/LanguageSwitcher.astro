@@ -78,21 +78,6 @@ const options = LOCALES.map((locale) => ({
 		display: none;
 	}
 
-	/*
-	 * 透明 header（首頁 hero 上方）會把另外兩顆按鈕強制設成白色，但那條規則的
-	 * 選擇器清單裡沒有這顆。少了它，地球就維持繼承色，切換淺深色時只有它跟著
-	 * 變色，看起來像自己在動。
-	 */
-	:global(header.transparent) .lang-switch summary {
-		color: white;
-	}
-
-	/*
-	 * hover 背景刻意用半透明灰，不用 --color-surface-hover。
-	 * 那個 token 在淺色模式是 #fafbfc（近白），而透明 header 會把這顆圖示
-	 * 強制設成白色——白圖示疊在近白背景上就整個看不見了。半透明灰是把底下
-	 * 的顏色壓深，不論淺色、深色還是壓在 hero 圖片上都維持對比。
-	 */
 	.lang-switch summary:hover {
 		background: rgba(128, 128, 128, 0.25);
 	}
