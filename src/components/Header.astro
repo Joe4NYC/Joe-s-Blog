@@ -2,7 +2,7 @@
 import { headerGithubRepoUrl, siteTitle } from '../config';
 import HeaderLink from './HeaderLink.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { localeFromPath, localePath } from '../i18n/config';
+import { DEFAULT_LOCALE, LOCALES, localeFromPath, localePath } from '../i18n/config';
 
 interface Props {
 	transparent?: boolean;
@@ -18,12 +18,12 @@ const navPath = (path: string) => localePath(path, navLocale);
 <header class:list={[{ transparent }]} transition:persist transition:name="header" transition:animate="none">
 	<div id="navigation-progress" aria-hidden="true"></div>
 	<nav>
-		<h2><a href={navPath("/")}>{siteTitle}</a></h2>
+		<h2><a href={navPath("/")} data-nav-path="/">{siteTitle}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href={navPath("/")}>Home</HeaderLink>
-			<HeaderLink href={navPath("/blog")}>Blog</HeaderLink>
-			<HeaderLink href={navPath("/tags")}>Tags</HeaderLink>
-			<HeaderLink href={navPath("/about")}>About</HeaderLink>
+			<HeaderLink href={navPath("/")} data-nav-path="/">Home</HeaderLink>
+			<HeaderLink href={navPath("/blog")} data-nav-path="/blog">Blog</HeaderLink>
+			<HeaderLink href={navPath("/tags")} data-nav-path="/tags">Tags</HeaderLink>
+			<HeaderLink href={navPath("/about")} data-nav-path="/about">About</HeaderLink>
 			<div class="nav-indicator" id="nav-indicator"></div>
 		</div>
 		<div class="header-actions">
@@ -77,10 +77,10 @@ const navPath = (path: string) => localePath(path, navLocale);
 	<div id="mobile-nav-overlay" class="mobile-nav-overlay" aria-hidden="true"></div>
 	<aside id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
 		<nav class="mobile-nav-links" aria-label="移動端導航">
-			<a href={navPath("/")} class="mobile-nav-link">Home</a>
-			<a href={navPath("/blog")} class="mobile-nav-link">Blog</a>
-			<a href={navPath("/tags")} class="mobile-nav-link">Tags</a>
-			<a href={navPath("/about")} class="mobile-nav-link">About</a>
+			<a href={navPath("/")} class="mobile-nav-link" data-nav-path="/">Home</a>
+			<a href={navPath("/blog")} class="mobile-nav-link" data-nav-path="/blog">Blog</a>
+			<a href={navPath("/tags")} class="mobile-nav-link" data-nav-path="/tags">Tags</a>
+			<a href={navPath("/about")} class="mobile-nav-link" data-nav-path="/about">About</a>
 					<LanguageSwitcher inline={true} />
 		</nav>
 	</aside>
@@ -556,4 +556,63 @@ import '../scripts/header.client';
 import { setupNavigationFeedback } from '../scripts/navigation-feedback';
 
 setupNavigationFeedback();
+</script>
+
+<!--
+	header 帶著 transition:persist（換頁進度條要靠它跨頁動畫），所以客戶端換頁時
+	整個 header 不會重新渲染——伺服器算好的語言前綴會被凍結在第一次載入的語言。
+	這裡在每次換頁後自己把連結補回來。語言清單用 define:vars 從設定傳進來，
+	不在腳本裡另外維護一份。
+-->
+<script define:vars={{ locales: LOCALES, defaultLocale: DEFAULT_LOCALE }}>
+	const localeOf = (pathname) => {
+		const first = pathname.split('/').filter(Boolean)[0];
+		return locales.includes(first) && first !== defaultLocale ? first : defaultLocale;
+	};
+
+	const withLocale = (path, locale) =>
+		locale === defaultLocale ? path : `/${locale}${path === '/' ? '/' : path}`;
+
+	const syncHeaderLocale = () => {
+		const pathname = window.location.pathname;
+		const current = localeOf(pathname);
+
+		// 導覽與 logo：data-nav-path 存的是不含語言前綴的路徑
+		document.querySelectorAll('[data-nav-path]').forEach((link) => {
+			const target = withLocale(link.dataset.navPath, current);
+			link.setAttribute('href', target);
+			const here = pathname.replace(/\/$/, '') || '/';
+			link.classList.toggle('active', (target.replace(/\/$/, '') || '/') === here);
+		});
+
+		// 語言切換：指向「這一頁」的其他語言版本
+		const neutral = current === defaultLocale ? pathname : pathname.slice(current.length + 1) || '/';
+		document.querySelectorAll('[data-locale]').forEach((link) => {
+			const target = link.dataset.locale;
+			link.setAttribute('href', withLocale(neutral.startsWith('/') ? neutral : `/${neutral}`, target));
+			if (target === current) link.setAttribute('aria-current', 'true');
+			else link.removeAttribute('aria-current');
+		});
+
+		// details 的開合狀態也會被 persist 留下來，換頁後要關回去
+		document.querySelectorAll('details.lang-switch').forEach((d) => {
+			d.open = false;
+		});
+	};
+
+	document.addEventListener('astro:page-load', syncHeaderLocale);
+
+	// 點選單以外的地方要收起來——原生 <details> 不會自己關。
+	document.addEventListener('click', (event) => {
+		document.querySelectorAll('details.lang-switch[open]').forEach((d) => {
+			if (!d.contains(event.target)) d.open = false;
+		});
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (event.key !== 'Escape') return;
+		document.querySelectorAll('details.lang-switch[open]').forEach((d) => {
+			d.open = false;
+		});
+	});
 </script>

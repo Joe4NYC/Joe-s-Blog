@@ -22,8 +22,8 @@ const options = LOCALES.map((locale) => ({
 
 {inline ? (
 	<div class="lang-inline">
-		{options.map(({ label, href, isCurrent }) => (
-			<a href={href} class="lang-inline-link" aria-current={isCurrent ? 'true' : undefined} data-no-convert>
+		{options.map(({ locale, label, href, isCurrent }) => (
+			<a href={href} class="lang-inline-link" data-locale={locale} aria-current={isCurrent ? 'true' : undefined} data-no-convert>
 				{label}
 			</a>
 		))}
@@ -38,8 +38,8 @@ const options = LOCALES.map((locale) => ({
 			</svg>
 		</summary>
 		<div class="lang-menu">
-			{options.map(({ label, href, isCurrent }) => (
-				<a href={href} class="lang-item" aria-current={isCurrent ? 'true' : undefined} data-no-convert>
+			{options.map(({ locale, label, href, isCurrent }) => (
+				<a href={href} class="lang-item" data-locale={locale} aria-current={isCurrent ? 'true' : undefined} data-no-convert>
 					{label}
 				</a>
 			))}
