@@ -7,9 +7,20 @@
  */
 export const DEFAULT_LOCALE = 'zh-tw' as const;
 
-export const LOCALES = ['zh-tw', 'zh-cn', 'en'] as const;
+/** 定義過的語言，包含還沒上線的。型別從這裡來。 */
+export const ALL_LOCALES = ['zh-tw', 'zh-cn', 'en'] as const;
 
-export type Locale = (typeof LOCALES)[number];
+export type Locale = (typeof ALL_LOCALES)[number];
+
+/**
+ * 實際會產生頁面的語言。
+ *
+ * 英文介面字典還沒做完，先不上線——現在放出去的話，/en/ 會是「英文網址包中文
+ * 內容」，而 sitemap 已經用 hreflang="en" 宣告它們是英文版，等於主動告訴
+ * Google 一件假的事。字典補完後把 'en' 加回這個陣列即可，路由、hreflang、
+ * 切換器、sitemap 全部跟著這裡走。
+ */
+export const LOCALES: readonly Locale[] = ['zh-tw', 'zh-cn'];
 
 /** 語言切換選單上顯示的名稱，一律用該語言自己的寫法。 */
 export const LOCALE_LABELS: Record<Locale, string> = {
@@ -26,7 +37,7 @@ export const LOCALE_TAGS: Record<Locale, string> = {
 };
 
 export function isLocale(value: unknown): value is Locale {
-	return typeof value === 'string' && (LOCALES as readonly string[]).includes(value);
+	return typeof value === 'string' && (ALL_LOCALES as readonly string[]).includes(value);
 }
 
 /**
