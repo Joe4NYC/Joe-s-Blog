@@ -14,7 +14,11 @@ export function toSimplifiedText(input: string): string {
 }
 
 /** 這些屬性裝的是給人看的文字，要跟著轉。其餘屬性（href、src、class…）一律不動。 */
-const TEXT_ATTRIBUTES = new Set(['alt', 'aria-label', 'title', 'placeholder']);
+const TEXT_ATTRIBUTES = new Set(['alt', 'aria-label', 'title', 'placeholder', 'data-text']);
+
+// data-text 是 Typewriter 元件的原文。它的 JS 會把這個值打字進元素裡，
+// 蓋掉伺服器已經轉好的內容——漏掉它的話，簡體頁的大標題會在載入後變回繁體。
+// 刻意不碰 data-tag：那是標籤篩選的比對鍵，對應繁體的標籤網址，轉了會失效。
 
 /** meta 的 content 多半是機器值，只有這幾個 key 裝的是給人看的句子。 */
 const TEXT_META_KEYS = /^(title|description|og:title|og:description|twitter:title|twitter:description)$/i;

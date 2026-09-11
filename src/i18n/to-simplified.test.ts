@@ -120,3 +120,17 @@ describe('data-no-convert', () => {
 		);
 	});
 });
+
+describe('JS 會讀回去渲染的屬性', () => {
+	it('轉換 data-text，否則 Typewriter 會把繁體打字回畫面上', () => {
+		expect(toSimplifiedHtml('<h1 class="typewriter" data-text="寫一個外掛">x</h1>')).toBe(
+			'<h1 class="typewriter" data-text="写一个插件">x</h1>',
+		);
+	});
+
+	it('不轉 data-tag：那是對應繁體標籤網址的比對鍵', () => {
+		expect(toSimplifiedHtml('<button data-tag="外掛開發">外掛開發</button>')).toBe(
+			'<button data-tag="外掛開發">插件开发</button>',
+		);
+	});
+});
