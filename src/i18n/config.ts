@@ -47,3 +47,17 @@ export function localePath(path: string, locale: Locale): string {
 	if (locale === DEFAULT_LOCALE) return normalized;
 	return `/${locale}${normalized === '/' ? '/' : normalized}`;
 }
+
+/** 從路徑判斷語言。沒有前綴就是預設語言。 */
+export function localeFromPath(pathname: string): Locale {
+	const first = pathname.split('/').filter(Boolean)[0];
+	return isLocale(first) && first !== DEFAULT_LOCALE ? first : DEFAULT_LOCALE;
+}
+
+/** 去掉語言前綴，取得該頁在「語言無關」意義下的路徑。 */
+export function stripLocale(pathname: string): string {
+	const locale = localeFromPath(pathname);
+	if (locale === DEFAULT_LOCALE) return pathname;
+	const rest = pathname.slice(locale.length + 1);
+	return rest.startsWith('/') ? rest : `/${rest}`;
+}

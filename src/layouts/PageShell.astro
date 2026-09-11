@@ -1,5 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
+import { LOCALE_TAGS, localeFromPath } from '../i18n/config';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -28,6 +29,8 @@ interface Props {
 	pageId?: 'home' | 'about' | 'blog-list' | 'tags-index' | 'tag-detail';
 }
 
+const pageLocale = localeFromPath(Astro.url.pathname);
+
 const {
 	title,
 	description,
@@ -41,7 +44,7 @@ const {
 	schema,
 	canonical,
 	transparentHeader = true,
-	lang = siteLocale,
+	lang = LOCALE_TAGS[pageLocale],
 	prevURL,
 	nextURL,
 	useMainWrapper = true,

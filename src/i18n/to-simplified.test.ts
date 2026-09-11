@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { localeFromPath, localePath, stripLocale } from './config';
 import { toSimplifiedHtml, toSimplifiedText } from './to-simplified';
 
 describe('toSimplifiedText', () => {
@@ -41,5 +42,72 @@ describe('toSimplifiedHtml', () => {
 
 	it('標籤之外的前後文字也會轉換', () => {
 		expect(toSimplifiedHtml('軟體<p>資料庫</p>網路')).toBe('软件<p>数据库</p>网络');
+	});
+});
+
+describe('語言前綴的路徑處理', () => {
+	it('從路徑判斷語言', () => {
+		expect(localeFromPath('/')).toBe('zh-tw');
+		expect(localeFromPath('/blog/foo/')).toBe('zh-tw');
+		expect(localeFromPath('/zh-cn/blog/foo/')).toBe('zh-cn');
+		expect(localeFromPath('/en/')).toBe('en');
+		// slug 剛好叫 en 開頭的文章不能被誤判成語言前綴
+		expect(localeFromPath('/blog/english筆記_20260101/')).toBe('zh-tw');
+	});
+
+	it('剝掉語言前綴後三個語言得到同一條路徑', () => {
+		expect(stripLocale('/blog/foo/')).toBe('/blog/foo/');
+		expect(stripLocale('/zh-cn/blog/foo/')).toBe('/blog/foo/');
+		expect(stripLocale('/en/blog/foo/')).toBe('/blog/foo/');
+		expect(stripLocale('/en/')).toBe('/');
+	});
+
+	it('localePath 與 stripLocale 互為反向', () => {
+		for (const loc of ['zh-tw', 'zh-cn', 'en'] as const) {
+			expect(stripLocale(localePath('/blog/foo/', loc))).toBe('/blog/foo/');
+		}
+	});
+});
+
+describe('屬性轉換', () => {
+	it('轉換裝人類文字的屬性', () => {
+		expect(toSimplifiedHtml('<img alt="軟體截圖" src="/軟體.png" />')).toBe(
+			'<img alt="软件截屏" src="/軟體.png" />',
+		);
+		expect(toSimplifiedHtml('<button aria-label="關閉軟體">x</button>')).toBe(
+			'<button aria-label="关闭软件">x</button>',
+		);
+	});
+
+	it('轉換 meta description 但不碰網址類 content', () => {
+		expect(toSimplifiedHtml('<meta name="description" content="我的部落格" />')).toBe(
+			'<meta name="description" content="我的博客" />',
+		);
+		// og:url 的 content 是網址，轉了就指向不存在的頁面
+		expect(toSimplifiedHtml('<meta property="og:url" content="https://x/當理財_2026/" />')).toBe(
+			'<meta property="og:url" content="https://x/當理財_2026/" />',
+		);
+	});
+
+	it('href 與 class 永遠不轉', () => {
+		const html = '<a href="/blog/軟體_2026/" class="軟體">軟體</a>';
+		expect(toSimplifiedHtml(html)).toBe('<a href="/blog/軟體_2026/" class="軟體">软件</a>');
+	});
+});
+
+describe('原樣區塊的邊界', () => {
+	it('壓縮 JS 裡的 < 比較不會吃掉 </script>', () => {
+		// 這是真的發生過的 bug：script 沒被正確關閉，整份文件後半段都停止轉換。
+		const html = '<script>for(let i=0;i<n;i++){a(i)}</script><p>軟體</p>';
+		expect(toSimplifiedHtml(html)).toBe('<script>for(let i=0;i<n;i++){a(i)}</script><p>软件</p>');
+	});
+
+	it('script 內含箭頭函式也能正確關閉', () => {
+		const html = '<script>x.map(o=>o.t<5)</script><p>資料庫</p>';
+		expect(toSimplifiedHtml(html)).toBe('<script>x.map(o=>o.t<5)</script><p>数据库</p>');
+	});
+
+	it('沒有閉合標籤時剩下的全部當原樣內容', () => {
+		expect(toSimplifiedHtml('<p>軟體</p><script>a<b')).toBe('<p>软件</p><script>a<b');
 	});
 });

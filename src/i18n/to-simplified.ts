@@ -13,6 +13,29 @@ export function toSimplifiedText(input: string): string {
 	return convert(input);
 }
 
+/** 這些屬性裝的是給人看的文字，要跟著轉。其餘屬性（href、src、class…）一律不動。 */
+const TEXT_ATTRIBUTES = new Set(['alt', 'aria-label', 'title', 'placeholder']);
+
+/** meta 的 content 多半是機器值，只有這幾個 key 裝的是給人看的句子。 */
+const TEXT_META_KEYS = /^(title|description|og:title|og:description|twitter:title|twitter:description)$/i;
+
+/**
+ * 轉換標籤上少數裝人類文字的屬性。
+ * meta description 這種東西是屬性不是文字節點，不特別處理的話簡體頁的 SEO
+ * 描述會留在繁體。但 og:url、og:image 的 content 是網址，絕對不能碰。
+ */
+function convertTagAttributes(tag: string): string {
+	const isMeta = /^<meta\b/i.test(tag);
+	const metaKey = isMeta ? (/\b(?:name|property)\s*=\s*"([^"]*)"/i.exec(tag)?.[1] ?? '') : '';
+	const metaHoldsText = isMeta && TEXT_META_KEYS.test(metaKey);
+
+	return tag.replace(/\b([a-zA-Z-]+)\s*=\s*"([^"]*)"/g, (whole, name: string, value: string) => {
+		const lower = name.toLowerCase();
+		const isText = TEXT_ATTRIBUTES.has(lower) || (metaHoldsText && lower === 'content');
+		return isText ? `${name}="${convert(value)}"` : whole;
+	});
+}
+
 /** 這些元素裡面的內容一律原樣保留。 */
 const VERBATIM_TAGS = new Set(['pre', 'code', 'script', 'style', 'kbd', 'samp']);
 
@@ -27,36 +50,48 @@ const VERBATIM_TAGS = new Set(['pre', 'code', 'script', 'style', 'kbd', 'samp'])
  * 2. **程式碼**（pre/code/script/style/kbd/samp）。程式碼是程式碼，不是文章；
  *    把裡面的識別字或檔名轉掉會讓引用的程式碼不再對應真實原始碼。
  */
+/**
+ * 從原樣區塊的內容起點，找到對應閉合標籤的位置。
+ *
+ * 只搜尋這個標籤自己的開關，不用通用的標籤掃描——壓縮過的 JS 裡 `i<n` 這種
+ * 比較運算會被當成標籤開頭，而它的 `[^>]*>` 可能一路吃掉真正的 </script>，
+ * 結果整份文件剩下的部分都被當成程式碼而不轉換。
+ */
+function findVerbatimEnd(html: string, from: number, tagName: string): number {
+	const pattern = new RegExp(`<(/?)${tagName}\\b[^>]*>`, 'gi');
+	pattern.lastIndex = from;
+	let depth = 1;
+	let match: RegExpExecArray | null;
+
+	while ((match = pattern.exec(html)) !== null) {
+		depth += match[1] ? -1 : 1;
+		if (depth === 0) return match.index; // 停在閉合標籤之前，交給外層迴圈處理
+	}
+
+	return html.length; // 沒有閉合標籤，剩下的全部當原樣內容
+}
+
 export function toSimplifiedHtml(html: string): string {
 	let out = '';
 	let index = 0;
-	let skipDepth = 0;
-	let skipTag = '';
 
 	const TAG = /<\/?([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*>|<!--[\s\S]*?-->/g;
 	let match: RegExpExecArray | null;
 
 	while ((match = TAG.exec(html)) !== null) {
-		const text = html.slice(index, match.index);
-		out += skipDepth > 0 ? text : convert(text);
-		out += match[0];
+		out += convert(html.slice(index, match.index));
+		const tagName = match[1]?.toLowerCase();
+		out += tagName ? convertTagAttributes(match[0]) : match[0];
 		index = match.index + match[0].length;
 
-		const tag = match[1]?.toLowerCase();
-		if (!tag) continue; // 註解，不影響巢狀深度
+		if (!tagName || !VERBATIM_TAGS.has(tagName)) continue;
+		if (match[0].startsWith('</') || match[0].endsWith('/>')) continue;
 
-		const isClosing = match[0].startsWith('</');
-		const isSelfClosing = match[0].endsWith('/>');
-
-		if (skipDepth > 0) {
-			// 已經在跳過區塊裡，只追蹤同名標籤的巢狀進出。
-			if (tag === skipTag && !isSelfClosing) skipDepth += isClosing ? -1 : 1;
-		} else if (VERBATIM_TAGS.has(tag) && !isClosing && !isSelfClosing) {
-			skipTag = tag;
-			skipDepth = 1;
-		}
+		const end = findVerbatimEnd(html, index, tagName);
+		out += html.slice(index, end);
+		index = end;
+		TAG.lastIndex = index;
 	}
 
-	const tail = html.slice(index);
-	return out + (skipDepth > 0 ? tail : convert(tail));
+	return out + convert(html.slice(index));
 }
