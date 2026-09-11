@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import DraftBadge from '../components/DraftBadge.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import HeroHeader from '../components/HeroHeader.astro';
@@ -62,7 +63,6 @@ const renderedDate = (value?: Date) =>
 	value?.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
 const showUpdatedDate = Boolean(updatedDate) && renderedDate(updatedDate) !== renderedDate(pubDate);
 const authorAvatar = profileConfig.avatar;
-const authorAvatarSrc = typeof authorAvatar === 'string' ? authorAvatar : authorAvatar?.src;
 const authorUrl = new URL('/about/', siteURL).toString();
 const articleSchema = {
 	'@context': 'https://schema.org',
@@ -104,7 +104,6 @@ const articleSchema = {
 	useMainWrapper={false}
 >
 	<Fragment slot="head">
-		<link rel="preload" as="image" href={displayHeroImageSrc} />
 		{loadKatexStyles && (
 			<>
 				<link rel="stylesheet" href={katexStylesheetUrl} />
@@ -726,6 +725,7 @@ const articleSchema = {
             text={title} 
             backgroundImage={displayHeroImageSrc}
             compact={true}
+            animateTitle={false}
         >
             <div class="hero-meta">
 				{import.meta.env.DEV && draft && (
@@ -735,8 +735,10 @@ const articleSchema = {
 				)}
                 <div class="meta-row">
                     <div class="meta-item">
-                        {authorAvatarSrc
-                            ? <img class="meta-avatar" src={authorAvatarSrc} alt="" width="20" height="20" loading="lazy" decoding="async" />
+                        {typeof authorAvatar === 'string'
+                            ? <img class="meta-avatar" src={authorAvatar} alt="" width="20" height="20" loading="lazy" decoding="async" />
+                            : authorAvatar
+                            ? <Image class="meta-avatar" src={authorAvatar} alt="" width={40} height={40} loading="lazy" decoding="async" />
                             : <Fragment set:html={`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`} />}
                         <span>{authorName}</span>
                     </div>
@@ -981,6 +983,10 @@ const articleSchema = {
                 const el = document.querySelector<HTMLElement>('[data-view-count]');
                 const slug = el?.dataset.slug;
                 if (!el || !slug) return;
+                // runEnhancements 在初次載入會跑兩次（直接呼叫 + astro:page-load），
+                // sessionStorage 旗標要等回應才寫，擋不住第二發，所以在元素上先做記號。
+                if (el.dataset.viewCounted) return;
+                el.dataset.viewCounted = '1';
 
                 const storageKey = `viewed:${slug}`;
                 let counted = false;

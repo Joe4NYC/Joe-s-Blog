@@ -93,6 +93,16 @@ const fullTitle =
 	transition:persist
 />
 <meta name="generator" content={Astro.generator} transition:persist />
+<!-- 字型改成 <link> 而不是 CSS @import：@import 要等主 CSS 下載完才開始抓字型，多一段阻塞。 -->
+<link rel="preconnect" href="https://fonts.googleapis.com" transition:persist />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin transition:persist />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+	transition:persist
+/>
+<!-- 全站每一頁的 hero 都是同一張背景圖，在這裡 preload 一次就涵蓋所有頁面。 -->
+<link rel="preload" as="image" href={heroConfig.postDefaultBackground} fetchpriority="high" />
 <!-- Google Search Console 網站擁有權驗證；移除這行會讓 Search Console 失去驗證。 -->
 <meta
 	name="google-site-verification"

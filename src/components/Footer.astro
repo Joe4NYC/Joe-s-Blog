@@ -1,5 +1,5 @@
 ---
-import { headerGithubRepoUrl, profileConfig, siteTitle } from '../config';
+import { headerGithubRepoUrl, profileConfig } from '../config';
 import { getRenderableSocials, resolveSocialUrl } from '../lib/profile/social';
 
 const today = new Date();
@@ -8,7 +8,7 @@ const socials = getRenderableSocials(profileConfig.socials);
 ---
 
 <footer transition:animate="none">
-	<p class="copyright">&copy; {today.getFullYear()} {profileConfig.name}. Powered by {siteTitle}.</p>
+	<p class="copyright">&copy; {today.getFullYear()} {profileConfig.name}. Powered by Astro.</p>
 	<div class="social-links">
 		{socials.map((social) => (
 			<a

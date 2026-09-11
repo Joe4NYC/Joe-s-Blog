@@ -43,7 +43,7 @@ function formatWordCount(count: number) {
 }
 
 function formatDate(date: Date) {
-  return date.toLocaleDateString('zh-CN', {
+  return date.toLocaleDateString(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -318,8 +318,17 @@ function formatDate(date: Date) {
           font-size: 1.5em;
         }
 
+        /* 手機維持三欄一列：三張卡片各佔一屏的話，要滑三屏才看得到第一篇文章。 */
         .stats-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .stat-item {
+          padding: 1em 0.25em;
+        }
+
+        .stat-value {
+          font-size: 1.25em;
         }
 
         .stats-container {

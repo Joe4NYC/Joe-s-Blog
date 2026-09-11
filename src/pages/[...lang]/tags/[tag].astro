@@ -6,7 +6,7 @@ import PageShell from '../../../layouts/PageShell.astro';
 import { heroConfig, siteTitle } from '../../../config';
 import { getBlogPosts, getTagStats } from '../../../lib/content/blog';
 import { extractExcerpt } from '../../../lib/content/text';
-import { LOCALES, localeFromParam, localeParam } from '../../../i18n/config';
+import { LOCALES, localeParam } from '../../../i18n/config';
 import { getTagPath } from '../../../lib/content/tag-path';
 
 export async function getStaticPaths() {
@@ -27,7 +27,6 @@ export async function getStaticPaths() {
   }));
 }
 
-const lang = localeFromParam(Astro.params.lang);
 const { tag, posts, sortedTags } = Astro.props;
 const tagsHero = heroConfig.tags;
 ---
@@ -37,6 +36,7 @@ const tagsHero = heroConfig.tags;
   description={`所有標記為 "${tag}" 的部落格文章`}
   transparentHeader={true}
   pageId="tag-detail"
+  noindex={true}
   useMainWrapper={false}
 >
     <style>

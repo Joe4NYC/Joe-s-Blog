@@ -9,6 +9,7 @@ interface Props {
     backgroundImage?: string | ImageMetadata;
     compact?: boolean;
     interactive?: boolean; // 是否啟用懸停互動效果（僅主頁）
+    animateTitle?: boolean; // 文章頁標題不打字，讀者不用等
 }
 
 const { 
@@ -16,7 +17,8 @@ const {
     subtitle, 
     backgroundImage = heroConfig.postDefaultBackground,
     compact = false,
-    interactive = false
+    interactive = false,
+    animateTitle = true
 } = Astro.props;
 const backgroundImageSrc =
     typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.src;
@@ -29,7 +31,7 @@ if (interactive) heroClass += ' hero-interactive';
     <div class="hero-bg" style={`background-image: url('${backgroundImageSrc}')`}></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <Typewriter text={text} tag="h1" class="hero-title" />
+        <Typewriter text={text} tag="h1" class="hero-title" animate={animateTitle} />
         {subtitle && <p class="hero-subtitle">{subtitle}</p>}
         <slot />
     </div>

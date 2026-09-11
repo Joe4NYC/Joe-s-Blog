@@ -1,0 +1,56 @@
+---
+import HeroHeader from '../components/HeroHeader.astro';
+import PageShell from '../layouts/PageShell.astro';
+import { heroConfig } from '../config';
+
+// Astro 會把這頁輸出成 dist/404.html；wrangler.jsonc 的 not_found_handling: "404-page"
+// 會拿它回給所有找不到的網址。少了這個檔案，訪客點到壞連結只會看到一片空白。
+---
+
+<PageShell title="找不到頁面" description="這個網址不存在，可能已被移動或刪除。" noindex={true}>
+	<HeroHeader
+		text="404"
+		subtitle="這個頁面不存在，可能已被移動或刪除。"
+		backgroundImage={heroConfig.home.backgroundImage}
+		compact={true}
+		animateTitle={false}
+	/>
+	<section class="not-found">
+		<p>你要找的東西不在這裡。</p>
+		<p class="links">
+			<a href="/">回首頁</a>
+			<a href="/blog/">看所有文章</a>
+		</p>
+	</section>
+</PageShell>
+
+<style>
+	/* compact hero 底部有負 margin 讓內容疊上來，這裡要 position:relative + 底色才會蓋住它。 */
+	.not-found {
+		position: relative;
+		background: var(--color-bg);
+		padding: 8rem 1.5rem 6rem;
+		text-align: center;
+		color: var(--color-text-secondary);
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.85em;
+	}
+
+	.links a {
+		padding: 0.45rem 1.2rem;
+		border: 1px solid var(--color-border);
+		border-radius: 999px;
+		color: var(--color-text-secondary);
+		text-decoration: none;
+	}
+
+	.links a:hover {
+		color: var(--color-accent, var(--accent));
+		border-color: currentColor;
+	}
+</style>

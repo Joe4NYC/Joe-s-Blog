@@ -4,15 +4,17 @@ interface Props {
     tag?: 'h1' | 'h2' | 'h3' | 'span';
     class?: string;
     id?: string;
+    animate?: boolean;
 }
 
-const { text, tag = 'h1', class: className = '', id } = Astro.props;
+const { text, tag = 'h1', class: className = '', id, animate = true } = Astro.props;
 const Tag = tag;
 const elementId = id || `typewriter-${Math.random().toString(36).substring(7)}`;
 ---
 
-<Tag class:list={['typewriter', className]} id={elementId} data-text={text}>
-    <span class="typed-text">{text}</span><span class="cursor" aria-hidden="true">_</span>
+{/* animate=false 時不放 data-text，下面的腳本就不會清空重打，SSR 文字直接顯示。 */}
+<Tag class:list={['typewriter', className]} id={elementId} data-text={animate ? text : undefined}>
+    <span class="typed-text">{text}</span>{animate && <span class="cursor" aria-hidden="true">_</span>}
 </Tag>
 
 <style>

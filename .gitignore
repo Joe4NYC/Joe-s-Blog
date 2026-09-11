@@ -26,3 +26,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# 改檔前的備份（work-hq 規則），只留本機，不進 repo
+backups/
+_backups/
