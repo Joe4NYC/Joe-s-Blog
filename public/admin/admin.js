@@ -52,6 +52,8 @@ const api = {
 	deleteMedia: (path) => request(`/media?path=${encodeURIComponent(path)}`, { method: 'DELETE' }),
 	readSettings: () => request('/settings'),
 	writeSettings: (settings, sha) => request('/settings', { method: 'PUT', body: JSON.stringify({ settings, sha }) }),
+	importMarkdown: (source, filename) =>
+		request('/import', { method: 'POST', body: JSON.stringify({ source, filename }) }),
 	deployStatus: () => request('/deploy'),
 	deploy: () => request('/deploy', { method: 'POST' }),
 };
@@ -519,6 +521,16 @@ async function renderEditor(filename) {
 
 			<aside>
 				<div class="side-box">
+					<h3>匯入 .md</h3>
+					<div class="side-body">
+						<input type="file" id="md-import-input" accept=".md,.mdx,text/markdown,text/plain" hidden />
+						<button type="button" id="btn-import-md">選擇檔案…</button>
+						<div class="hint">讀取 frontmatter 與內文自動填入各欄位，一律先存成草稿。</div>
+						<div class="hint" id="md-import-status"></div>
+					</div>
+				</div>
+
+				<div class="side-box">
 					<h3>發佈</h3>
 					<div class="side-body">
 						<div class="field">
@@ -708,6 +720,7 @@ function setupEditor() {
 
 	setupChips('category-input', 'category-chips', 'categories', 1);
 	setupChips('tag-input', 'tag-chips', 'tags', 30);
+	setupMarkdownImport(paintPreview);
 
 	document.getElementById('btn-save').addEventListener('click', savePost);
 	document.getElementById('btn-delete')?.addEventListener('click', async () => {
@@ -724,6 +737,88 @@ function setupEditor() {
 			toast(error.message, 'error');
 		}
 	});
+}
+
+/**
+ * 上傳 .md 自動填表。
+ *
+ * 解析交給 Worker 的 /import，那裡用的是與 normalize-frontmatter 逐位元組
+ * 相容的 parsePost()，所以「畫面上看到的欄位」跟「存檔後寫進 repo 的內容」
+ * 一定一致。前端只負責讀檔與填欄位。
+ */
+function setupMarkdownImport(paintPreview) {
+	const input = document.getElementById('md-import-input');
+	const button = document.getElementById('btn-import-md');
+	const status = document.getElementById('md-import-status');
+	if (!input || !button) return;
+
+	const setStatus = (text, tone) => {
+		if (!status) return;
+		status.textContent = text;
+		status.style.color = tone === 'error' ? 'var(--danger, #d33)' : '';
+	};
+
+	button.addEventListener('click', () => {
+		const body = document.getElementById('post-body');
+		const title = document.getElementById('post-title');
+		const hasContent = (body?.value.trim() || title?.value.trim());
+
+		if (hasContent && !confirm('匯入會覆蓋目前編輯器裡的標題、內文與分類標籤，確定嗎？')) return;
+		input.value = '';
+		input.click();
+	});
+
+	input.addEventListener('change', async () => {
+		const file = input.files?.[0];
+		if (!file) return;
+
+		button.disabled = true;
+		setStatus('解析中…');
+
+		try {
+			const result = await api.importMarkdown(await file.text(), file.name);
+			applyImportedPost(result, paintPreview);
+
+			const warnings = result.warnings ?? [];
+			setStatus(warnings.length ? warnings.join(' ') : `已匯入 ${file.name}`, warnings.length ? 'error' : '');
+			toast(warnings.length ? '已匯入，但有幾項要補' : '已匯入，記得確認後再儲存', warnings.length ? 'error' : 'success');
+		} catch (error) {
+			setStatus(error.message || '匯入失敗', 'error');
+			toast(error.message || '匯入失敗', 'error');
+		} finally {
+			button.disabled = false;
+		}
+	});
+}
+
+function applyImportedPost(result, paintPreview) {
+	const post = result.post ?? {};
+	const editor = state.editor;
+
+	const title = document.getElementById('post-title');
+	const date = document.getElementById('post-date');
+	const description = document.getElementById('post-description');
+	const draft = document.getElementById('post-draft');
+	const body = document.getElementById('post-body');
+
+	if (title) title.value = post.title ?? '';
+	if (date && post.date) date.value = toLocalInput(post.date);
+	if (description) description.value = post.description ?? '';
+	// 匯入只填表單，不寫進 repo；一律先勾草稿，避免一按儲存就直接發佈。
+	if (draft) draft.checked = true;
+	if (body) body.value = post.body ?? '';
+
+	editor.categories = [...(post.categories ?? [])];
+	editor.tags = [...(post.tags ?? [])];
+	editor.repaintChips?.categories?.();
+	editor.repaintChips?.tags?.();
+
+	if (editor.isNew && result.filename) editor.importedFilename = result.filename;
+
+	state.dirty = true;
+	paintPreview?.();
+	// 標題有自己的即時預覽監聽，補一次事件讓它跟上。
+	title?.dispatchEvent(new Event('input'));
 }
 
 function setupChips(inputId, chipsId, key, limit) {
@@ -746,6 +841,10 @@ function setupChips(inputId, chipsId, key, limit) {
 		state.dirty = true;
 		paint();
 	});
+
+	// 匯入 .md 之後要能從外面重畫，否則 chips 會停在舊值。
+	state.editor.repaintChips = state.editor.repaintChips || {};
+	state.editor.repaintChips[key] = paint;
 
 	input.addEventListener('keydown', (event) => {
 		if (event.key !== 'Enter' && event.key !== ',') return;
@@ -876,6 +975,10 @@ async function savePost() {
 		tags: editor.tags,
 		body: document.getElementById('post-body').value,
 	};
+
+	// 匯入的檔案沿用它自己的檔名；否則伺服器會用標題重新產生，長標題會變成
+	// 又長又難讀的網址。
+	if (editor.isNew && editor.importedFilename) payload.filename = editor.importedFilename;
 
 	if (!payload.title) {
 		toast('請先填寫標題', 'error');

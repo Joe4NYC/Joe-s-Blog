@@ -10,6 +10,7 @@ import {
 	verifySessionToken,
 } from './lib/auth';
 import { ConfigError, type Env } from './lib/env';
+import { FrontmatterError } from './lib/frontmatter';
 import { repoRef } from './lib/github';
 import { fail, HttpError, isSameOrigin, json, ok, readJson } from './lib/http';
 import { handleDeploy, handleDeployStatus, latestDeployRun } from './routes/deploy';
@@ -21,6 +22,7 @@ import {
 	handleUpdatePost,
 	listPosts,
 } from './routes/posts';
+import { handleImportMarkdown } from './routes/import';
 import { handleReadSettings, handleWriteSettings } from './routes/settings';
 import { handleGetViews, handleIncrementViews } from './routes/views';
 
@@ -58,6 +60,7 @@ export default {
 function toErrorResponse(error: unknown): Response {
 	if (error instanceof HttpError) return fail(error.status, error.message);
 	if (error instanceof ConfigError) return fail(500, error.message);
+	if (error instanceof FrontmatterError) return fail(400, error.message);
 
 	console.error('admin api error', error);
 	return fail(500, error instanceof Error ? error.message : '伺服器發生未預期的錯誤。');
@@ -98,6 +101,8 @@ async function route(request: Request, env: Env, url: URL): Promise<Response> {
 	if (!session) return fail(401, '尚未登入或登入已過期。');
 
 	if (path === '/overview' && method === 'GET') return overview(env);
+
+	if (path === '/import' && method === 'POST') return handleImportMarkdown(request, env);
 
 	if (path === '/posts') {
 		if (method === 'GET') return ok({ posts: await listPosts(repoRef(env)) });
