@@ -8,6 +8,7 @@ import TableOfContents from '../components/TableOfContents.astro';
 import PageShell from './PageShell.astro';
 import { heroConfig, locale, profileConfig, siteTitle } from '../config';
 import { getTagPath } from '../lib/content/tag-path';
+import { buildSameAsLinks } from '../lib/profile/social';
 import katexStylesheetUrl from 'katex/dist/katex.min.css?url';
 
 interface Heading {
@@ -57,6 +58,7 @@ const articleSection =
 			: undefined;
 const articleTags = Array.isArray(tags) ? tags : [];
 const authorName = profileConfig.name || siteTitle;
+const authorSameAs = buildSameAsLinks(profileConfig);
 // 用 FormattedDate 實際渲染的字串比對，而不是比 Date 物件：兩者同一天但時間不同時
 // 畫面上會是兩個一模一樣的日期，讀者只會以為壞掉了。
 const renderedDate = (value?: Date) =>
@@ -64,6 +66,19 @@ const renderedDate = (value?: Date) =>
 const showUpdatedDate = Boolean(updatedDate) && renderedDate(updatedDate) !== renderedDate(pubDate);
 const authorAvatar = profileConfig.avatar;
 const authorUrl = new URL('/about/', siteURL).toString();
+/*
+ * 作者用 @id 指向 /about/ 上那個正規的 Person 實體，並帶上 sameAs。
+ * 少了這兩樣，每篇文章的「Joe NG」對 AI 來說都是一個沒有出處的新名字；
+ * 接起來之後才會被解析成同一個、且能用 GitHub / LinkedIn 驗證的實體。
+ */
+const authorEntity = {
+	'@type': 'Person',
+	'@id': new URL('/about/#person', siteURL).toString(),
+	name: authorName,
+	url: authorUrl,
+	...(profileConfig.title ? { jobTitle: profileConfig.title } : {}),
+	...(authorSameAs.length > 0 ? { sameAs: authorSameAs } : {}),
+};
 const articleSchema = {
 	'@context': 'https://schema.org',
 	'@type': 'BlogPosting',
@@ -73,16 +88,8 @@ const articleSchema = {
 	description: metaDescription,
 	datePublished: pubDate.toISOString(),
 	...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
-	author: {
-		'@type': 'Person',
-		name: authorName,
-		url: authorUrl,
-	},
-	publisher: {
-		'@type': 'Person',
-		name: authorName,
-		url: authorUrl,
-	},
+	author: authorEntity,
+	publisher: authorEntity,
 	image: [new URL(displayHeroImageSrc, siteURL).toString()],
 	inLanguage: locale,
 	...(articleTags.length > 0 ? { keywords: articleTags.join(', ') } : {}),
