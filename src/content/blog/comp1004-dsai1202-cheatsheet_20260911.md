@@ -1,8 +1,8 @@
 ---
 title: "COMP1004（現在的 DSAI1202）Final Quiz Cheat Sheet"
 date: "2026-09-11T15:40:00+08:00"
-updated: "2026-09-11T16:34:33+08:00"
-description: "把我 Year 1 修 PolyU Introduction to Artificial Intelligence and Data Analytics 時做的兩頁 cheat sheet 公開出來，PDF 放在 GitHub。這篇列出它的完整骨架——兩頁各自涵蓋哪些課題、哪些概念做成了表格。內容是 2024 年的版本，之後的課程大綱可能已經不一樣。"
+updated: "2026-10-02T17:15:00+08:00"
+description: "把我 Year 1 修 PolyU Introduction to Artificial Intelligence and Data Analytics 時做的兩頁 cheat sheet 公開出來，PDF 可以直接下載。這篇列出它的完整骨架——兩頁各自涵蓋哪些課題、哪些概念做成了表格。內容是 2024 年的版本，之後的課程大綱可能已經不一樣。"
 draft: false
 categories:
   - "學業"
@@ -18,7 +18,7 @@ tags:
 
 期末的 Final Quiz 以選擇題為主，可以帶 cheat sheet 進場。我照 lecture slides 壓了一張兩頁的紙進去，這科最後拿 A-。
 
-檔案放在 GitHub，可以直接下載：**[COMP1004-FinalCheatSheet](https://github.com/Joe4NYC/COMP1004-FinalCheatSheet)**（PDF，兩頁）。
+直接下載：**[Final Quiz CheatSheet.pdf](/files/COMP1004-Final-Quiz-CheatSheet.pdf)**（兩頁，181 KB，點了就開）。原始檔也放在 GitHub：[COMP1004-FinalCheatSheet](https://github.com/Joe4NYC/COMP1004-FinalCheatSheet)。
 
 下面列出這張紙的骨架，讓你不用先下載也知道裡面有沒有你要的東西。
 
