@@ -21,8 +21,8 @@ function isDarkTheme() {
 	return document.documentElement.dataset.theme === 'dark';
 }
 
-function getConfig(forceLight = false): MermaidConfig {
-	const dark = !forceLight && isDarkTheme();
+function getConfig(): MermaidConfig {
+	const dark = isDarkTheme();
 	return {
 		startOnLoad: false,
 		securityLevel: 'strict',
@@ -132,10 +132,10 @@ async function renderFigure(mermaid: MermaidApi, figure: HTMLElement, generation
 	}
 }
 
-async function renderAll(figures: HTMLElement[], generation: number, forceLight = false) {
+async function renderAll(figures: HTMLElement[], generation: number) {
 	const mermaid = await loadMermaid();
 	if (generation !== renderGeneration) return;
-	mermaid.initialize(getConfig(forceLight));
+	mermaid.initialize(getConfig());
 	for (const figure of figures) {
 		await renderFigure(mermaid, figure, generation);
 	}
@@ -197,22 +197,6 @@ window.addEventListener('afterprint', () => {
 	restoreNativePrintSize?.();
 	restoreNativePrintSize = null;
 });
-
-export async function prepareMermaidForPrint() {
-	if (currentFigures.length === 0) return async () => {};
-
-	const restorePrintSize = preserveMermaidSizeForPrint(currentFigures);
-	if (!isDarkTheme()) return async () => restorePrintSize();
-
-	const printGeneration = ++renderGeneration;
-	await renderAll(currentFigures, printGeneration, true);
-
-	return async () => {
-		restorePrintSize();
-		const restoreGeneration = ++renderGeneration;
-		await renderAll(currentFigures, restoreGeneration);
-	};
-}
 
 export async function setupMermaid() {
 	cleanupCurrentMermaid?.();

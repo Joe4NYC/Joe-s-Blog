@@ -208,32 +208,6 @@ const articleSchema = {
 				font-variant-numeric: tabular-nums;
 			}
 
-			.pdf-export-button {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4em;
-				padding: 0.5em 0.85em;
-				color: inherit;
-				font: inherit;
-				font-size: 0.92em;
-				line-height: 1;
-				background: rgba(255, 255, 255, 0.14);
-				border: 1px solid rgba(255, 255, 255, 0.52);
-				border-radius: 999px;
-				cursor: pointer;
-				transition: background-color 0.2s ease, transform 0.2s ease;
-			}
-
-			.pdf-export-button:hover {
-				background: rgba(255, 255, 255, 0.26);
-				transform: translateY(-1px);
-			}
-
-			.pdf-export-button:focus-visible {
-				outline: 2px solid white;
-				outline-offset: 3px;
-			}
-
 			.pdf-print-heading {
 				display: none;
 			}
@@ -301,10 +275,6 @@ const articleSchema = {
 				.meta-row {
 					gap: 0.85em;
 					flex-wrap: wrap;
-				}
-
-				.pdf-export-button {
-					font-size: 0.88em;
 				}
 
 					.content-card {
@@ -793,12 +763,6 @@ const articleSchema = {
                         ))}
                     </div>
                 )}
-                <div class="meta-row">
-					<button class="pdf-export-button" type="button" data-pdf-export data-pdf-title={title} aria-label={`將《${title}》匯出為 PDF`}>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-						<span>下載 PDF</span>
-					</button>
-				</div>
             </div>
 	</HeroHeader>
 		
@@ -835,30 +799,9 @@ const articleSchema = {
 		<script>
             import { setupToc } from '../scripts/toc';
             import { setupCodeBlocks } from '../scripts/code-block';
-            import { prepareMermaidForPrint, setupMermaid } from '../scripts/mermaid';
+            import { setupMermaid } from '../scripts/mermaid';
             import { setupLightbox } from '../scripts/lightbox';
             import { setupSearchLanding } from '../scripts/search/landing';
-
-			const prepareCodeHighlightForPrint = () => {
-				const tokens = Array.from(
-					document.querySelectorAll<HTMLElement>('pre.astro-code span[style*="color"]'),
-				);
-				const originalPriorities = tokens.map((token) =>
-					token.style.getPropertyPriority('color'),
-				);
-
-				tokens.forEach((token) => {
-					const lightColor = token.style.getPropertyValue('color');
-					if (lightColor) token.style.setProperty('color', lightColor, 'important');
-				});
-
-				return () => {
-					tokens.forEach((token, index) => {
-						const lightColor = token.style.getPropertyValue('color');
-						token.style.setProperty('color', lightColor, originalPriorities[index]);
-					});
-				};
-			};
 
 			const markPrintExcerpt = () => {
 				document.querySelectorAll('.pdf-print-excerpt').forEach((element) => {
@@ -892,93 +835,12 @@ const articleSchema = {
 				});
 			};
 
-			const prepareImagesForPrint = async () => {
-				const images = Array.from(document.querySelectorAll<HTMLImageElement>('.prose img'));
-				const snapshots = images.map((image) => ({
-					image,
-					loading: image.loading,
-					decoding: image.decoding,
-					wasPortrait: image.classList.contains('pdf-print-portrait'),
-				}));
-
-				const waitForImage = async (image: HTMLImageElement) => {
-					if (!image.complete) {
-						await new Promise<void>((resolve) => {
-							const finish = () => {
-								window.clearTimeout(timeout);
-								resolve();
-							};
-							const timeout = window.setTimeout(finish, 15_000);
-							image.addEventListener('load', finish, { once: true });
-							image.addEventListener('error', finish, { once: true });
-						});
-					}
-
-					if (image.naturalWidth > 0) await image.decode().catch(() => undefined);
-				};
-
-				images.forEach((image) => {
-					image.loading = 'eager';
-					image.decoding = 'sync';
-				});
-
-				await Promise.all(images.map(waitForImage));
-				markPortraitImagesForPrint();
-				await new Promise<void>((resolve) =>
-					window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve())),
-				);
-
-				return () => {
-					snapshots.forEach(({ image, loading, decoding, wasPortrait }) => {
-						image.loading = loading;
-						image.decoding = decoding;
-						image.classList.toggle('pdf-print-portrait', wasPortrait);
-					});
-				};
-			};
-
 			const markPortraitImagesForPrint = () => {
 				document.querySelectorAll<HTMLImageElement>('.prose img').forEach((image) => {
 					image.classList.toggle(
 						'pdf-print-portrait',
 						image.naturalHeight > image.naturalWidth,
 					);
-				});
-			};
-
-			const setupPdfExport = () => {
-				document.querySelectorAll<HTMLButtonElement>('[data-pdf-export]').forEach((button) => {
-					if (button.dataset.pdfExportReady) return;
-					button.dataset.pdfExportReady = 'true';
-
-					button.addEventListener('click', async () => {
-						if (button.disabled) return;
-						button.disabled = true;
-						const originalTitle = document.title;
-						const pdfTitle = button.dataset.pdfTitle?.trim();
-						if (pdfTitle) document.title = pdfTitle;
-						let restoreMermaid: () => Promise<void> = async () => {};
-						let restoreImages = () => {};
-						const restoreCodeHighlight = prepareCodeHighlightForPrint();
-
-						const restorePage = () => {
-							document.title = originalTitle;
-							button.disabled = false;
-							restoreCodeHighlight();
-							restoreImages();
-							void restoreMermaid();
-						};
-
-						try {
-							restoreImages = await prepareImagesForPrint();
-							restoreMermaid = await prepareMermaidForPrint();
-							window.addEventListener('afterprint', restorePage, { once: true });
-							window.print();
-						} catch (error) {
-							restorePage();
-							console.error('PDF export preparation failed', error);
-						}
-					});
 				});
 			};
 
@@ -1030,7 +892,6 @@ const articleSchema = {
                 setupLightbox?.();
                 setupSearchLanding?.(articleNavigation);
 				markPrintExcerpt();
-				setupPdfExport();
 				setupViewCount();
             };
 
