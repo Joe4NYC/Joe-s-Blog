@@ -6,7 +6,7 @@ import PostListItem from '../../components/PostListItem.astro';
 import SectionHeader from '../../components/SectionHeader.astro';
 import { heroConfig, locale, siteDescription, siteTitle } from '../../config';
 import { getBlogPosts } from '../../lib/content/blog';
-import { LOCALES, localeFromParam, localeParam } from '../../i18n/config';
+import { LOCALES, localeFromParam, localeParam, localePath } from '../../i18n/config';
 
 export function getStaticPaths() {
 	// lang 為 undefined 時 Astro 產生不帶前綴的 /，繁體版網址因此完全不變。
@@ -392,7 +392,7 @@ function formatDate(date: Date) {
                   />
                 ))}
               </div>
-              <a href="/blog" class="blog-link" style="margin-top: 1em;">檢視全部文章 ⇗</a>
+              <a href={localePath("/blog/", lang)} class="blog-link" style="margin-top: 1em;">檢視全部文章 ⇗</a>
             </>
           ) : (
             <p class="empty-state">

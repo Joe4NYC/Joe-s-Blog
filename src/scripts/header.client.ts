@@ -169,9 +169,11 @@
             let newActive: HTMLAnchorElement | null = null;
 
             links.forEach((link) => {
-                const href = link.getAttribute('href') || '';
-                const isActive = href === '/'
-                    ? pathname === '/'
+                // href 帶結尾斜線（/blog/、/zh-cn/），pathname 已去掉，比對前要對齊。
+                // 首頁只算完全相同，否則 /zh-cn 會吃掉 /zh-cn/blog 這類子路徑。
+                const href = (link.getAttribute('href') || '').replace(/\/$/, '') || '/';
+                const isActive = link.dataset.navPath === '/'
+                    ? pathname === href
                     : pathname === href || pathname.startsWith(href + '/');
 
                 if (link.classList.contains('active') && !isActive) oldActive = link;

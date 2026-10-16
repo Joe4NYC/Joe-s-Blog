@@ -11,7 +11,7 @@ import {
   getBlogPagePath,
   getBlogPageUrls,
 } from '../../../lib/content/blog-page-path';
-import { LOCALES, localeParam } from '../../../i18n/config';
+import { LOCALES, localeFromParam, localeParam, localePath } from '../../../i18n/config';
 import { extractExcerpt } from '../../../lib/content/text';
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
@@ -73,7 +73,10 @@ const pageDescription =
     ? `按發布時間倒序瀏覽全部 ${page.total} 篇文章。`
     : `部落格歸檔第 ${page.currentPage} 頁（共 ${page.lastPage} 頁），收錄 ${page.total} 篇文章。`;
 const shouldNoindex = page.currentPage > 1;
-const canonicalPath = getBlogPagePath(page.currentPage);
+// canonical 要指向自己這個語言版本。少了前綴時 /zh-cn/blog/ 會宣告繁體 /blog/ 才是正本，
+// 跟 hreflang 互相矛盾，Search Console 會回報「替代頁面（有適當的標準標記）」。
+const lang = localeFromParam(Astro.params.lang);
+const canonicalPath = localePath(getBlogPagePath(page.currentPage), lang);
 const canonicalURL = new URL(canonicalPath, siteURL);
 const prevURL = page.url.prev ? new URL(page.url.prev, siteURL).toString() : undefined;
 const nextURL = page.url.next ? new URL(page.url.next, siteURL).toString() : undefined;
@@ -472,7 +475,7 @@ if (last > 1) paginationList.push(last);
                   return <span class="page-ellipsis">...</span>;
                 }
                 return (
-                  <a href={getBlogPagePath(num)} class={`page-btn ${page.currentPage === num ? 'active' : ''}`}>
+                  <a href={localePath(getBlogPagePath(num), lang)} class={`page-btn ${page.currentPage === num ? 'active' : ''}`}>
                     {num}
                   </a>
                 );

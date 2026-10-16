@@ -12,6 +12,8 @@ const { transparent = true } = Astro.props;
 
 // 導覽連結要留在同一個語言版本，否則在 /zh-cn/ 點 Blog 會被丟回繁體站。
 const navLocale = localeFromPath(Astro.url.pathname);
+// 一律帶結尾斜線：靜態資產用 auto-trailing-slash，少了斜線會被 307 轉址，
+// Search Console 會把這些網址記成「頁面會重新導向」。
 const navPath = (path: string) => localePath(path, navLocale);
 ---
 
@@ -21,9 +23,9 @@ const navPath = (path: string) => localePath(path, navLocale);
 		<h2><a href={navPath("/")} data-nav-path="/">{siteTitle}</a></h2>
 		<div class="internal-links">
 			<HeaderLink href={navPath("/")} data-nav-path="/">Home</HeaderLink>
-			<HeaderLink href={navPath("/blog")} data-nav-path="/blog">Blog</HeaderLink>
-			<HeaderLink href={navPath("/tags")} data-nav-path="/tags">Tags</HeaderLink>
-			<HeaderLink href={navPath("/about")} data-nav-path="/about">About</HeaderLink>
+			<HeaderLink href={navPath("/blog/")} data-nav-path="/blog/">Blog</HeaderLink>
+			<HeaderLink href={navPath("/tags/")} data-nav-path="/tags/">Tags</HeaderLink>
+			<HeaderLink href={navPath("/about/")} data-nav-path="/about/">About</HeaderLink>
 			<div class="nav-indicator" id="nav-indicator"></div>
 		</div>
 		<div class="header-actions">
@@ -78,9 +80,9 @@ const navPath = (path: string) => localePath(path, navLocale);
 	<aside id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
 		<nav class="mobile-nav-links" aria-label="移動端導航">
 			<a href={navPath("/")} class="mobile-nav-link" data-nav-path="/">Home</a>
-			<a href={navPath("/blog")} class="mobile-nav-link" data-nav-path="/blog">Blog</a>
-			<a href={navPath("/tags")} class="mobile-nav-link" data-nav-path="/tags">Tags</a>
-			<a href={navPath("/about")} class="mobile-nav-link" data-nav-path="/about">About</a>
+			<a href={navPath("/blog/")} class="mobile-nav-link" data-nav-path="/blog/">Blog</a>
+			<a href={navPath("/tags/")} class="mobile-nav-link" data-nav-path="/tags/">Tags</a>
+			<a href={navPath("/about/")} class="mobile-nav-link" data-nav-path="/about/">About</a>
 					<LanguageSwitcher inline={true} />
 		</nav>
 	</aside>
@@ -579,7 +581,7 @@ setupNavigationFeedback();
 		const pathname = window.location.pathname;
 		const current = localeOf(pathname);
 
-		// 導覽與 logo：data-nav-path 存的是不含語言前綴的路徑
+		// 導覽與 logo：data-nav-path 存的是不含語言前綴、帶結尾斜線的路徑（少了斜線會被 307 轉址）
 		document.querySelectorAll('[data-nav-path]').forEach((link) => {
 			const target = withLocale(link.dataset.navPath, current);
 			link.setAttribute('href', target);
