@@ -1,7 +1,7 @@
 ---
 title: "一個只有我看得到的儀表板：Cloudflare Worker＋Apple Reminders＋排程 AI"
 date: "2026-10-18T21:45:00+08:00"
-updated: "2026-10-18T21:50:47+08:00"
+updated: "2026-10-18T21:52:19+08:00"
 description: "我把死線、學校郵件、交換進度、學會工作放進同一個網頁 dash.joenyc.net，用 Cloudflare Access 鎖成只有自己能開。這篇記錄資料從哪裡來、怎樣自動更新，以及為什麼我刻意不把它做成另一個要手動維護的 App。"
 draft: false
 categories:
