@@ -32,9 +32,26 @@ tags:
 
 學校郵件摘要原本的位置是「實習申請」區塊，後來申請季過了，換成每天真正會看的郵件摘要。
 
+![儀表板版面示意圖：頁首是 LiU 交換倒數，下面七個區塊](/image/joe-dashboard私人儀表板_20261018/dashboard-wireframe.webp)
+
+*版面示意圖，不是實際截圖——內容和投資數字都刻意留空。*
+
 ## 架構：Worker＋KV，從 Mac 部署
 
 整個站是一個 Cloudflare Worker，資料存在 Workers KV，專案放在我 Mac 上，用 `wrangler` 部署。
+
+整條資料流畫出來是這樣：
+
+```mermaid
+flowchart LR
+  R[Apple Reminders] <-->|launchd 每小時<br/>雙向同步| W
+  C[Claude 排程任務<br/>平日 9:00] -->|寫摘要| N[Notion<br/>「郵件總結」]
+  N -->|讀取| W
+  I[IBKR Flex 報表] -->|平日早上自動拉| W
+  W[Cloudflare Worker<br/>＋ KV] --> A{Cloudflare Access<br/>只限本人}
+  A --> P[iPhone PWA／瀏覽器]
+  W -.每日備份 · 保留 30 日.-> B[(備份)]
+```
 
 ### 用 Cloudflare Access 鎖門，而不是自己寫登入
 
