@@ -22,6 +22,7 @@ import {
 	handleUpdatePost,
 	listPosts,
 } from './routes/posts';
+import { handleSuggest } from './routes/ai';
 import { handleImportMarkdown } from './routes/import';
 import { handleReadSettings, handleWriteSettings } from './routes/settings';
 import { handleGetViews, handleIncrementViews } from './routes/views';
@@ -103,6 +104,8 @@ async function route(request: Request, env: Env, url: URL): Promise<Response> {
 	if (path === '/overview' && method === 'GET') return overview(env);
 
 	if (path === '/import' && method === 'POST') return handleImportMarkdown(request, env);
+
+	if (path === '/ai/suggest' && method === 'POST') return handleSuggest(request, env);
 
 	if (path === '/posts') {
 		if (method === 'GET') return ok({ posts: await listPosts(repoRef(env)) });

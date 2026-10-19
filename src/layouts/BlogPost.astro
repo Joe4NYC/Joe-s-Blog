@@ -26,6 +26,8 @@ interface Props extends BlogPostData {
 	readingTime?: number;
 	seoDescription?: string;
 	loadKatexStyles?: boolean;
+	/** build 時算好的相關文章（見 lib/content/related.ts）。 */
+	related?: Array<{ slug: string; title: string; pubDate: Date }>;
 }
 
 const {
@@ -42,6 +44,7 @@ const {
 	readingTime,
 	seoDescription,
 	loadKatexStyles = false,
+	related = [],
 } = Astro.props as Props;
 const metaDescription = (seoDescription || description || title).trim();
 const siteURL = Astro.site ?? Astro.url;
@@ -128,6 +131,46 @@ const articleSchema = {
 			.stats-wrapper {
 				position: relative;
 				min-height: 50vh;
+			}
+
+			.related-posts {
+				margin-top: 2.5rem;
+				padding-top: 1.5rem;
+				border-top: 1px solid var(--color-border);
+			}
+
+			.related-posts h2 {
+				margin: 0 0 0.75rem;
+				font-size: 1.1rem;
+				color: var(--color-text-strong);
+			}
+
+			.related-posts ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.related-posts li {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				gap: 0.25rem 1rem;
+				padding: 0.55rem 0;
+				border-bottom: 1px dashed var(--color-border-subtle);
+				color: var(--color-text-muted);
+				font-size: 0.9rem;
+			}
+
+			.related-posts a {
+				color: var(--color-text);
+				font-size: 1rem;
+				text-decoration: none;
+			}
+
+			.related-posts a:hover,
+			.related-posts a:focus-visible {
+				text-decoration: underline;
 			}
 
 			.stats-wrapper::before {
@@ -783,6 +826,19 @@ const articleSchema = {
 						)}
 					</div>
 				</article>
+				{related.length > 0 && (
+					<nav class="related-posts" aria-labelledby="related-posts-title">
+						<h2 id="related-posts-title">相關文章</h2>
+						<ul>
+							{related.map((item) => (
+								<li>
+									<a href={`/blog/${item.slug}/`}>{item.title}</a>
+									<FormattedDate date={item.pubDate} />
+								</li>
+							))}
+						</ul>
+					</nav>
+				)}
 			</main>
 				
 			<TableOfContents {headings} />

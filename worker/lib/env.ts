@@ -24,6 +24,8 @@ export interface Env {
 	SESSION_TTL_HOURS: string;
 	/** 文章瀏覽計數。key 是 `views:<slug>`，值是十進位字串。 */
 	VIEWS: KVNamespace;
+	/** Workers AI，後台產生摘要／標籤／slug 建議。 */
+	AI: Ai;
 }
 
 export class ConfigError extends Error {}

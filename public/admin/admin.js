@@ -54,6 +54,7 @@ const api = {
 	writeSettings: (settings, sha) => request('/settings', { method: 'PUT', body: JSON.stringify({ settings, sha }) }),
 	importMarkdown: (source, filename) =>
 		request('/import', { method: 'POST', body: JSON.stringify({ source, filename }) }),
+	aiSuggest: (data) => request('/ai/suggest', { method: 'POST', body: JSON.stringify(data) }),
 	deployStatus: () => request('/deploy'),
 	deploy: () => request('/deploy', { method: 'POST' }),
 };
@@ -580,6 +581,15 @@ async function renderEditor(filename) {
 						<textarea id="post-description" rows="4" placeholder="用於 SEO 與列表頁，留空會自動從內文擷取。">${esc(post.description ?? '')}</textarea>
 					</div>
 				</div>
+
+				<div class="side-box">
+					<h3>AI 建議</h3>
+					<div class="side-body">
+						<button type="button" id="btn-ai-suggest">產生摘要與標籤</button>
+						<div class="hint">讀標題與內文，填入摘要描述、補上建議標籤。結果可以再手動改，存檔前不會寫進 repo。模型冷啟動時第一次可能要等半分鐘。</div>
+						<div class="hint" id="ai-slug"></div>
+					</div>
+				</div>
 			</aside>
 		</div>`;
 
@@ -721,6 +731,7 @@ function setupEditor() {
 	setupChips('category-input', 'category-chips', 'categories', 1);
 	setupChips('tag-input', 'tag-chips', 'tags', 30);
 	setupMarkdownImport(paintPreview);
+	document.getElementById('btn-ai-suggest').addEventListener('click', aiSuggest);
 
 	document.getElementById('btn-save').addEventListener('click', savePost);
 	document.getElementById('btn-delete')?.addEventListener('click', async () => {
@@ -819,6 +830,63 @@ function applyImportedPost(result, paintPreview) {
 	paintPreview?.();
 	// 標題有自己的即時預覽監聽，補一次事件讓它跟上。
 	title?.dispatchEvent(new Event('input'));
+}
+
+/**
+ * Workers AI 建議：摘要直接填入（原本有內容會先問），標籤只補不刪，
+ * slug 只對新文章提供——舊文章改檔名會換網址、瀏覽數也會歸零。
+ */
+async function aiSuggest() {
+	const button = document.getElementById('btn-ai-suggest');
+	const editor = state.editor;
+	const description = document.getElementById('post-description');
+
+	button.disabled = true;
+	button.innerHTML = '<span class="spinner"></span> AI 思考中…';
+
+	try {
+		const { suggestion } = await api.aiSuggest({
+			title: document.getElementById('post-title').value.trim(),
+			body: document.getElementById('post-body').value,
+			knownTags: collectKnownTerms().tags,
+		});
+
+		if (
+			suggestion.description &&
+			description.value.trim() !== suggestion.description &&
+			(!description.value.trim() ||
+				(await confirmDialog('覆蓋摘要描述', `AI 建議：「${suggestion.description}」要取代目前的摘要嗎？`, '取代')))
+		) {
+			description.value = suggestion.description;
+		}
+
+		const added = suggestion.tags.filter((tag) => !editor.tags.includes(tag)).slice(0, 30 - editor.tags.length);
+		editor.tags.push(...added);
+		editor.repaintChips?.tags?.();
+
+		paintSlugSuggestion(suggestion.slug);
+		state.dirty = true;
+		toast(added.length ? `已補上 ${added.length} 個標籤` : 'AI 建議已套用', 'success');
+	} catch (error) {
+		toast(error.message, 'error');
+	} finally {
+		button.disabled = false;
+		button.textContent = '產生摘要與標籤';
+	}
+}
+
+function paintSlugSuggestion(slug) {
+	const box = document.getElementById('ai-slug');
+	const editor = state.editor;
+	if (!box || !slug || !editor.isNew) return;
+
+	const stamp = (document.getElementById('post-date').value || nowLocalInput()).slice(0, 10).replaceAll('-', '');
+	const filename = `${slug}_${stamp}.md`;
+	box.innerHTML = `建議網址：<span class="mono">/blog/${esc(slug)}_${esc(stamp)}/</span> <button type="button" class="small" id="btn-use-slug">使用</button>`;
+	document.getElementById('btn-use-slug').addEventListener('click', () => {
+		editor.importedFilename = filename;
+		box.innerHTML = `建立時會用檔名 <span class="mono">${esc(filename)}</span>`;
+	});
 }
 
 function setupChips(inputId, chipsId, key, limit) {

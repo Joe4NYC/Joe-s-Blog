@@ -9,6 +9,8 @@
 	"workers_dev": false,
 	// 文章瀏覽計數。
 	"kv_namespaces": [{ "binding": "VIEWS", "id": "39624a71b3b94b59bb108d57e724f6b5" }],
+	// Workers AI：只給後台的 AI 建議用，讀者端不會呼叫，免費額度不怕被刷。
+	"ai": { "binding": "AI" },
 	"observability": {
 		"enabled": true
 	},

@@ -4,19 +4,32 @@ import BlogPost from '../../../layouts/BlogPost.astro';
 import { getBlogPosts } from '../../../lib/content/blog';
 import { LOCALES, localeParam } from '../../../i18n/config';
 import { extractSeoDescription } from '../../../lib/content/text';
+import { getRelatedMap } from '../../../lib/content/related';
 
 export async function getStaticPaths() {
 	const posts = await getBlogPosts();
+	const relatedMap = await getRelatedMap(posts);
+	const byId = new Map(posts.map((post) => [post.id, post]));
+
 	return LOCALES.flatMap((value) =>
 		posts.map((post) => ({
 			params: { lang: localeParam(value), slug: post.id },
-			props: post,
+			props: {
+				post,
+				related: (relatedMap.get(post.id) ?? []).flatMap((id) => {
+					const item = byId.get(id);
+					return item ? [{ slug: item.id, title: item.data.title, pubDate: item.data.pubDate }] : [];
+				}),
+			},
 		})),
 	);
 }
-type Props = CollectionEntry<'blog'>;
+type Props = {
+	post: CollectionEntry<'blog'>;
+	related: Array<{ slug: string; title: string; pubDate: Date }>;
+};
 
-const post = Astro.props;
+const { post, related } = Astro.props;
 const { Content, headings } = await render(post);
 const seoDescription =
 	(post.data.description?.trim() || extractSeoDescription(post.body ?? '') || post.data.title).trim();
@@ -38,6 +51,7 @@ const readingTime = Math.ceil(wordCount / 400);
 	readingTime={readingTime}
 	seoDescription={seoDescription}
 	loadKatexStyles={hasMath}
+	related={related}
 >
 	<Content />
 </BlogPost>
