@@ -434,3 +434,20 @@ td .row-actions { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 	.content { padding: 16px; }
 	.topbar { padding: 10px 16px; }
 }
+
+/*
+ * 編輯頁用滿整個視窗。其他頁面（儀表板、列表）維持 1180px 上限，
+ * 在寬螢幕上撐滿反而難讀。高度扣掉頂列、標題列、工具列與底部提示，
+ * 讓編輯區與預覽區各自捲動，而不是整頁一起捲。
+ */
+.content:has(> .editor) { max-width: none; }
+.content:has(> .editor) .editor { grid-template-columns: minmax(0, 1fr) 280px; }
+.content:has(> .editor) .md-panes { height: calc(100vh - 260px); min-height: 460px; }
+.content:has(> .editor) #post-body { height: 100%; min-height: 0; resize: none; overflow-y: auto; }
+.content:has(> .editor) .md-preview,
+.content:has(> .editor) .md-live { height: 100%; max-height: none; }
+
+@media (max-width: 960px) {
+	.content:has(> .editor) .editor { grid-template-columns: 1fr; }
+	.content:has(> .editor) .md-panes { height: 70vh; }
+}
