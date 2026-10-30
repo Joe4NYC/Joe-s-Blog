@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "src/layouts/BlogPost.astro"
+        ],
+        "createdAt": "2026-10-19T02:23:16.448Z",
+        "reason": "Claude: pre-existing lightbox <img src=\"\"> is filled by setupLightbox() at runtime"
+      }
+    ]
+  }
+}
