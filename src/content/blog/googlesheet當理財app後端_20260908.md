@@ -44,6 +44,10 @@ await fetch(cfg.url, {
 
 `text/plain` 是 CORS 的「簡單請求」之一，不會觸發預檢。伺服器那邊照樣 `JSON.parse(e.postData.contents)` 就拿到物件。內容明明是 JSON，只是騙瀏覽器說它是純文字——這招在 Apps Script 幾乎是標配。
 
+![對比圖：用 application/json 時瀏覽器先送 OPTIONS 預檢，Apps Script 常常處理失敗；用 text/plain 時直接 POST，伺服器用 JSON.parse 讀出內容](/image/googlesheet當理財app後端_20260908/cors-preflight.svg)
+
+*同一份 JSON，只差 Content-Type，一個要先過預檢，一個直接送達。*
+
 ## 兩部裝置同時改：樂觀鎖
 
 同步一開始是最笨的做法：每次資料變動，就把整份 JSON 覆蓋寫回 Sheet。單機沒問題，但只要我在手機和電腦同時開著，後存的一方會把先存的改動整份蓋掉，而且完全無聲無息。
@@ -60,6 +64,10 @@ setUpdatedAt(new Date().toISOString());
 ```
 
 外層再包一個 `LockService` 的腳本鎖，避免兩個請求同時進到寫入區。前端收到 `conflict` 就不硬存，改彈一條橫幅讓我自己決定：載入雲端版本，還是以這邊覆蓋。
+
+![時序圖：手機和電腦都載入版本 v1；電腦先存，雲端變成 v2；手機用 v1 存檔時版本不符，收到 conflict，畫面彈出橫幅讓使用者選擇](/image/googlesheet當理財app後端_20260908/optimistic-lock.svg)
+
+*樂觀鎖的流程：版本對不上就不寫，交給我決定。*
 
 這是樂觀鎖（optimistic locking）最精簡的樣子——不預先鎖，等衝突發生才處理。對一個使用者頂多開兩三個分頁的場景，這樣剛剛好，不用扯到什麼版本向量。
 

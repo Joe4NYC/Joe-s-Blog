@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" role="img" aria-label="示意圖：每次查詢都取前三篇仍然壞掉的文章；修好的文章從結果中消失，所以第二、第三次查詢自動拿到下一批" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTpmZTNkYmRjZi04ZGY4LTQwZDItOTRiNi0wMThhZTVmY2MwZTgAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaPVCI3lsB6aWC4F4SZYsWvQAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoyM2IyNDYyZi05NTFjLTQyYzMtOGYwOC1iYTNiM2E1YTg1MzBscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo1hFMjT3mcBDK3eqVJ8Q9HQAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggkjGlZmAj7xRNfAk68Zv2/PYNvf1whyS1SxzTX7yjJz6kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaBnpsrbY2lzH7e9lSVRtjPkAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIF68BKXW7M6o69Ve15NcX29MhOdK4iS+6F7wBOo78sc6ZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GQEsZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmZlM2RiZGNmLThkZjgtNDBkMi05NGI2LTAxOGFlNWZjYzBlOC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjQ3ZjUzZDFmLWVmNWEtNDMzYy1iMTJkLTY4YzI3Njk3ZDllNnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCCSMaVmYCPvFE18CTrxm/b89g29/XCHJLVLHNNfvKMnPqJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFgg0ClnLUtxIg+OubsLQiOSCfvEdyPOj3Z58E7Y/BrTAJqiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggXQB5FJ3++KMJyxceRW/xhkm5GIMVoc1F70l3daDr82J0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQLbD3ML9c7FX3UiOKJ+y5/AmJ+KlX8JUwGTYOmRaYJU2UOH3W3+YFWTxUn+pmdTO3YaHG440+kcZlsEFM9LNZiQ=</c2pa:manifest></metadata>
+<style>
+.bg{fill:#ffffff;stroke:#e5e5e5}.t{fill:#1f2330;font-family:"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif}
+.mono{font-family:"SFMono-Regular",Menlo,Consolas,"Noto Sans Mono","Noto Sans CJK TC",monospace}
+.m{fill:#6b7080}.box{fill:#f4f5f6;stroke:#d9dbe0}.acc{fill:#eef0ff;stroke:#2337ff}.at{fill:#2337ff}.ln{stroke:#9aa0ad;fill:none;stroke-width:1.6}
+.ok{fill:#1a8f5a}.bad{fill:#d14343}.okb{fill:#e8f6ef;stroke:#1a8f5a}.badb{fill:#fdeeee;stroke:#d14343}.ah{fill:#9aa0ad}
+.dim{fill:#1f2330;opacity:.55}.bar{fill:#2337ff}.bar2{fill:#9aa6ff}.lnb{stroke:#d14343;fill:none;stroke-width:1.6}
+@media (prefers-color-scheme:dark){.bg{fill:#161822;stroke:#2d3244}.t{fill:#e6e8ef}.m{fill:#8b8fa0}.box{fill:#1f2230;stroke:#3d4253}.acc{fill:#1d2140;stroke:#7b8cff}.at{fill:#7b8cff}.ln{stroke:#5d6375}.ah{fill:#5d6375}.okb{fill:#13261d}.badb{fill:#2a1617}.ok{fill:#3fbf84}.bad{fill:#f07070}.dim{fill:#000;opacity:.6}.bar{fill:#7b8cff}.bar2{fill:#3d4a99}.lnb{stroke:#f07070}}
+</style><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect class="bg" x="1" y="1" width="858" height="418" rx="14"/>
+<text class="t" x="32" y="44" font-size="20" font-weight="700">不用 OFFSET 的分批</text>
+<text class="t m" x="32" y="68" font-size="13">修好的文章不再符合「壞掉」的條件，同一條查詢再跑一次，拿到的自然是下一批</text>
+<text class="t" x="32" y="108" font-size="13" font-weight="700">第 1 次：查「前 3 篇壞的」</text>
+<rect class="acc" x="32" y="122" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="44" y="139" font-size="12" font-weight="700">文章 1</text>
+<text class="t at" x="260" y="139" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="acc" x="32" y="152" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="44" y="169" font-size="12" font-weight="700">文章 2</text>
+<text class="t at" x="260" y="169" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="acc" x="32" y="182" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="44" y="199" font-size="12" font-weight="700">文章 3</text>
+<text class="t at" x="260" y="199" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="badb" x="32" y="212" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="44" y="229" font-size="12">文章 4</text>
+<text class="t bad" x="260" y="229" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="32" y="242" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="44" y="259" font-size="12">文章 5</text>
+<text class="t bad" x="260" y="259" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="32" y="272" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="44" y="289" font-size="12">文章 6</text>
+<text class="t bad" x="260" y="289" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="32" y="302" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="44" y="319" font-size="12">文章 7</text>
+<text class="t bad" x="260" y="319" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="32" y="332" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="44" y="349" font-size="12">文章 8</text>
+<text class="t bad" x="260" y="349" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="32" y="362" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="44" y="379" font-size="12">文章 9</text>
+<text class="t bad" x="260" y="379" font-size="11" text-anchor="end">壞的</text>
+<path class="ln" d="M278 260H302" marker-end="url(#a)" />
+<text class="t" x="308" y="108" font-size="13" font-weight="700">第 2 次：查「前 3 篇壞的」</text>
+<rect class="okb" x="308" y="122" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="320" y="139" font-size="12">文章 1</text>
+<text class="t ok" x="536" y="139" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="308" y="152" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="320" y="169" font-size="12">文章 2</text>
+<text class="t ok" x="536" y="169" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="308" y="182" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="320" y="199" font-size="12">文章 3</text>
+<text class="t ok" x="536" y="199" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="acc" x="308" y="212" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="320" y="229" font-size="12" font-weight="700">文章 4</text>
+<text class="t at" x="536" y="229" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="acc" x="308" y="242" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="320" y="259" font-size="12" font-weight="700">文章 5</text>
+<text class="t at" x="536" y="259" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="acc" x="308" y="272" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="320" y="289" font-size="12" font-weight="700">文章 6</text>
+<text class="t at" x="536" y="289" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="badb" x="308" y="302" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="320" y="319" font-size="12">文章 7</text>
+<text class="t bad" x="536" y="319" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="308" y="332" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="320" y="349" font-size="12">文章 8</text>
+<text class="t bad" x="536" y="349" font-size="11" text-anchor="end">壞的</text>
+<rect class="badb" x="308" y="362" width="240" height="24" rx="6" stroke-width="1"/>
+<text class="t bad" x="320" y="379" font-size="12">文章 9</text>
+<text class="t bad" x="536" y="379" font-size="11" text-anchor="end">壞的</text>
+<path class="ln" d="M554 260H578" marker-end="url(#a)" />
+<text class="t" x="584" y="108" font-size="13" font-weight="700">第 3 次：查「前 3 篇壞的」</text>
+<rect class="okb" x="584" y="122" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="596" y="139" font-size="12">文章 1</text>
+<text class="t ok" x="812" y="139" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="584" y="152" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="596" y="169" font-size="12">文章 2</text>
+<text class="t ok" x="812" y="169" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="584" y="182" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="596" y="199" font-size="12">文章 3</text>
+<text class="t ok" x="812" y="199" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="584" y="212" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="596" y="229" font-size="12">文章 4</text>
+<text class="t ok" x="812" y="229" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="584" y="242" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="596" y="259" font-size="12">文章 5</text>
+<text class="t ok" x="812" y="259" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="okb" x="584" y="272" width="240" height="24" rx="6" stroke-width="1" opacity=".55"/>
+<text class="t ok" x="596" y="289" font-size="12">文章 6</text>
+<text class="t ok" x="812" y="289" font-size="11" text-anchor="end">已修好，查不到</text>
+<rect class="acc" x="584" y="302" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="596" y="319" font-size="12" font-weight="700">文章 7</text>
+<text class="t at" x="812" y="319" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="acc" x="584" y="332" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="596" y="349" font-size="12" font-weight="700">文章 8</text>
+<text class="t at" x="812" y="349" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<rect class="acc" x="584" y="362" width="240" height="24" rx="6" stroke-width="1.6"/>
+<text class="t at" x="596" y="379" font-size="12" font-weight="700">文章 9</text>
+<text class="t at" x="812" y="379" font-size="11" font-weight="700" text-anchor="end">這一批</text>
+<text class="t m" x="430" y="402" font-size="12" text-anchor="middle">代價：SQL 只能篩出「含有這個短碼」的文章，所以多撈幾倍再用 PHP 過濾</text>
+</svg>

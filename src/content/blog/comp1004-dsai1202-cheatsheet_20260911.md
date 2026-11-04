@@ -61,6 +61,10 @@ Part 2 其實從第一頁的末尾就開始了（機器人定義和 AI Milestone
 **AI / ML / DL**
 三者的定義各配一個例子（Siri、Netflix 推薦、ChatGPT），後面接三層的包含關係：AI 包住 ML，ML 包住 DL。
 
+![示意圖：Artificial Intelligence 包住 Machine Learning，Machine Learning 包住 Deep Learning，例子分別是 Siri、Netflix 推薦和 ChatGPT](/image/comp1004-dsai1202-cheatsheet_20260911/ai-ml-dl.svg)
+
+*紙上那張包含關係，重畫成圖。*
+
 **AI 應用**
 
 - 疾病偵測與癌症診斷
@@ -80,6 +84,10 @@ Part 2 其實從第一頁的末尾就開始了（機器人定義和 AI Milestone
 - Big Data 的 4V
 - 結構化 / 半結構化 / 非結構化三種資料型態，各配例子
 - 四種 data analytics：Descriptive、Diagnostic、Predictive、Prescriptive
+
+![階梯圖：Descriptive 發生了什麼、Diagnostic 為什麼、Predictive 將會怎樣、Prescriptive 該怎麼做，四級逐級上升](/image/comp1004-dsai1202-cheatsheet_20260911/four-analytics.svg)
+
+*四種 data analytics 各回答一個問題。*
 
 **Machine Learning**
 

@@ -84,6 +84,10 @@ function pjvsf_clean_content( $content ) {
 
 兩次替換是**無條件執行**的，不先判斷「這篇是哪一種壞法」。少一組分支，也少一組會出錯的判斷。沒中就原字串返回，沒有副作用。
 
+![流程圖：兩種壞掉的 pdfjs-viewer 短碼，一種多了黏住的 attachment_id，一種 url 被轉成 Markdown 連結；先用 preg_replace_callback 切出短碼，再依次刪 attachment_id、修 url，得到正確的短碼](/image/wordpress外掛開發_20260908/shortcode-fix.svg)
+
+*修短碼的流程，網址是示意。*
+
 另外注意 `[\p{Z}\s]*` 而不是 `\s*`。`\p{Z}` 是 Unicode 的空白類別，涵蓋不斷行空格那種從 Word 貼進來的東西。搭配 `/u` 修飾符才會生效。
 
 ## 那個只能踩過才知道的坑
@@ -107,6 +111,10 @@ function pjvsf_clean_content( $content ) {
 // 所以用同樣的 limit 再跑一次，拿到的自然是下一批。
 $posts = pjvsf_get_affected_posts( $batch_size );
 ```
+
+![示意圖：每次查詢都取前三篇仍然壞掉的文章；修好的文章從結果中消失，所以第二、第三次查詢自動拿到下一批](/image/wordpress外掛開發_20260908/batch-no-offset.svg)
+
+*分批示意：修好的文章自己消失，同一條查詢就拿到下一批。*
 
 代價是不能靠 SQL 直接篩出「壞掉的」——`LIKE '%pdfjs-viewer%'` 只能篩出「含有這個短碼的」，裡面有很多是好的。所以要**多撈一點再用 PHP 過濾**：
 
@@ -157,6 +165,10 @@ if ( ! current_user_can( 'manage_options' ) ) {
 第一行擋 CSRF，第二行擋權限。**兩個都要，缺一不可**，因為它們防的是不同的事：nonce 防「別的網站誘導你的管理員發出這個請求」，權限檢查防「已登入的訂閱者直接呼叫這個端點」。
 
 只做 nonce 不做權限，任何登入使用者都能改你全站的文章內容。這是 WordPress 外掛最常見的漏洞形狀之一，而網路上大量的 AJAX 教學只寫了 nonce。
+
+![示意圖：AJAX 請求先經過 check_ajax_referer 擋住跨站偽造請求，再經過 current_user_can manage_options 擋住已登入的訂閱者，最後才執行 wp_update_post](/image/wordpress外掛開發_20260908/two-gates.svg)
+
+*nonce 和權限檢查防的是兩種不同的人，缺一道就漏一種。*
 
 所有進來的 ID 也都過 `absint()`，批次大小另外夾在 1–5000 之間，避免一個手殘的輸入讓資料庫一次撈幾十萬列。
 

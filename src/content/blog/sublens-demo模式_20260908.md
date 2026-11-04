@@ -22,6 +22,10 @@ SubLens 是我自己用的訂閱追蹤器，資料存在自己的 Google Sheet �
 
 程式碼拆成九個模組，但所有跟後端講話的地方都收斂在 `api.js` 的同一個函式。新增、編輯、暫停、封存、刪除、讀匯率，全部走這裡。
 
+![架構圖：新增、編輯、暫停、封存、刪除、讀匯率全部經過 apiFetch；Demo 模式改走 demoFetch 讀寫 localStorage，否則照舊呼叫 Apps Script](/image/sublens-demo模式_20260908/intercept-layer.svg)
+
+*所有請求收斂在 apiFetch()，Demo 模式只在這裡分岔。*
+
 所以假後端只要塞在這個函式的最前面，其他八個檔案一行都不用改：
 
 ```js
@@ -88,6 +92,10 @@ function daysAgo(n) {
 第一版的入口是頁面頂部一條橫幅，寫著「未設定 Google Sheets？試用 Demo」。
 
 跑起來才發現新用戶根本看不到它。實際流程是：頁面載入 → 第一個請求回 `unauthorized` → token 彈窗蓋住整頁。橫幅在彈窗底下。
+
+![對比示意：第一版的 Demo 入口在頁頂橫幅，被 Token 彈窗蓋住；修正後 Demo 按鈕放進彈窗本身](/image/sublens-demo模式_20260908/modal-entry.svg)
+
+*介面示意，不是實際截圖：入口從橫幅搬進彈窗。*
 
 所以入口要放進彈窗本身：
 
