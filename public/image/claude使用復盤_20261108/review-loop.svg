@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" role="img" aria-label="流程圖：事前寫一句預期，做事，事後寫三句（實際、落差原因、下次），再交給 Claude 挑戰，最後每星期回顧十分鐘，再回到下一件事的事前預期">
+<style>
+.bg{fill:#ffffff;stroke:#e5e5e5}.t{fill:#1f2330;font-family:"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif}
+.m{fill:#6b7080}.box{fill:#f4f5f6;stroke:#d9dbe0}.acc{fill:#eef0ff;stroke:#2337ff}.at{fill:#2337ff}.ln{stroke:#9aa0ad;fill:none;stroke-width:1.6}
+.ok{fill:#1a8f5a}.bad{fill:#d14343}.okb{fill:#e8f6ef;stroke:#1a8f5a}.badb{fill:#fdeeee;stroke:#d14343}.ah{fill:#9aa0ad}
+@media (prefers-color-scheme:dark){.bg{fill:#161822;stroke:#2d3244}.t{fill:#e6e8ef}.m{fill:#8b8fa0}.box{fill:#1f2230;stroke:#3d4253}.acc{fill:#1d2140;stroke:#7b8cff}.at{fill:#7b8cff}.ln{stroke:#5d6375}.ah{fill:#5d6375}.okb{fill:#13261d}.badb{fill:#2a1617}.ok{fill:#3fbf84}.bad{fill:#f07070}}
+</style><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect class="bg" x="1" y="1" width="858" height="418" rx="14"/>
+<text class="t" x="32" y="44" font-size="20" font-weight="700">事前一句、事後三句：每件事的檢討流程</text>
+<text class="t m" x="32" y="68" font-size="13">先自己寫，Claude 只負責挑戰；每星期回顧十分鐘</text>
+<rect class="box" x="32" y="96" width="170" height="150" rx="10"/>
+<text class="t" x="50" y="126" font-size="15" font-weight="700">事前一句</text>
+<text class="t" x="50" y="160" font-size="14">我預期 ___，</text>
+<text class="t" x="50" y="184" font-size="14">因為 ___。</text>
+<rect class="box" x="232" y="96" width="120" height="150" rx="10"/>
+<text class="t" x="250" y="126" font-size="15" font-weight="700">做事</text>
+<text class="t m" x="250" y="160" font-size="13">考試、quiz</text>
+<text class="t m" x="250" y="182" font-size="13">實習申請</text>
+<text class="t m" x="250" y="204" font-size="13">新裝的工具</text>
+<rect class="box" x="382" y="96" width="200" height="150" rx="10"/>
+<text class="t" x="400" y="126" font-size="15" font-weight="700">事後三句（自己寫）</text>
+<text class="t" x="400" y="160" font-size="14">1. 實際發生什麼</text>
+<text class="t" x="400" y="184" font-size="14">2. 落差的原因</text>
+<text class="t" x="400" y="208" font-size="14">3. 下次怎樣改</text>
+<rect class="acc" x="612" y="96" width="216" height="150" rx="10"/>
+<text class="t at" x="630" y="126" font-size="15" font-weight="700">Claude 挑戰</text>
+<text class="t" x="630" y="156" font-size="13.5">不代寫、不安慰</text>
+<text class="t" x="630" y="178" font-size="13.5">指出原因可能錯在哪</text>
+<text class="t" x="630" y="200" font-size="13.5">預想下次改法怎樣失敗</text>
+<text class="t" x="630" y="222" font-size="13.5">最後只問一條問題</text>
+<path class="ln" d="M202 171H228" marker-end="url(#a)"/>
+<path class="ln" d="M352 171H378" marker-end="url(#a)"/>
+<path class="ln" d="M582 171H608" marker-end="url(#a)"/>
+<rect class="box" x="300" y="290" width="260" height="50" rx="10"/>
+<text class="t" x="430" y="321" font-size="15" font-weight="700" text-anchor="middle">每星期十分鐘回顧</text>
+<path class="ln" d="M720 246V315H564" marker-end="url(#a)"/>
+<path class="ln" d="M300 315H117V250" marker-end="url(#a)"/>
+<text class="t m" x="124" y="306" font-size="12.5">下一件事</text>
+<text class="t m" x="32" y="390" font-size="13">四星期後自查：有沒有寫預期／落差原因有沒有重複／有沒有因為檢討而停做某件事</text>
+</svg>
