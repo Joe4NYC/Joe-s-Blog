@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" role="img" aria-label="長條圖：以理解為目的的提問由 2024–25 年的 19.6% 跌到 2026 年的 5.7%；1,210 則追問中，推進語 242 則、指出錯誤 37 則、深挖原理只有 2 則">
+<style>
+.bg{fill:#ffffff;stroke:#e5e5e5}.t{fill:#1f2330;font-family:"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif}
+.m{fill:#6b7080}.box{fill:#f4f5f6;stroke:#d9dbe0}.acc{fill:#eef0ff;stroke:#2337ff}.at{fill:#2337ff}.ln{stroke:#9aa0ad;fill:none;stroke-width:1.6}
+.ok{fill:#1a8f5a}.bad{fill:#d14343}.okb{fill:#e8f6ef;stroke:#1a8f5a}.badb{fill:#fdeeee;stroke:#d14343}.ah{fill:#9aa0ad}
+@media (prefers-color-scheme:dark){.bg{fill:#161822;stroke:#2d3244}.t{fill:#e6e8ef}.m{fill:#8b8fa0}.box{fill:#1f2230;stroke:#3d4253}.acc{fill:#1d2140;stroke:#7b8cff}.at{fill:#7b8cff}.ln{stroke:#5d6375}.ah{fill:#5d6375}.okb{fill:#13261d}.badb{fill:#2a1617}.ok{fill:#3fbf84}.bad{fill:#f07070}}
+</style><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect class="bg" x="1" y="1" width="858" height="398" rx="14"/>
+<text class="t" x="32" y="44" font-size="20" font-weight="700">我的 Claude 使用報告：兩組最刺眼的數字</text>
+<text class="t m" x="32" y="68" font-size="13">只計 claude.ai 有內容的 266 個對話（2026 年 11 月 4 日）</text>
+<rect class="box" x="32" y="90" width="380" height="286" rx="10"/>
+<text class="t" x="52" y="120" font-size="15" font-weight="700">以理解為目的的提問比例</text>
+<line class="ln" x1="72" y1="330" x2="372" y2="330"/>
+<rect class="box" x="110" y="150" width="90" height="180" rx="4" stroke-width="1.5"/>
+<text class="t" x="155" y="140" font-size="15" font-weight="700" text-anchor="middle">19.6%</text>
+<rect class="acc" x="250" y="278" width="90" height="52" rx="4" stroke-width="1.5"/>
+<text class="t at" x="295" y="268" font-size="15" font-weight="700" text-anchor="middle">5.7%</text>
+<text class="t m" x="155" y="352" font-size="13" text-anchor="middle">2024–25 年</text>
+<text class="t m" x="295" y="352" font-size="13" text-anchor="middle">2026 年</text>
+<rect class="box" x="448" y="90" width="380" height="286" rx="10"/>
+<text class="t" x="468" y="120" font-size="15" font-weight="700">1,210 則追問裡的其中三類</text>
+<text class="t" x="468" y="160" font-size="13.5">「好」「繼續」這類推進語</text>
+<rect class="acc" x="468" y="170" width="290" height="22" rx="4"/>
+<text class="t at" x="766" y="186" font-size="13.5" font-weight="700">242</text>
+<text class="t" x="468" y="230" font-size="13.5">指出 AI 的錯誤</text>
+<rect class="acc" x="468" y="240" width="44" height="22" rx="4"/>
+<text class="t at" x="520" y="256" font-size="13.5" font-weight="700">37</text>
+<text class="t" x="468" y="300" font-size="13.5">深挖原理</text>
+<rect class="acc" x="468" y="310" width="3" height="22" rx="1"/>
+<text class="t at" x="480" y="326" font-size="13.5" font-weight="700">2</text>
+<text class="t m" x="468" y="360" font-size="12.5">長度按則數比例畫</text>
+</svg>
