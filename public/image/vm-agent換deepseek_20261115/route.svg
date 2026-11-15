@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" role="img" aria-label="路線圖：第一步 VM 上登入帳號的 Claude Code 已撤下；第二步試過 OpenRouter 免費模型，沒有採用；第三步買 10 元人民幣 DeepSeek 額度，直接用 DeepSeek API 的 deepseek v4.1 flash，最後選用">
+<style>
+.bg{fill:#ffffff;stroke:#e5e5e5}.t{fill:#1f2330;font-family:"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif}
+.m{fill:#6b7080}.box{fill:#f4f5f6;stroke:#d9dbe0}.acc{fill:#eef0ff;stroke:#2337ff}.at{fill:#2337ff}.ln{stroke:#9aa0ad;fill:none;stroke-width:1.6}
+.ok{fill:#1a8f5a}.bad{fill:#d14343}.okb{fill:#e8f6ef;stroke:#1a8f5a}.badb{fill:#fdeeee;stroke:#d14343}.ah{fill:#9aa0ad}
+@media (prefers-color-scheme:dark){.bg{fill:#161822;stroke:#2d3244}.t{fill:#e6e8ef}.m{fill:#8b8fa0}.box{fill:#1f2230;stroke:#3d4253}.acc{fill:#1d2140;stroke:#7b8cff}.at{fill:#7b8cff}.ln{stroke:#5d6375}.ah{fill:#5d6375}.okb{fill:#13261d}.badb{fill:#2a1617}.ok{fill:#3fbf84}.bad{fill:#f07070}}
+</style><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect class="bg" x="1" y="1" width="858" height="338" rx="14"/>
+<text class="t" x="32" y="44" font-size="20" font-weight="700">VM agent 試過的三條路</text>
+<text class="t m" x="32" y="68" font-size="13">由登入帳號的工具，換成用 API key</text>
+<rect class="badb" x="40" y="110" width="240" height="150" rx="10"/>
+<text class="t m" x="160" y="140" font-size="13" text-anchor="middle">第一步</text>
+<text class="t" x="160" y="176" font-size="15" text-anchor="middle" font-weight="600">VM 上的 Claude Code</text>
+<text class="t m" x="160" y="206" font-size="13" text-anchor="middle">登入帳號</text>
+<text class="t bad" x="160" y="236" font-size="14" text-anchor="middle" font-weight="600">已撤下</text>
+<path class="ln" d="M282 185L306 185" marker-end="url(#a)"/>
+<rect class="box" x="310" y="110" width="240" height="150" rx="10"/>
+<text class="t m" x="430" y="140" font-size="13" text-anchor="middle">第二步</text>
+<text class="t" x="430" y="176" font-size="15" text-anchor="middle" font-weight="600">OpenRouter 免費模型</text>
+<text class="t m" x="430" y="206" font-size="13" text-anchor="middle">不用付錢</text>
+<text class="t m" x="430" y="236" font-size="14" text-anchor="middle">試過，沒有採用</text>
+<path class="ln" d="M552 185L576 185" marker-end="url(#a)"/>
+<rect class="okb" x="580" y="110" width="240" height="150" rx="10"/>
+<text class="t m" x="700" y="140" font-size="13" text-anchor="middle">第三步</text>
+<text class="t" x="700" y="172" font-size="15" text-anchor="middle" font-weight="600">DeepSeek API</text>
+<text class="t m" x="700" y="196" font-size="13" text-anchor="middle">買 ¥10 額度</text>
+<text class="t m" x="700" y="216" font-size="13" text-anchor="middle">deepseek v4.1 flash</text>
+<text class="t ok" x="700" y="242" font-size="14" text-anchor="middle" font-weight="600">最後選用</text>
+<text class="t m" x="430" y="300" font-size="13" text-anchor="middle">agent 本身用 DeepSeek Harness（dsh）</text>
+</svg>
